@@ -20,4 +20,15 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     </#if>
 </#list>
 
+    form.on('submit(form-${tableName})', function (data) {
+    <#list columns.commonColumns as column>
+        <#if column.sqlType == "char">
+        if (!data.field['${tableName}.${column.name}']){
+            layer.msg('请选择性别', {icon:5,shift:6});
+            return false;
+        }
+        </#if>
+    </#list>
+        return true;
+    });
 });

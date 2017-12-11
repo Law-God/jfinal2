@@ -41,7 +41,8 @@ public class SqlTypeMapping {
 
 		//string
 		put(Types.VARCHAR, "string");
-		put(Types.CHAR, "string");
+		//char
+		put(Types.CHAR, "char");
 
 		//double
 		put(Types.FLOAT, "double");

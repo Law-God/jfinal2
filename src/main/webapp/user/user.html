@@ -6,10 +6,11 @@
 	</ul>
 	<div class="layui-tab-content">
 		<div>
-			<a href="/user/add" class="layui-btn layui-btn-normal">新增</a>
+            <a href="/user/add" class="layui-btn layui-btn-normal" title="新增"><i class="layui-icon">&#xe608;&nbsp;新增</i></a>
+            <a href="/user" class="layui-btn layui-btn-normal" title="刷新"><i class="layui-icon">&#x1002;&nbsp;刷新</i></a>
 		</div>
 		<div class="layui-tab-item layui-show">
-			<table class="layui-hide" id="user" lay-filter="user-tool"></table>
+			<table class="layui-hide" id="table-user" lay-filter="user-tool"></table>
 		</div>
 	</div>
 </div>
@@ -22,14 +23,16 @@
         table.on('tool(user-tool)', function(obj){
             var data = obj.data;
             if(obj.event === 'detail'){
-                layer.msg('ID：'+ data.id + ' 的查看操作');
+                layer.msg('ID：'+ data.id2 + ' 的查看操作');
             } else if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    obj.del();
-                    layer.close(index);
+                layer.confirm('确定删除？', function(index){
+                    //obj.del();
+                    //layer.close(index);
+                    window.location.href='/user/delete/' + data.id;
                 });
             } else if(obj.event === 'edit'){
-                layer.open({
+                window.location.href='/user/edit/' + data.id;
+                /*layer.open({
                     title : '修改'
                     ,type: 1
                     ,shade: 0 //不显示遮罩
@@ -43,30 +46,31 @@
                     }
                     ,content: $('#user_update_form') //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
                     ,area: '600px'
-                });
+                });*/
                 //layer.alert('编辑行：<br>'+ JSON.stringify(data))
             }
         });
 		table.render({
-			elem: '#user'
+			elem: '#table-user'
 			,url:'/user/list'
-			,cellMinWidth: 80
+			,cellMinWidth: 60
 			,cols: [[
                     {field:'name', title: '姓名'},
                     {field:'sex', title: '性别'},
                     {field:'age', title: '年龄'},
                     {field:'birthday', title: '生日'},
                     {field:'pay', title: '薪资'},
-                    {field:'address', title: '地址'},
-                    {field:'summary', title: '简介'},
-                    {field:'', title: '操作', toolbar: '#barDemo'},
+                        {field:'address', title: '地址'},
+                        //大文本不显示在列表
+                    {field:'', title: '操作',minWidth:160,toolbar: '#user-bar'},
 			]]
+            ,even: true //开启隔行背景
 			,page: true
 		});
 	});
 </script>
 
-<script type="text/html" id="barDemo">
+<script type="text/html" id="user-bar">
 	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
 	<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>

@@ -10,9 +10,9 @@ import com.jfinal.validate.Validator;
 public class UserValidator extends Validator {
 
     protected void validate(Controller controller) {
-        //validateRequiredString("user.${column.name}", "${column.name}Msg", "${column.remarks}");
-        //validateRequiredString("user.${column.name}", "${column.name}Msg", "${column.remarks}");
-        //validateRequiredString("user.${column.name}", "${column.name}Msg", "${column.remarks}");
+        validateRequiredString("user.${column.name}", "${column.name}Msg", "${column.remarks}");
+        validateRequiredString("user.${column.name}", "${column.name}Msg", "${column.remarks}");
+        validateRequiredString("user.${column.name}", "${column.name}Msg", "${column.remarks}");
 
     }
 

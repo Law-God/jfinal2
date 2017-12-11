@@ -32,6 +32,7 @@ public class ViewGenerator {
         this.tableName = tableMeta.name;
         this.param.put("tableName",tableName);
         this.param.put("className",className);
+        this.param.put("primaryKey",tableMeta.primaryKey);
         this.param.put("columns",tableMeta.getColumns());
         mkdirs();
     }

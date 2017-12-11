@@ -6,10 +6,11 @@
 	</ul>
 	<div class="layui-tab-content">
 		<div>
-			<a href="/${tableName}/add" class="layui-btn layui-btn-normal">新增</a>
+            <a href="/${tableName}/add" class="layui-btn layui-btn-normal" title="新增"><i class="layui-icon">&#xe608;&nbsp;新增</i></a>
+            <a href="/${tableName}" class="layui-btn layui-btn-normal" title="刷新"><i class="layui-icon">&#x1002;&nbsp;刷新</i></a>
 		</div>
 		<div class="layui-tab-item layui-show">
-			<table class="layui-hide" id="${tableName}" lay-filter="${tableName}-tool"></table>
+			<table class="layui-hide" id="table-${tableName}" lay-filter="${tableName}-tool"></table>
 		</div>
 	</div>
 </div>
@@ -22,14 +23,16 @@
         table.on('tool(${tableName}-tool)', function(obj){
             var data = obj.data;
             if(obj.event === 'detail'){
-                layer.msg('ID：'+ data.id + ' 的查看操作');
+                layer.msg('ID：'+ data.id2 + ' 的查看操作');
             } else if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    obj.del();
-                    layer.close(index);
+                layer.confirm('确定删除？', function(index){
+                    //obj.del();
+                    //layer.close(index);
+                    window.location.href='/${tableName}/delete/' + data.${primaryKey};
                 });
             } else if(obj.event === 'edit'){
-                layer.open({
+                window.location.href='/${tableName}/edit/' + data.${primaryKey};
+                /*layer.open({
                     title : '修改'
                     ,type: 1
                     ,shade: 0 //不显示遮罩
@@ -43,29 +46,34 @@
                     }
                     ,content: $('#user_update_form') //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
                     ,area: '600px'
-                });
+                });*/
                 //layer.alert('编辑行：<br>'+ JSON.stringify(data))
             }
         });
 		table.render({
-			elem: '#${tableName}'
+			elem: '#table-${tableName}'
 			,url:'/${tableName}/list'
-			,cellMinWidth: 80
+			,cellMinWidth: 60
 			,cols: [[
                 <#list  columns.commonColumns  as  column>
                     {field:'${column.name}', title: '${column.remarks}'},
                 </#list>
                 <#list  columns.bigColumns  as  column>
-                    {field:'${column.name}', title: '${column.remarks}'},
+                    <#if column.sqlType == 'blob'>
+                        //大文本不显示在列表
+                    <#else>
+                        {field:'${column.name}', title: '${column.remarks}'},
+                    </#if>
                 </#list>
-                    {field:'', title: '操作', toolbar: '#barDemo'},
+                    {field:'', title: '操作',minWidth:160,toolbar: '#${tableName}-bar'},
 			]]
+            ,even: true //开启隔行背景
 			,page: true
 		});
 	});
 </script>
 
-<script type="text/html" id="barDemo">
+<script type="text/html" id="${tableName}-bar">
 	<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
 	<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>

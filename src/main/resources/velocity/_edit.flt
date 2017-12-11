@@ -8,10 +8,13 @@
         <div>
             <a href="/${tableName}" class="layui-btn layui-btn-normal">返回</a>
         </div>
-        <form id="${tableName}_form" class="layui-form"  action="/${tableName}/update" method="post">
-            #include("_form.html")
-        </form>
+        <hr class="layui-bg-gray" />
+        <div class="layui-tab-item layui-show">
+            <form id="${tableName}-form" class="layui-form"  action="/${tableName}/update" method="post">
+                #include("_form.html")
+            </form>
+        </div>
     </div>
 </div>
-<script src="${tableName}.js"></script>
+<script src="/${tableName}/${tableName}.js"></script>
 #end

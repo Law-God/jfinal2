@@ -6,12 +6,15 @@
     </ul>
     <div class="layui-tab-content">
         <div>
-            <a href="/user" class="layui-btn layui-btn-normal">返回</a>
+            <a href="/user" class="layui-btn layui-btn-normal"><i class="layui-icon" title="返回">&#xe65c;&nbsp;返回</i></a>
         </div>
-        <form id="user_form" class="layui-form"  action="/user/save" method="post">
-            #include("_form.html")
-        </form>
+        <hr class="layui-bg-gray" />
+        <div class="layui-tab-item layui-show">
+            <form id="user-form" class="layui-form"  action="/user/save" method="post">
+                #include("_form.html")
+            </form>
+        </div>
     </div>
 </div>
-<script src="user.js"></script>
+<script src="/user/user.js"></script>
 #end
