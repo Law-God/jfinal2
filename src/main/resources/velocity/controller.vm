@@ -1,0 +1,60 @@
+package ${package};
+
+import com.jfinal.aop.Before;
+import com.jfinal.core.Controller;
+import ${modelPackageName}.${className};
+
+/**
+ * 
+ * Controller
+ */
+@Before(${className}Interceptor.class)
+public class ${className}Controller extends Controller {
+	
+	static ${className}Service service = new ${className}Service();
+	
+	public void index() {
+		setAttr("${tableName}Page", service.paginate(getParaToInt(0, 1), 10));
+		render("${tableName}.html");
+	}
+
+	public void list() {
+		int page = Integer.valueOf(getPara("page","1"));
+		int limit = Integer.valueOf(getPara("limit","10"));
+		renderJson(service.layUiPaginate(getParaToInt(page, 1), limit));
+	}
+
+	public void add() {
+	}
+	
+	/**
+	 * save 与 update 的业务逻辑在实际应用中也应该放在 serivce 之中，
+	 * 并要对数据进正确性进行验证，在此仅为了偷懒
+	 */
+	@Before(${className}Validator.class)
+	public void save() {
+		getModel(${className}.class).save();
+		redirect("/${tableName}");
+	}
+	
+	public void edit() {
+		setAttr("${tableName}", service.findById(getParaToInt()));
+	}
+	
+	/**
+	 * save 与 update 的业务逻辑在实际应用中也应该放在 serivce 之中，
+	 * 并要对数据进正确性进行验证，在此仅为了偷懒
+	 */
+	@Before(${className}Validator.class)
+	public void update() {
+		getModel(${className}.class).update();
+		redirect("/${tableName}");
+	}
+	
+	public void delete() {
+		service.deleteById(getParaToInt());
+		redirect("/${tableName}");
+	}
+}
+
+

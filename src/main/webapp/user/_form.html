@@ -1,0 +1,70 @@
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="user.name" placeholder="请输入" lay-verify="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">性别</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="user.sex" placeholder="请输入" lay-verify="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">年龄</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="user.age" placeholder="请输入" lay-verify="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+                <div class="layui-col-xs6">
+                    <label class="layui-form-label">生日</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="user.birthday" id="birthday_date" lay-verify="" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+    </div>
+    <div class="layui-row">
+                <div class="layui-col-xs6">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">薪资</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="user.pay" placeholder="请输入" lay-verify="" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+    <div class="layui-row">
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">地址</label>
+            <div class="layui-input-block">
+                <textarea name="user.address" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">简介</label>
+            <div class="layui-input-block">
+                <textarea class="layui-textarea layui-hide" name="user.summary" lay-verify="content" id="summary_editor"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </div>

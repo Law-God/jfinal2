@@ -1,0 +1,23 @@
+layui.use(['form', 'layedit', 'laydate'], function(){
+    var form = layui.form
+    ,layer = layui.layer
+    ,layedit = layui.layedit
+    ,laydate = layui.laydate;
+
+<#list columns.commonColumns as column>
+    <#if column.sqlType == "date">
+        //日期
+        laydate.render({
+            elem: '#${column.name}_date'
+        });
+    </#if>
+</#list>
+
+<#list columns.bigColumns as column>
+    <#if column.sqlType == "blob">
+        //创建一个编辑器
+        var ${column.name}Editor = layedit.build('${column.name}_editor');
+    </#if>
+</#list>
+
+});

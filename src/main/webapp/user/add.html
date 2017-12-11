@@ -1,0 +1,17 @@
+#@layout()
+#define main()
+<div class="layui-tab">
+    <ul class="layui-tab-title">
+        <li class="layui-this">新增</li>
+    </ul>
+    <div class="layui-tab-content">
+        <div>
+            <a href="/user" class="layui-btn layui-btn-normal">返回</a>
+        </div>
+        <form id="user_form" class="layui-form"  action="/user/save" method="post">
+            #include("_form.html")
+        </form>
+    </div>
+</div>
+<script src="user.js"></script>
+#end

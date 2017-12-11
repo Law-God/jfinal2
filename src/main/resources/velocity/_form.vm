@@ -1,0 +1,22 @@
+<fieldset class="solid">
+	<legend>新增</legend>
+#foreach (${column} in ${columns})
+#if(${column.isPrimaryKey})
+	<input type="hidden" name="${tableName}.${column.name}" value="#(${tableName}.${column.name}??)" />
+#end
+#end
+
+#foreach (${column} in ${columns})
+#if(!${column.isPrimaryKey})
+	<div>
+		<label>标题</label>
+		<input type="text" name="${tableName}.${column.name}" value="#(${tableName}.${column.name}??)" />#(${column.name}Msg)
+	</div>
+#end
+#end
+
+	<div>
+		<label>&nbsp;</label>
+		<input value="提交" type="submit">
+	</div>
+</fieldset>

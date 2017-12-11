@@ -1,0 +1,30 @@
+package ${package};
+
+import ${modelPackageName}.${className};
+import com.jfinal.core.Controller;
+import com.jfinal.validate.Validator;
+
+/**
+*  Validator
+*/
+public class ${className}Validator extends Validator {
+
+    protected void validate(Controller controller) {
+#foreach (${column} in ${columns})
+#if(!${column.isPrimaryKey})
+        validateRequiredString("${tableName}.${column.name}", "${column.name}Msg", "${column.remarks}");
+#end
+#end
+
+    }
+
+    protected void handleError(Controller controller) {
+        controller.keepModel(${className}.class);
+        String actionKey = getActionKey();
+        if (actionKey.equals("/${tableName}/save")){
+            controller.render("add.html");
+        }else if (actionKey.equals("/${tableName}/update")){
+            controller.render("edit.html");
+        }
+    }
+}

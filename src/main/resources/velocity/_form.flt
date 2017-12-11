@@ -1,0 +1,77 @@
+<#list  columns.commonColumns  as  column>
+    <#if column_index % 2 == 0>
+    <div class="layui-row">
+        <#list  columns.commonColumns  as  column2>
+        <#assign column2_2 = column_index + 2>
+        <#if column2_index gte column_index && column2_index lt column2_2>
+            <#if column2.sqlType == 'int'>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">${column2.remarks}</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="${tableName}.${column2.name}" placeholder="请输入" lay-verify="required" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <#elseif column2.sqlType == 'double'>
+                <div class="layui-col-xs6">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">${column2.remarks}</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="${tableName}.${column2.name}" placeholder="请输入" lay-verify="required" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            <#elseif column2.sqlType == 'date'>
+                <div class="layui-col-xs6">
+                    <label class="layui-form-label">${column2.remarks}</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="${tableName}.${column2.name}" id="${column2.name}_date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            <#else>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">${column2.remarks}</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="${tableName}.${column2.name}" placeholder="请输入" lay-verify="required" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            </#if>
+        </#if>
+        </#list>
+    </div>
+    </#if>
+</#list>
+
+<#list  columns.bigColumns  as  column>
+    <#if column.sqlType == 'text'>
+    <div class="layui-row">
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">${column.remarks}</label>
+            <div class="layui-input-block">
+                <textarea name="${tableName}.${column.name}" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+    </div>
+    <#elseif column.sqlType == 'blob'>
+    <div class="layui-row">
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">${column.remarks}</label>
+            <div class="layui-input-block">
+                <textarea class="layui-textarea layui-hide" name="${tableName}.${column.name}" lay-verify="content" id="${column.name}_editor"></textarea>
+            </div>
+        </div>
+    </div>
+    </#if>
+</#list>
+
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </div>
