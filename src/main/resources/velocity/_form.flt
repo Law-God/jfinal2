@@ -7,46 +7,56 @@
             <#if column2.sqlType == 'int'>
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;${column2.remarks}</label>
+                    <label class="layui-form-label">
+                        <#if column2.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column2.remarks}
+                    </label>
                     <div class="layui-input-block">
-                        <input type="text" name="${tableName}.${column2.name}" value="#(${tableName}.${column2.name}??)" placeholder="请输入${column2.remarks}" lay-verify="required" autocomplete="off" class="layui-input">
+                        <input type="text" name="${tableName}.${column2.name}" value="#(${tableName}.${column2.name}??)" placeholder="请输入${column2.remarks}" lay-verify="${ (column2.isNullable == '0')?string('required','')}|${column2.layVerify!""}" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
             <#elseif column2.sqlType == 'double'>
-                <div class="layui-col-xs6">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;${column2.remarks}</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="${tableName}.${column2.name}" value="#(${tableName}.${column2.name}??)" placeholder="请输入${column2.remarks}" lay-verify="required" autocomplete="off" class="layui-input">
-                        </div>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <#if column2.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column2.remarks}
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" name="${tableName}.${column2.name}" value="#(${tableName}.${column2.name}??)" placeholder="请输入${column2.remarks}" lay-verify="${ (column2.isNullable == '0')?string('required','')}|${column2.layVerify!""}" autocomplete="off" class="layui-input">
                     </div>
                 </div>
+            </div>
             <#elseif column2.sqlType == 'date'>
                 <div class="layui-col-xs6">
                     <div class="layui-form-item">
-                        <label class="layui-form-label"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;${column2.remarks}</label>
+                        <label class="layui-form-label">
+                            <#if column2.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column2.remarks}
+                        </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="${tableName}.${column2.name}" value="#(${tableName}.${column2.name}??)" id="${column2.name}_date" lay-verify="date" placeholder="请选择日期" autocomplete="off" class="layui-input">
+                            <input type="text" name="${tableName}.${column2.name}" value="#(${tableName}.${column2.name}??)" id="${column2.name}_date" lay-verify="${ (column2.isNullable == '0')?string('required','')} ${column2.layVerify!""}|${column2.layVerify!""}" placeholder="请选择日期" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                 </div>
             <#elseif column2.sqlType == 'char'>
-                <div class="layui-col-xs6">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;性别</label>
-                        <div class="layui-input-block">
-                            <input type="radio" name="${tableName}.${column2.name}" value="0" title="男" #(user.sex?? == '0' ? 'checked="checked"' : '') />
-                            <input type="radio" name="${tableName}.${column2.name}" value="1" title="女" #(user.sex?? == '1' ? 'checked="checked"' : '') />
-                        </div>
-                     </div>
-                </div>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <#if column2.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column2.remarks}
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="${tableName}.${column2.name}" value="0" title="男" #(user.sex?? == '0' ? 'checked="checked"' : '') />
+                        <input type="radio" name="${tableName}.${column2.name}" value="1" title="女" #(user.sex?? == '1' ? 'checked="checked"' : '') />
+                    </div>
+                 </div>
+            </div>
             <#else>
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;${column2.remarks}</label>
+                    <label class="layui-form-label">
+                        <#if column2.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column2.remarks}
+                    </label>
                     <div class="layui-input-block">
-                        <input type="text" name="${tableName}.${column2.name}" value="#(${tableName}.${column2.name}??)" placeholder="请输入${column2.remarks}" lay-verify="required" autocomplete="off" class="layui-input">
+                        <input type="text" name="${tableName}.${column2.name}" value="#(${tableName}.${column2.name}??)" placeholder="请输入${column2.remarks}" lay-verify="${ (column2.isNullable == '0')?string('required','')}|${column2.layVerify!""}" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -61,7 +71,9 @@
     <#if column.sqlType == 'text'>
     <div class="layui-row">
         <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;${column.remarks}</label>
+            <label class="layui-form-label">
+                <#if column.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column.remarks}
+            </label>
             <div class="layui-input-block">
                 <textarea name="${tableName}.${column.name}" placeholder="请输入${column.remarks}" class="layui-textarea"></textarea>
             </div>
@@ -70,7 +82,9 @@
     <#elseif column.sqlType == 'blob'>
     <div class="layui-row">
         <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;${column.remarks}</label>
+            <label class="layui-form-label">
+                <#if column.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column.remarks}
+            </label>
             <div class="layui-input-block">
                 <textarea class="layui-textarea layui-hide" name="${tableName}.${column.name}" lay-verify="content" id="${column.name}_editor"></textarea>
             </div>

@@ -20,6 +20,29 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     </#if>
 </#list>
 
+    //自定义验证规则
+    form.verify({
+    <#list columns.commonColumns as column>
+        <#if column.isNullable == "0">
+            <#if column.sqlType == "string">
+                ${column.layVerify} : function(value){
+                    if(value.length > ${(column.size/2)?floor}){
+                        return '${column.remarks}最多${(column.size/2)?floor}个字符';
+                    }
+                },
+            </#if>
+            <#if column.sqlType == "int">
+                ${column.layVerify} : function(value){
+                    if(value.length > ${column.size}){
+                        return '${column.name}最多${column.size}位';
+                    }
+                },
+            </#if>
+        </#if>
+    </#list>
+    });
+
+
     form.on('submit(form-${tableName})', function (data) {
     <#list columns.commonColumns as column>
         <#if column.sqlType == "char">
@@ -31,4 +54,6 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     </#list>
         return true;
     });
+
+
 });

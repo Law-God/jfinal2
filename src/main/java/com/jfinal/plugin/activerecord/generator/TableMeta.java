@@ -61,6 +61,9 @@ public class TableMeta {
 			column.put("attrName",columnMeta.attrName);
 			column.put("isNullable",columnMeta.isNullable);
 			column.put("sqlType",columnMeta.sqlType);
+			column.put("layVerify",columnMeta.layVerify);
+			column.put("size",columnMeta.size);
+			column.put("scale",columnMeta.scale);
 			if("true".equals(columnMeta.isPrimaryKey)){
 				primaryColumns.add(column);
 				continue;

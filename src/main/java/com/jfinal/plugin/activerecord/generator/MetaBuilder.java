@@ -247,20 +247,57 @@ public class MetaBuilder {
 			}
 
 			//对应sql.Types类型
-
 			int sqlType = rsmd.getColumnType(i);
 			cm.sqlType = SqlTypeMapping.getSqlType(sqlType);;
 
-			System.out.println(cm.name + " " + sqlType + " "+cm.sqlType);
+
+
+			//是否为空
+			int nullable = rsmd.isNullable(i);//0 不允许空  1 允许为空
+			if(nullable == 0)
+				cm.isNullable = "0";
+			else
+				cm.isNullable = "1";
 
 			// 构造字段对应的属性名 attrName
 			cm.attrName = buildAttrName(cm.name);
-			
+
+			//字段长度
+			int size = rsmd.getColumnDisplaySize(i);
+			cm.size = size;
+
+			int scale = rsmd.getScale(i);
+			cm.scale = scale;
+
+			cm.layVerify = getLayVerify(cm);
+
 			tableMeta.columnMetas.add(cm);
 		}
 		
 		rs.close();
 		stm.close();
+	}
+
+	protected String getLayVerify(ColumnMeta cm){
+		if(cm == null) return  "";
+		//是否必填
+		String isNullable = cm.isNullable;
+		if(!"0".equals(isNullable))return "";
+		//组合验证规则
+		String sqlType = cm.sqlType;
+		int size = cm.size;
+		StringBuilder sb = new StringBuilder("");
+		if("int".equals(sqlType)){
+			sb.append("int"+size);
+		}else if("string".equals(sqlType)){
+			sb.append("string" + size/2);
+		}else if("double".equals(sqlType)){
+			sb.append("double");
+		} else if ("date".equals(sqlType)) {
+			sb = new StringBuilder("date");
+		}
+		//int scale = cm.scale;
+		return sb.toString();
 	}
 
 	/**

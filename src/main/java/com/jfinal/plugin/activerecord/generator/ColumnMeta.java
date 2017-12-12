@@ -39,5 +39,8 @@ public class ColumnMeta {
 	public String defaultValue;		// 默认值
 	public String remarks;			// 字段备注
 	public String sqlType;		//字段类型,int date blog
+	public int size;	//字段长度
+	public int scale; //小数点右侧的指定列的位数
+	public String layVerify; //layui校验规则
 }
 
