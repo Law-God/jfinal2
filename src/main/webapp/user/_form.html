@@ -38,7 +38,7 @@
                             <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;生日
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="user.birthday" value="#(user.birthday??)" id="birthday_date" lay-verify="required date|date" placeholder="请选择日期" autocomplete="off" class="layui-input">
+                            <input type="text" name="user.birthday" value="#(user.birthday??)" id="birthday_date" lay-verify="required|date" placeholder="请选择日期" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                         <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;薪资
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" name="user.pay" value="#(user.pay??)" placeholder="请输入薪资" lay-verify="required|double" autocomplete="off" class="layui-input">
+                        <input type="text" name="user.pay" value="#(user.pay??)" placeholder="请输入薪资" lay-verify="required|double10" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                 <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;地址
             </label>
             <div class="layui-input-block">
-                <textarea name="user.address" placeholder="请输入地址" class="layui-textarea"></textarea>
+                <textarea name="user.address" placeholder="请输入地址" lay-verify="required|text" class="layui-textarea">#(user.address??)</textarea>
             </div>
         </div>
     </div>
@@ -72,7 +72,7 @@
                 <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;简介
             </label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea layui-hide" name="user.summary" lay-verify="content" id="summary_editor"></textarea>
+                <textarea class="layui-textarea layui-hide" name="user.summary" placeholder="请输入简介" lay-verify="blob" id="summary_editor"></textarea>
             </div>
         </div>
     </div>

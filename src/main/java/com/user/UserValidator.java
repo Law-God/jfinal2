@@ -10,10 +10,20 @@ import com.jfinal.validate.Validator;
 public class UserValidator extends Validator {
 
     protected void validate(Controller controller) {
-        validateRequiredString("user.${column.name}", "${column.name}Msg", "${column.remarks}");
-        validateRequiredString("user.${column.name}", "${column.name}Msg", "${column.remarks}");
-        validateRequiredString("user.${column.name}", "${column.name}Msg", "${column.remarks}");
+        
+        validateString(true,"user.name", 1,25,"nameMsg", "姓名");
+        
+        
+        validateInteger(true,"user.age", 3,"ageMsg", "年龄");
+        
+        
+        validateInteger(true,"user.pay", 10,"payMsg", "薪资");
 
+        
+            validateText(true,"user.address", 21845,"addressMsg", "地址");
+            
+            validateBlob(true,"user.summary","summaryMsg", "简介");
+    
     }
 
     protected void handleError(Controller controller) {

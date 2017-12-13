@@ -33,7 +33,7 @@
                             <#if column2.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column2.remarks}
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="${tableName}.${column2.name}" value="#(${tableName}.${column2.name}??)" id="${column2.name}_date" lay-verify="${ (column2.isNullable == '0')?string('required','')} ${column2.layVerify!""}|${column2.layVerify!""}" placeholder="请选择日期" autocomplete="off" class="layui-input">
+                            <input type="text" name="${tableName}.${column2.name}" value="#(${tableName}.${column2.name}??)" id="${column2.name}_date" lay-verify="${ (column2.isNullable == '0')?string('required','')}|${column2.layVerify!""}" placeholder="请选择日期" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                 <#if column.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column.remarks}
             </label>
             <div class="layui-input-block">
-                <textarea name="${tableName}.${column.name}" placeholder="请输入${column.remarks}" class="layui-textarea"></textarea>
+                <textarea name="${tableName}.${column.name}" placeholder="请输入${column.remarks}" lay-verify="${ (column.isNullable == '0')?string('required','')}|${column.layVerify!""}" class="layui-textarea">#(${tableName}.${column.name}??)</textarea>
             </div>
         </div>
     </div>
@@ -86,7 +86,7 @@
                 <#if column.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column.remarks}
             </label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea layui-hide" name="${tableName}.${column.name}" lay-verify="content" id="${column.name}_editor"></textarea>
+                <textarea class="layui-textarea layui-hide" name="${tableName}.${column.name}" placeholder="请输入${column.remarks}" lay-verify="${column.layVerify!""}" id="${column.name}_editor"></textarea>
             </div>
         </div>
     </div>

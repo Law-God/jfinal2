@@ -16,17 +16,46 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     form.verify({
                 string25 : function(value){
                     if(value.length > 25){
-                        return '姓名最多25个字符';
+                        return '不能超过25个字符';
                     }
                 },
                 int3 : function(value){
-                    var regObj = getRegByIntLength(3);
-                    //var reg = new RegExp('[1-9]d{0,2}|0');
-                    var reg = /^(0|[1-9][0-9]{0,2})$/;
-                    if(!reg.test(value)){
-                        return '请输入'+regObj.msg;
+                    var regObj = getIntRegByLength(3);
+                    if(!!regObj.reg){
+                        var reg = new RegExp(regObj.reg);
+                        if(!reg.test(value)){
+                            return '请输入'+regObj.msg;
+                        }
+                    }else{
+                        return '正则表达式为空';
                     }
+                },
+                double10 : function(value){
+                    var regObj = getDoubleRegByLength(10);
+                    if(!!regObj.reg){
+                        var reg = new RegExp(regObj.reg);
+                        if(!reg.test(value)){
+                            return '请输入'+regObj.msg;
+                        }
+                    }else{
+                        return '正则表达式为空';
+                    }
+                },
 
+
+                text : function(value){
+                    if(value.length <= 0){
+                        return '请输入地址';
+                    }else if(value.length > 1000){
+                        return '内容不能超过1000个字符';
+                    }
+                },
+                blob : function(value){
+                    //layedit.sync(summaryEditor);
+                    var content = layedit.getContent(summaryEditor);
+                    if(content.length <= 0){
+                        return '请输入简介';
+                    }
                 },
     });
 

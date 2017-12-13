@@ -562,6 +562,112 @@ public abstract class Validator implements Interceptor {
 			addError(errorKey, errorMessage);
 		}
 	}
+
+	protected void validateString(boolean required,String field,int minLen,int maxLen,String errorKey,String errorMessage){
+		String value = controller.getPara(field);
+		if(required){
+			if (StrKit.isBlank(value)) {
+				addError(errorKey, errorMessage + "不能为空");
+				return ;
+			}
+			if (value.length() > maxLen) {
+				addError(errorKey, errorMessage + "不能超过" + maxLen + "个字符");
+				return;
+			}
+		}else{
+			if (!StrKit.isBlank(value)){
+				if (value.length() > maxLen) {
+					addError(errorKey, errorMessage + "不能超过" + maxLen + "个字符");
+					return;
+				}
+			}
+		}
+	}
+
+	protected void validateInteger(boolean required,String field,int len,String errorKey,String errorMessage){
+		String value = controller.getPara(field);
+		String regex = "^(0|[1-9][0-9]{0,"+(len > 0 ? len -1 : len)+"})$";
+		int temp = len;
+		String regNumber = "";
+		while(temp > 0){
+			regNumber += 9;
+			temp--;
+		}
+		String msg = "0-"+regNumber;
+		boolean flag = Pattern.compile(regex).matcher(value).matches();
+		if(required){
+			if (StrKit.isBlank(value)) {
+				addError(errorKey, errorMessage + "不能为空");
+				return ;
+			}
+			if(!flag){
+				addError(errorKey, errorMessage + "请输入"+msg);
+			};
+		}else{
+			if (!StrKit.isBlank(value)){
+				if(!flag){
+					addError(errorKey, errorMessage + "请输入"+msg);
+				};
+			}
+		}
+	}
+
+	protected void validateDouble(boolean required,String field,int len,String errorKey,String errorMessage){
+		String value = controller.getPara(field);
+		String regex = "(^[1-9]([0-9]{1,"+(len > 0 ? len -1 : len)+"})?(\\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\\.[0-9]([0-9])?$)";
+		int temp = len;
+		String regNumber = "";
+		while(temp > 0){
+			regNumber += 9;
+			temp--;
+		}
+		String msg = "0-"+regNumber+".99";
+		boolean flag = Pattern.compile(regex).matcher(value).matches();
+		if(required){
+			if (StrKit.isBlank(value)) {
+				addError(errorKey, errorMessage + "不能为空");
+				return ;
+			}
+			if(!flag){
+				addError(errorKey, errorMessage + "请输入"+msg);
+			};
+		}else{
+			if (!StrKit.isBlank(value)){
+				if(!flag){
+					addError(errorKey, errorMessage + "请输入"+msg);
+				};
+			}
+		}
+	}
+
+	protected void validateText(boolean required,String field,int len,String errorKey,String errorMessage){
+		String value = controller.getPara(field);
+		if(required){
+			if (StrKit.isBlank(value)) {
+				addError(errorKey, errorMessage + "不能为空");
+				return ;
+			}
+			if(value.length() > 1000){
+				addError(errorKey, errorMessage + "内容不能超过1000个字符");
+			};
+		}else{
+			if (!StrKit.isBlank(value)){
+				if(value.length() > 1000){
+					addError(errorKey, errorMessage + "内容不能超过1000个字符");
+				};
+			}
+		}
+	}
+
+	protected void validateBlob(boolean required,String field,String errorKey,String errorMessage){
+		String value = controller.getPara(field);
+		if(required){
+			if (StrKit.isBlank(value)) {
+				addError(errorKey, errorMessage + "不能为空");
+				return ;
+			}
+		}
+	}
 }
 
 

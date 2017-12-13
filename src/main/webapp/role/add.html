@@ -6,16 +6,16 @@
     </ul>
     <div class="layui-tab-content">
         <div>
-            <a href="/${tableName}" class="layui-btn layui-btn-normal"><i class="layui-icon" title="返回">&#xe65c;&nbsp;返回</i></a>
+            <a href="/role" class="layui-btn layui-btn-normal"><i class="layui-icon" title="返回">&#xe65c;&nbsp;返回</i></a>
         </div>
         <hr class="layui-bg-gray" />
         <div class="layui-tab-item layui-show">
-            <form id="${tableName}-form" class="layui-form"  action="/${tableName}/save" method="post">
+            <form id="role-form" class="layui-form"  action="/role/save" method="post">
                 #include("_form.html")
             </form>
         </div>
     </div>
 </div>
 <script src="/js/common.js"></script>
-<script src="/${tableName}/${tableName}.js"></script>
+<script src="/role/role.js"></script>
 #end

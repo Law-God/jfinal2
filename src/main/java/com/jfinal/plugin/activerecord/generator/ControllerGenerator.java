@@ -56,6 +56,7 @@ public class ControllerGenerator {
             param.put("modelPackageName",modelGenerator.modelPackageName);
             param.put("tableName",tableName);
             param.put("className",className);
+            param.put("columns",tableMeta.getColumns());
             fw.write(VelocityTool.fillTemplateContent("velocity/controller.vm",param));
             fw.flush();
 
