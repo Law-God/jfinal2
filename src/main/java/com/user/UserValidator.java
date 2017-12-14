@@ -17,7 +17,7 @@ public class UserValidator extends Validator {
         validateInteger(true,"user.age", 3,"ageMsg", "年龄");
         
         
-        validateInteger(true,"user.pay", 10,"payMsg", "薪资");
+        validateDouble(true,"user.pay", 10,"payMsg", "薪资");
 
         
             validateText(true,"user.address", 21845,"addressMsg", "地址");

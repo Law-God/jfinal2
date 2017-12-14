@@ -51,6 +51,7 @@ public class SqlTypeMapping {
 
 		//text
 		put(Types.LONGVARCHAR,"text");
+		put(-1000,"longtext");
 
 		//blog
 		put(Types.BLOB,"blob");

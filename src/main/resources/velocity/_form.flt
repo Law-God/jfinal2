@@ -79,14 +79,14 @@
             </div>
         </div>
     </div>
-    <#elseif column.sqlType == 'blob'>
+    <#elseif column.sqlType == 'longtext'>
     <div class="layui-row">
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">
                 <#if column.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column.remarks}
             </label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea layui-hide" name="${tableName}.${column.name}" placeholder="请输入${column.remarks}" lay-verify="${column.layVerify!""}" id="${column.name}_editor"></textarea>
+                <textarea class="layui-textarea layui-hide" name="${tableName}.${column.name}" placeholder="请输入${column.remarks}" lay-verify="${column.layVerify!""}" id="${column.name}_editor">#(${tableName}.${column.name}??)</textarea>
             </div>
         </div>
     </div>

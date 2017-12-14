@@ -72,13 +72,13 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("pay");
 	}
 
-	public M setSummary(byte[] summary) {
+	public M setSummary(java.lang.String summary) {
 		set("summary", summary);
 		return (M)this;
 	}
 
-	public byte[] getSummary() {
-		return get("summary");
+	public java.lang.String getSummary() {
+		return getStr("summary");
 	}
 
 }

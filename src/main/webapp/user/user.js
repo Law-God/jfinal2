@@ -3,6 +3,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     ,layer = layui.layer
     ,layedit = layui.layedit
     ,laydate = layui.laydate;
+    var $= layui.jquery;
 
         //日期
         laydate.render({
@@ -50,19 +51,27 @@ layui.use(['form', 'layedit', 'laydate'], function(){
                         return '内容不能超过1000个字符';
                     }
                 },
-                blob : function(value){
-                    //layedit.sync(summaryEditor);
-                    var content = layedit.getContent(summaryEditor);
-                    if(content.length <= 0){
-                        return '请输入简介';
-                    }
+                longtext : function(value){
+                    layedit.sync(summaryEditor);
                 },
     });
 
 
     form.on('submit(form-user)', function (data) {
         if (!data.field['user.sex']){
-            layer.msg('请选择性别', {icon:5,shift:6});
+            layer.tips('请选择性别', '#sex-tips',{
+                tips: [1, '#000'],
+                time: 4000
+            });
+            //layer.msg('请选择性别', {icon:5,shift:6});
+            return false;
+        }
+        if (!data.field['user.summary']){
+            layer.tips('请输入简介', '#longtext-div',{
+                tips: [1, '#000'],
+                time: 4000
+            });
+            //layer.msg('请选择性别', {icon:5,shift:6});
             return false;
         }
         return true;

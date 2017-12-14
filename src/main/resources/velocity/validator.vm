@@ -23,7 +23,7 @@ public class ${className}Validator extends Validator {
 #elseif($!column.sqlType ==  "int")
         validateInteger($isNullable,"${tableName}.${column.name}", ${column.size},"${column.name}Msg", "${column.remarks}");
 #elseif($!column.sqlType ==  "double")
-        validateInteger($isNullable,"${tableName}.${column.name}", ${column.size},"${column.name}Msg", "${column.remarks}");
+        validateDouble($isNullable,"${tableName}.${column.name}", ${column.size},"${column.name}Msg", "${column.remarks}");
 #end
 #end
 
@@ -36,7 +36,7 @@ public class ${className}Validator extends Validator {
 
     #if($!column.sqlType ==  "text")
         validateText($isNullable,"${tableName}.${column.name}", ${column.size},"${column.name}Msg", "${column.remarks}");
-    #elseif($!column.sqlType ==  "blob")
+    #elseif($!column.sqlType ==  "longtext")
         validateBlob($isNullable,"${tableName}.${column.name}","${column.name}Msg", "${column.remarks}");
     #end
 #end

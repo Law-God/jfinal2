@@ -11,10 +11,12 @@
         <hr class="layui-bg-gray" />
         <div class="layui-tab-item layui-show">
             <form id="user-form" class="layui-form"  action="/user/update" method="post">
+                <input type="hidden" name="user.id" value="#(user.id??)" />
                 #include("_form.html")
             </form>
         </div>
     </div>
 </div>
+<script src="/js/common.js"></script>
 <script src="/user/user.js"></script>
 #end

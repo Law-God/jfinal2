@@ -14,7 +14,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 </#list>
 
 <#list columns.bigColumns as column>
-    <#if column.sqlType == "blob">
+    <#if column.sqlType == "longtext">
         //创建一个编辑器
         var ${column.name}Editor = layedit.build('${column.name}_editor');
     </#if>
@@ -70,7 +70,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
                     }
                 },
             </#if>
-            <#if column.sqlType == "blob">
+            <#if column.sqlType == "longtext">
                 ${column.layVerify} : function(value){
                     //layedit.sync(${column.name}Editor);
                     var content = layedit.getContent(${column.name}Editor);

@@ -59,7 +59,7 @@
                     {field:'${column.name}', title: '${column.remarks}'},
                 </#list>
                 <#list  columns.bigColumns  as  column>
-                    <#if column.sqlType == 'blob'>
+                    <#if column.sqlType == 'longtext'>
                         //大文本不显示在列表
                     <#else>
                         {field:'${column.name}', title: '${column.remarks}'},

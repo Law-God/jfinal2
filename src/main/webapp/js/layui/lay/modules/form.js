@@ -423,6 +423,7 @@ layui.define('layer', function(exports){
         
         //匹配验证规则
         if(verify[thisVer]){
+          if(!device.android && !device.ios) item.focus(); //非移动设备自动定位焦点 //解决表单太超长，底部点击提交后，提示框不显示
           var isTrue = isFn ? errorText = verify[thisVer](value, item) : !verify[thisVer][0].test(value);
           errorText = errorText || verify[thisVer][1];
           
@@ -437,19 +438,19 @@ layui.define('layer', function(exports){
                   }
                 }
                 return othis;
-              }(), {tips: 1});
+              }(), {tips: 1,time:5000,tipsMore :true});
             } else if(verType === 'alert') {
               layer.alert(errorText, {title: '提示', shadeClose: true});
             } else {
               layer.msg(errorText, {icon: 5, shift: 6});
             }
-            if(!device.android && !device.ios) item.focus(); //非移动设备自动定位焦点
+
             othis.addClass(DANGER);
             return stop = true;
           }
         }
       });
-      if(stop) return stop;
+      //if(stop) return stop;
     });
     
     if(stop) return false;
