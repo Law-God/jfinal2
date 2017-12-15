@@ -4,10 +4,11 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     ,layedit = layui.layedit
     ,laydate = layui.laydate;
     var $= layui.jquery;
-
         //日期
         laydate.render({
-            elem: '#birthday_date'
+            elem: '#birthday_date',
+            type : "datetime",
+            format : 'yyyy-MM-dd HH:mm:ss'
         });
 
         //创建一个编辑器
@@ -20,6 +21,13 @@ layui.use(['form', 'layedit', 'laydate'], function(){
                         return '不能超过25个字符';
                     }
                 },
+
+                char : function(){
+                    if(!$("#sex-radio-hidden").val()){
+                        return '请选择性别';
+                    }
+                },
+
                 int3 : function(value){
                     var regObj = getIntRegByLength(3);
                     if(!!regObj.reg){
@@ -31,6 +39,8 @@ layui.use(['form', 'layedit', 'laydate'], function(){
                         return '正则表达式为空';
                     }
                 },
+
+
                 double10 : function(value){
                     var regObj = getDoubleRegByLength(10);
                     if(!!regObj.reg){
@@ -52,28 +62,21 @@ layui.use(['form', 'layedit', 'laydate'], function(){
                     }
                 },
                 longtext : function(value){
-                    layedit.sync(summaryEditor);
+                    //layedit.sync(summaryEditor);
+                    var content = layedit.getContent(summaryEditor);
+                    if(content.length <= 0){
+                        return '请输入简介';
+                    }
                 },
     });
 
+    form.on('radio(filter-radio-sex)', function(data){
+        $("#sex-radio-hidden").val(data.value);
+    });
+
+
 
     form.on('submit(form-user)', function (data) {
-        if (!data.field['user.sex']){
-            layer.tips('请选择性别', '#sex-tips',{
-                tips: [1, '#000'],
-                time: 4000
-            });
-            //layer.msg('请选择性别', {icon:5,shift:6});
-            return false;
-        }
-        if (!data.field['user.summary']){
-            layer.tips('请输入简介', '#longtext-div',{
-                tips: [1, '#000'],
-                time: 4000
-            });
-            //layer.msg('请选择性别', {icon:5,shift:6});
-            return false;
-        }
         return true;
     });
 

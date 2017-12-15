@@ -40,7 +40,11 @@ public class UserController extends Controller {
 	public void edit() {
 		setAttr("user", service.findById(getParaToInt()));
 	}
-	
+
+	public void show() {
+		setAttr("user", service.findById(getParaToInt()));
+	}
+
 	/**
 	 * save 与 update 的业务逻辑在实际应用中也应该放在 serivce 之中，
 	 * 并要对数据进正确性进行验证，在此仅为了偷懒

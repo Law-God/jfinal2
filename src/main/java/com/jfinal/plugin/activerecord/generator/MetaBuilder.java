@@ -303,13 +303,15 @@ public class MetaBuilder {
 		}else if("double".equals(sqlType)){
 			sb.append("double"+size);
 		} else if ("date".equals(sqlType)) {
-			sb = new StringBuilder("date");
+			sb = new StringBuilder("datetime");
 		}else if ("text".equals(sqlType)) {
 			sb = new StringBuilder("text");
 		}else if ("blob".equals(sqlType)) {
 			sb = new StringBuilder("blob");
 		}else if ("longtext".equals(sqlType)) {
 			sb = new StringBuilder("longtext");
+		}else if ("char".equals(sqlType)) {
+			sb = new StringBuilder("char");
 		}
 		//int scale = cm.scale;
 		return sb.toString();

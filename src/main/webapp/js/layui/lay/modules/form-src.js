@@ -38,10 +38,6 @@ layui.define('layer', function(exports){
         ,number: function(value){
           if(!value || isNaN(value)) return '只能填写数字'
         }
-        ,datetime : function(value){
-          /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)\s(0\d{1}|1\d{1}|2[0-3]):([0-5]\d{1}):([0-5]\d{1})$/
-          ,'日期格式不正确'
-        }
         ,date: [
           /^(\d{4})[-\/](\d{1}|0\d{1}|1[0-2])([-\/](\d{1}|0\d{1}|[1-2][0-9]|3[0-1]))*$/
           ,'日期格式不正确'
@@ -409,8 +405,8 @@ layui.define('layer', function(exports){
     ,verifyElem = elem.find('*[lay-verify]') //获取需要校验的元素
     ,formElem = button.parents('form')[0] //获取当前所在的form元素，如果存在的话
     ,fieldElem = elem.find('input,select,textarea') //获取所有表单域
-    ,filter = button.attr('lay-filter') //获取过滤器
-    ,requiredStop=null;//页面required时停止往下验证
+    ,filter = button.attr('lay-filter'); //获取过滤器
+   
     
     //开始校验
     layui.each(verifyElem, function(_, item){
@@ -429,39 +425,31 @@ layui.define('layer', function(exports){
         if(verify[thisVer]){
           var isTrue = isFn ? errorText = verify[thisVer](value, item) : !verify[thisVer][0].test(value);
           errorText = errorText || verify[thisVer][1];
+          
           //如果是必填项或者非空命中校验，则阻止提交，弹出提示
           if(isTrue){
-            if(!device.android && !device.ios) item.focus(); //非移动设备自动定位焦点 //解决表单太超长，底部点击提交后，提示框不显示
-
-            if(thisVer === 'required'){
-              layer.msg(errorText, {icon: 5, shift: 6});
-            }else{
-              //提示层风格
-              if(verType === 'tips'){
-                layer.tips(errorText, function(){
-                  if(typeof othis.attr('lay-ignore') !== 'string'){
-                    if(item.tagName.toLowerCase() === 'select' || /^checkbox|radio$/.test(item.type)){
-                      return othis.next();
-                    }
+            //提示层风格
+            if(verType === 'tips'){
+              layer.tips(errorText, function(){
+                if(typeof othis.attr('lay-ignore') !== 'string'){
+                  if(item.tagName.toLowerCase() === 'select' || /^checkbox|radio$/.test(item.type)){
+                    return othis.next();
                   }
-                  return othis;
-                }(), {tips: 1,time:5000,tipsMore :true});
-              } else if(verType === 'alert') {
-                layer.alert(errorText, {title: '提示', shadeClose: true});
-              } else {
-                layer.msg(errorText, {icon: 5, shift: 6});
-              }
+                }
+                return othis;
+              }(), {tips: 1});
+            } else if(verType === 'alert') {
+              layer.alert(errorText, {title: '提示', shadeClose: true});
+            } else {
+              layer.msg(errorText, {icon: 5, shift: 6});
             }
+            if(!device.android && !device.ios) item.focus(); //非移动设备自动定位焦点
             othis.addClass(DANGER);
-            if(thisVer === 'required'){
-              requiredStop = true;
-            }
             return stop = true;
           }
         }
       });
-      if(requiredStop) return stop;//必填项时停止继续校验
-      //if(stop) return stop;
+      if(stop) return stop;
     });
     
     if(stop) return false;

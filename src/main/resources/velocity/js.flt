@@ -3,12 +3,14 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     ,layer = layui.layer
     ,layedit = layui.layedit
     ,laydate = layui.laydate;
-
+    var $= layui.jquery;
 <#list columns.commonColumns as column>
     <#if column.sqlType == "date">
         //日期
         laydate.render({
-            elem: '#${column.name}_date'
+            elem: '#${column.name}_date',
+            type : "datetime",
+            format : 'yyyy-MM-dd HH:mm:ss'
         });
     </#if>
 </#list>
@@ -54,8 +56,14 @@ layui.use(['form', 'layedit', 'laydate'], function(){
                         return '正则表达式为空';
                     }
                 },
-
+            <#elseif column.sqlType == "char">
+                ${column.layVerify} : function(){
+                    if(!$("#${column.name}-radio-hidden").val()){
+                        return '请选择${column.remarks}';
+                    }
+                },
             </#if>
+
         </#if>
     </#list>
 
@@ -83,16 +91,17 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     </#list>
     });
 
+<#list columns.commonColumns as column>
+<#if column.sqlType == "char">
+    form.on('radio(filter-radio-${column.name})', function(data){
+        $("#sex-radio-hidden").val(data.value);
+    });
+</#if>
+</#list>
+
+
 
     form.on('submit(form-${tableName})', function (data) {
-    <#list columns.commonColumns as column>
-        <#if column.sqlType == "char">
-        if (!data.field['${tableName}.${column.name}']){
-            layer.msg('请选择性别', {icon:5,shift:6});
-            return false;
-        }
-        </#if>
-    </#list>
         return true;
     });
 
