@@ -33,7 +33,7 @@
                             <#if column2.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column2.remarks}
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="${tableName}.${column2.name}" value="#date(${tableName}.${column2.name}??,'yyyy-MM-dd HH:mm:ss)" id="${column2.name}_date" lay-verify="${ (column2.isNullable == '0')?string('required','')}|${column2.layVerify!""}" placeholder="请选择日期" readonly lay-verType="tips" autocomplete="off" class="layui-input">
+                            <input type="text" name="${tableName}.${column2.name}" value="#if(${tableName}.${column2.name}??) #date(${tableName}.${column2.name},'yyyy-MM-dd HH:mm:ss') #end" id="${column2.name}_date" lay-verify="${ (column2.isNullable == '0')?string('required','')}|${column2.layVerify!""}" placeholder="请选择日期" readonly lay-verType="tips" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                 </div>

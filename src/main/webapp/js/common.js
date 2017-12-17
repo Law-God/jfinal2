@@ -38,3 +38,4 @@ function getDoubleRegByLength(len) {
     }
     return obj;
 }
+

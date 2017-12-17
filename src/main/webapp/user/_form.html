@@ -5,7 +5,7 @@
                         <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;姓名
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" name="user.name" value="#(user.name??)" placeholder="请输入姓名" lay-verify="required|string25" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input type="text" name="user.name" value="#(user.name??)" placeholder="请输入姓名" lay-verify="required|string127" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                         <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;年龄
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" name="user.age" value="#(user.age??)" placeholder="请输入年龄" lay-verify="required|int3" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input type="text" name="user.age" value="#(user.age??)" placeholder="请输入年龄" lay-verify="required|int11" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                             <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;生日
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="user.birthday" value="#(user.birthday??)" id="birthday_date" lay-verify="required|datetime" placeholder="请选择日期" readonly lay-verType="tips" autocomplete="off" class="layui-input">
+                            <input type="text" name="user.birthday" value="#if(user.birthday??) #date(user.birthday,'yyyy-MM-dd HH:mm:ss') #end" id="birthday_date" lay-verify="required|datetime" placeholder="请选择日期" readonly lay-verType="tips" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
     <div class="layui-row">
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="form-user">立即提交</button>
+                <button type="button" class="layui-btn" lay-submit lay-filter="form-user">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>

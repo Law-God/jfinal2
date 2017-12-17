@@ -6,8 +6,7 @@
 	</ul>
 	<div class="layui-tab-content">
 		<div>
-            <a href="/${tableName}/add" class="layui-btn layui-btn-normal" title="新增"><i class="layui-icon">&#xe608;&nbsp;新增</i></a>
-            <a href="/${tableName}" class="layui-btn layui-btn-normal" title="刷新"><i class="layui-icon">&#x1002;&nbsp;刷新</i></a>
+            <button id="${tableName}-add" class="layui-btn layui-btn-sm" title="新增"><i class="layui-icon">&#xe608;&nbsp;新增</i></button>
 		</div>
 		<div class="layui-tab-item layui-show">
 			<table class="layui-hide" id="table-${tableName}" lay-filter="${tableName}-tool"></table>
@@ -68,8 +67,30 @@
                     {field:'', title: '操作',minWidth:160,toolbar: '#${tableName}-bar'},
 			]]
             ,even: true //开启隔行背景
-			,page: true
+			,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                //,curr: 5 //设定初始在第 5 页
+                ,groups: 1 //只显示 1 个连续页码
+                ,first: true //不显示首页
+                ,last: true //不显示尾页
+            },
+            done: function(res, curr, count){
+                //如果是异步请求数据方式，res即为你接口返回的信息。
+                //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                if(count < 1){//隐藏分页栏
+                    $(".layui-table-page").css("display","none");
+                }
+            }
 		});
+        $("#${tableName}-add").click(function(){
+            var layer${tableName}add = layer.open({
+                type: 2,
+                content: '/${tableName}/add',
+                area: ['600px', '400px'],
+                maxmin: true
+            });
+            layer.full(layer${tableName}add);
+        })
 	});
 </script>
 

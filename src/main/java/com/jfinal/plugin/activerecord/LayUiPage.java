@@ -35,6 +35,11 @@ public class LayUiPage<T> implements Serializable {
 	private String msg;
 	private boolean first;
 	private boolean list;
+	public boolean success = true;
+
+	public LayUiPage(){
+
+	}
 
 	public LayUiPage(Page page){
 		if(page != null){

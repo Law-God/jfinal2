@@ -1,8 +1,9 @@
-layui.use(['form', 'layedit', 'laydate'], function(){
+layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
     var form = layui.form
     ,layer = layui.layer
     ,layedit = layui.layedit
-    ,laydate = layui.laydate;
+    ,laydate = layui.laydate
+    ,AjaxUtil = layui.AjaxUtil;
     var $= layui.jquery;
         //日期
         laydate.render({
@@ -16,9 +17,9 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 
     //自定义验证规则
     form.verify({
-                string25 : function(value){
-                    if(value.length > 25){
-                        return '不能超过25个字符';
+                string127 : function(value){
+                    if(value.length > 127){
+                        return '不能超过127个字符';
                     }
                 },
 
@@ -28,8 +29,8 @@ layui.use(['form', 'layedit', 'laydate'], function(){
                     }
                 },
 
-                int3 : function(value){
-                    var regObj = getIntRegByLength(3);
+                int11 : function(value){
+                    var regObj = getIntRegByLength(11);
                     if(!!regObj.reg){
                         var reg = new RegExp(regObj.reg);
                         if(!reg.test(value)){
@@ -77,7 +78,13 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 
 
     form.on('submit(form-user)', function (data) {
-        return true;
+        AjaxUtil.ajax({url:'/user/save',data:data.field,callback:function(res){
+            console.log(res);
+        },error:function(XMLHttpRequest, textStatus, errorThrown){
+            alert(errorThrown)
+        }});
+
+        return false;
     });
 
 

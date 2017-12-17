@@ -3,6 +3,7 @@ package com.user;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.common.model.User;
+import com.jfinal.plugin.activerecord.LayUiPage;
 
 /**
  * 
@@ -25,6 +26,7 @@ public class UserController extends Controller {
 	}
 
 	public void add() {
+		System.out.println("add");
 	}
 	
 	/**
@@ -34,17 +36,13 @@ public class UserController extends Controller {
 	@Before(UserValidator.class)
 	public void save() {
 		getModel(User.class).save();
-		redirect("/user");
+		renderJson(new LayUiPage());
 	}
 	
 	public void edit() {
 		setAttr("user", service.findById(getParaToInt()));
 	}
-
-	public void show() {
-		setAttr("user", service.findById(getParaToInt()));
-	}
-
+	
 	/**
 	 * save 与 update 的业务逻辑在实际应用中也应该放在 serivce 之中，
 	 * 并要对数据进正确性进行验证，在此仅为了偷懒
