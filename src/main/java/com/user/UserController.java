@@ -3,6 +3,7 @@ package com.user;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.common.model.User;
+import com.jfinal.plugin.activerecord.ActiveRecordException;
 import com.jfinal.plugin.activerecord.LayUiPage;
 
 /**
@@ -35,8 +36,15 @@ public class UserController extends Controller {
 	 */
 	@Before(UserValidator.class)
 	public void save() {
-		getModel(User.class).save();
-		renderJson(new LayUiPage());
+		try{
+			getModel(User.class).save();
+		}catch (Exception e){
+			e.printStackTrace();
+			renderJson(new LayUiPage(false,"系统出错，请联系管理员"));
+			return;
+		}
+		renderJson(new LayUiPage(true));
+
 	}
 	
 	public void edit() {

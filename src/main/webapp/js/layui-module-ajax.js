@@ -70,7 +70,7 @@ layui.define('jquery',function(exports){ //提示：模块也可以依赖其它�
                 if(defaults.callback !== undefined){
                     defaults.callback.apply(this,arguments);
                 }
-            },defaults.dataType);
+            },defaults.dataType === undefined ? 'json' : defaults.dataType);
         },
         put : function(options){
             options.type='POST';
@@ -83,7 +83,75 @@ layui.define('jquery',function(exports){ //提示：模块也可以依赖其它�
             return ajax(options);
         },
         ajax : function(options){
-            return ajax(options);
+            $.extend(defaults,options);
+            //MaskLayer.show();
+            return $.ajax({
+                url : defaults.url,
+                callback : function(){
+                    if(defaults.callback !== undefined){
+                        defaults.callback.apply(this,arguments);
+                    }
+                },
+                async : defaults.async,
+                beforeSend : function(XHR){
+                    //Logger.info("beforeSend:" + XHR);
+                    if(defaults.beforeSend !== undefined){
+                        defaults.beforeSend.apply(this,arguments);
+                    }
+                },
+                cache : defaults.cache,
+                complete : function(XHR, status){
+                    //Logger.info("complete XHR:" + XHR);
+                    //Logger.info("complete status:" + status);
+                    if(defaults.complete !== undefined){
+                        defaults.complete.apply(this,arguments);
+                    }
+                    //MaskLayer.hidden();
+                },
+                contentType : defaults.contentType,
+                context : defaults.context,
+                data : defaults.data,
+                //dataFilter : function(data,dataType){
+                //    //Logger.info("dataFilter data:" + data);
+                //    //Logger.info("dataFilter dataType:" + dataType);
+                //    if(defaults.dataFilter !== undefined){
+                //        defaults.dataFilter.apply(this,arguments);
+                //    }
+                //},
+                dataType : defaults.dataType,
+                error : function(XHR,status,e){
+                    //Logger.info("error XHR:" + XHR);
+                    // Logger.info("error status:" + status);
+                    if(defaults.error !== undefined){
+                        defaults.error.apply(this,arguments);
+                    }
+
+                },
+                global : defaults.global,
+                ifModified : defaults.ifModified,
+                jsonp : defaults.jsonp,
+                jsonpCallback : function(){
+                    if(defaults.jsonpCallback !== undefined){
+                        defaults.jsonpCallback.apply(this,arguments);
+                    }
+
+                },
+                processData : defaults.processData,
+                scriptCharset : defaults.scriptCharset,
+                success : function(data,status){
+                    //Logger.info("success data:" + data);
+                    //Logger.info("success status:" + status);
+                    if(defaults.success !== undefined){
+                        defaults.success.apply(this,arguments);
+                    }
+                },
+                traditional : defaults.traditional,
+                timeout : defaults.timeout,
+                type : defaults.type,
+                username : defaults.username,
+                password : defaults.password,
+                xhr : defaults.xhr
+            });
         },
         load : function(options){
             $.extend(defaults,options);
@@ -116,69 +184,6 @@ layui.define('jquery',function(exports){ //提示：模块也可以依赖其它�
             });
         }
     };
-
-    function ajax(options){
-        $.extend(defaults,options);
-        //MaskLayer.show();
-        return $.ajax({
-            url : defaults.url,
-            callback : defaults.callback,
-            async : defaults.async,
-            beforeSend : function(XHR){
-                //Logger.info("beforeSend:" + XHR);
-                if(defaults.beforeSend !== undefined){
-                    defaults.beforeSend.apply(this,arguments);
-                }
-            },
-            cache : defaults.cache,
-            complete : function(XHR, status){
-                //Logger.info("complete XHR:" + XHR);
-                //Logger.info("complete status:" + status);
-                if(defaults.complete !== undefined){
-                    defaults.complete.apply(this,arguments);
-                }
-                //MaskLayer.hidden();
-            },
-            contentType : defaults.contentType,
-            context : defaults.context,
-            data : defaults.data,
-            dataFilter : function(data,dataType){
-                //Logger.info("dataFilter data:" + data);
-                //Logger.info("dataFilter dataType:" + dataType);
-                if(defaults.dataFilter !== undefined){
-                    defaults.dataFilter.apply(this,arguments);
-                }
-            },
-            dataType : defaults.dataType,
-            error : function(XHR,status,e){
-                //Logger.info("error XHR:" + XHR);
-                // Logger.info("error status:" + status);
-                if(defaults.error !== undefined){
-                    defaults.error.apply(this,arguments);
-                }
-
-            },
-            global : defaults.global,
-            ifModified : defaults.ifModified,
-            jsonp : defaults.jsonp,
-            jsonpCallback : function(){
-                defaults.jsonpCallback.apply(this,arguments);
-            },
-            processData : defaults.processData,
-            scriptCharset : defaults.scriptCharset,
-            success : function(data,status){
-                //Logger.info("success data:" + data);
-                //Logger.info("success status:" + status);
-                defaults.success.apply(this,arguments);
-            },
-            traditional : defaults.traditional,
-            timeout : defaults.timeout,
-            type : defaults.type,
-            username : defaults.username,
-            password : defaults.password,
-            xhr : defaults.xhr,
-        });
-    }
     //输出test接口
     exports('AjaxUtil', AjaxUtil);
 });

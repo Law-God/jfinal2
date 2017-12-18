@@ -17,6 +17,7 @@
 package com.jfinal.plugin.activerecord;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public class LayUiPage<T> implements Serializable {
 	private static final long serialVersionUID = -5395997221963176643L;
 
 	private int totalPage;				// total page
-	private List<T> data;
+	private List<T> data = new ArrayList<T>();
 	private int count;//数据总数
 	private int limit;//每页显示的条数
 	private int curr;//当前页
@@ -35,10 +36,15 @@ public class LayUiPage<T> implements Serializable {
 	private String msg;
 	private boolean first;
 	private boolean list;
-	public boolean success = true;
+	public boolean success;
 
-	public LayUiPage(){
+	public LayUiPage(boolean success){
+		this.success = success;
+	}
 
+	public LayUiPage(boolean success,String msg){
+		this.success = success;
+		this.msg = msg;
 	}
 
 	public LayUiPage(Page page){

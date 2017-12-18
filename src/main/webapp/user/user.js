@@ -78,11 +78,31 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
 
 
     form.on('submit(form-user)', function (data) {
-        AjaxUtil.ajax({url:'/user/save',data:data.field,callback:function(res){
-            console.log(res);
-        },error:function(XMLHttpRequest, textStatus, errorThrown){
-            alert(errorThrown)
+        AjaxUtil.ajax({url : '/user/save',dataType : 'json',data:data.field,success : function(response,status){
+            if(response.success){
+                layui.close(layeruseradd);
+            }else if(response.errorType == 1){
+                var msgList = response.msgList;
+                for(var i= 0,len=msgList.length;i<len;i++){
+                    console.log(msgList[i].key + "  " + msgList[i].value + " " + (!!msgList[i].value));
+                }
+                layer.tips("错误", $("#userPay"), {tips: 1,time:5000,tipsMore :true});
+            }else{
+                layer.alert(response.msg, {icon: 5});
+            }
+        },error : function(XHR,status,e){
+            layer.alert('系统出错，请联系管理员。', {icon: 5});
         }});
+
+        //$.ajax({url : '/user/save',dataType : 'json',data:data.field,success : function(response,status){
+        //    if(response.success){
+        //        layui.close(layeruseradd);
+        //    }else{
+        //        layer.alert(response.msg, {icon: 5});
+        //    }
+        //},error : function(XHR,status,e){
+        //    layer.alert('系统出错，请联系管理员。', {icon: 5});
+        //}})
 
         return false;
     });
