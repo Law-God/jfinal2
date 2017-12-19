@@ -39,14 +39,13 @@ function getDoubleRegByLength(len) {
     return obj;
 }
 //layui失去光标校验
-function layuiBlurCheck($,id,verify){
-    if(!!!id || !!!verify) return;//id或verify为空不校验
-    var othis = $(id)
+function layuiBlurCheck($id,verify,tips,$tip){
+    if(!!!$id || !!!verify) return;//id或verify为空不校验
+    var othis = $id
         ,vers = othis.attr('lay-verify').split('|')
         ,verType = othis.attr('lay-verType') //提示方式
         ,value = othis.val()
-        ,stop=false
-        ,tipId = othis.attr('lay-tip');
+        ,stop=false;
     var  DANGER = 'layui-form-danger-input'
     othis.removeClass(DANGER);
     layui.each(vers, function(_, thisVer){
@@ -65,15 +64,17 @@ function layuiBlurCheck($,id,verify){
                 //    layer.msg(errorText, {icon: 5, shift: 6});
                 //}else{
                     if(verType === 'tips'){
-                        layer.tips(errorText, !!tipId ? $(tipId) : othis, {tips: 2,time:3000,tipsMore :true});
+                        layer.tips(errorText, !!$tip ? $tip : othis, {tips: !!tips ? tips : 2,time:3000,tipsMore :true});
                     } else if(verType === 'alert') {
                         layer.alert(errorText, {title: '提示', shadeClose: true});
                     }else{
                         layer.msg(errorText, {icon: 5, shift: 6});
                     }
                 //}
-
-
+                if(thisVer == 'char'){
+                    var t = $id.offset().top;
+                    $(window).scrollTop(t);//滚动到锚点位置
+                }
                 stop = true;
             }
         }

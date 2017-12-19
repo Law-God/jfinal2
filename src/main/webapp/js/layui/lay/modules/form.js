@@ -439,6 +439,7 @@ layui.define('layer', function(exports){
             //}else{
               //提示层风格
             var tips = thisVer === 'char' ? 1 : 2;
+            console.log(tips);
               if(verType === 'tips'){
                 layer.tips(errorText, function(){
                   if(typeof othis.attr('lay-ignore') !== 'string'){
@@ -461,7 +462,7 @@ layui.define('layer', function(exports){
             if(thisVer === 'required'){
               requiredStop = true;
             }else if(thisVer == 'char'){
-              var t = $("#sex-tip-a").offset().top;
+              var t = $(othis).offset().top;
               $(window).scrollTop(t);//滚动到锚点位置
             }
             return stop = true;

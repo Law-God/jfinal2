@@ -10,8 +10,13 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
             elem: '#birthday_date',
             type : "datetime",
             format : 'yyyy-MM-dd HH:mm:ss',
-            trigger : 'click'
+            trigger : 'click',
+            done: function(value, date){
+               setTimeout(function(){
+                   layuiBlurCheck($("#birthday_date"),verify);
+               },100)
 
+            }
         });
 
         //创建一个编辑器
@@ -87,12 +92,10 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
         layuiBlurCheck($(this),verify);
     });
 
-    $("#birthday_date").blur(function(){
-        layuiBlurCheck($(this),verify);
-});
+
 
     $("#address").blur(function(){
-        layuiBlurCheck($(this),verify);
+        layuiBlurCheck($(this),verify,1);
     })
 
     $("#pay").blur(function(){
@@ -100,7 +103,7 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
     });
 
     $("iframe[textarea='summary_editor']").contents().find("body").blur(function(){
-        layuiBlurCheck($("#summary_editor"),verify);
+        layuiBlurCheck($("#summary_editor"),verify,1,$("#summary-tip"));
     });
 
 

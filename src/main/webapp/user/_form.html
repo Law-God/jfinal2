@@ -17,7 +17,6 @@
                         <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;性别
                     </label>
                     <div class="layui-input-block" id="sex-tip" lay-verify="char" lay-verType="tips" lay-tip="sex-tip">
-                        <a id="sex-tip-a" href="#sex-tip"></a>
                         <input type="hidden" id="sex-radio-hidden" value="#(user.sex??)" />
                         <input type="radio" name="user.sex" value="0" title="男" #(user.sex?? == '0' ? 'checked="checked"' : '') lay-filter="filter-radio-sex" />
                         <input type="radio" name="user.sex" value="1" title="女" #(user.sex?? == '1' ? 'checked="checked"' : '') lay-filter="filter-radio-sex"/>
@@ -75,7 +74,7 @@
             <label class="layui-form-label">
                 <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;简介
             </label>
-            <div class="layui-input-block">
+            <div class="layui-input-block" id="summary-tip">
                 <textarea class="layui-textarea layui-hide" name="user.summary" placeholder="请输入简介" lay-verify="longtext" lay-verType="tips" id="summary_editor">#(user.summary??)</textarea>
             </div>
         </div>
