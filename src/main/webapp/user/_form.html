@@ -1,20 +1,23 @@
-    <div class="layui-row">
+
+<div class="layui-row" style="margin-top:1">
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
                     <label class="layui-form-label">
                         <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;姓名
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" name="user.name" value="#(user.name??)" placeholder="请输入姓名" lay-verify="required|string127" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input type="text" id="name" name="user.name" value="#(user.name??)" placeholder="请输入姓名" lay-verify="required|string127" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
                     <label class="layui-form-label">
+
                         <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;性别
                     </label>
-                    <div class="layui-input-block" lay-verify="char">
+                    <div class="layui-input-block" id="sex-tip" lay-verify="char" lay-verType="tips" lay-tip="sex-tip">
+                        <a id="sex-tip-a" href="#sex-tip"></a>
                         <input type="hidden" id="sex-radio-hidden" value="#(user.sex??)" />
                         <input type="radio" name="user.sex" value="0" title="男" #(user.sex?? == '0' ? 'checked="checked"' : '') lay-filter="filter-radio-sex" />
                         <input type="radio" name="user.sex" value="1" title="女" #(user.sex?? == '1' ? 'checked="checked"' : '') lay-filter="filter-radio-sex"/>
@@ -29,7 +32,7 @@
                         <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;年龄
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" name="user.age" value="#(user.age??)" placeholder="请输入年龄" lay-verify="required|int11" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input type="text" id="age" name="user.age" value="#(user.age??)" placeholder="请输入年龄" lay-verify="required|int11" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -39,7 +42,7 @@
                             <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;生日
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" name="user.birthday" value="#if(user.birthday??) #date(user.birthday,'yyyy-MM-dd HH:mm:ss') #end" id="birthday_date" lay-verify="required|datetime" placeholder="请选择日期" readonly lay-verType="tips" autocomplete="off" class="layui-input">
+                            <input type="text"  name="user.birthday" value="#if(user.birthday??) #date(user.birthday,'yyyy-MM-dd HH:mm:ss') #end" id="birthday_date" lay-verify="required|datetime" lay-verType="tips" placeholder="请选择日期" readonly autocomplete="off" class="layui-input">
                         </div>
                     </div>
                 </div>
@@ -51,7 +54,7 @@
                         <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;薪资
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" id="userPay" name="user.pay" value="#(user.pay??)" placeholder="请输入薪资" lay-verify="required|double10" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input id="pay"  type="text" id="userPay" name="user.pay" value="#(user.pay??)" placeholder="请输入薪资" lay-verify="required|double10" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -63,7 +66,7 @@
                 <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;地址
             </label>
             <div class="layui-input-block">
-                <textarea name="user.address" placeholder="请输入地址" lay-verify="required|text" lay-verType="tips" class="layui-textarea">#(user.address??)</textarea>
+                <textarea id="address" name="user.address" placeholder="请输入地址" lay-verify="required|text" lay-verType="tips" class="layui-textarea">#(user.address??)</textarea>
             </div>
         </div>
     </div>
@@ -73,7 +76,7 @@
                 <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;简介
             </label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea layui-hide" name="user.summary" placeholder="请输入简介" lay-verify="longtext" id="summary_editor">#(user.summary??)</textarea>
+                <textarea class="layui-textarea layui-hide" name="user.summary" placeholder="请输入简介" lay-verify="longtext" lay-verType="tips" id="summary_editor">#(user.summary??)</textarea>
             </div>
         </div>
     </div>

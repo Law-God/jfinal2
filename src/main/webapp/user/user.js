@@ -9,7 +9,9 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
         laydate.render({
             elem: '#birthday_date',
             type : "datetime",
-            format : 'yyyy-MM-dd HH:mm:ss'
+            format : 'yyyy-MM-dd HH:mm:ss',
+            trigger : 'click'
+
         });
 
         //创建一个编辑器
@@ -73,6 +75,32 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
 
     form.on('radio(filter-radio-sex)', function(data){
         $("#sex-radio-hidden").val(data.value);
+    });
+
+    var  verify = form.config.verify;
+
+    $("#name").blur(function(){
+        layuiBlurCheck($(this),verify);
+    });
+
+    $("#age").blur(function(){
+        layuiBlurCheck($(this),verify);
+    });
+
+    $("#birthday_date").blur(function(){
+        layuiBlurCheck($(this),verify);
+});
+
+    $("#address").blur(function(){
+        layuiBlurCheck($(this),verify);
+    })
+
+    $("#pay").blur(function(){
+        layuiBlurCheck($(this),verify);
+    });
+
+    $("iframe[textarea='summary_editor']").contents().find("body").blur(function(){
+        layuiBlurCheck($("#summary_editor"),verify);
     });
 
 

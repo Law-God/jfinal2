@@ -417,7 +417,8 @@ layui.define('layer', function(exports){
       var othis = $(this)
       ,vers = othis.attr('lay-verify').split('|')
       ,verType = othis.attr('lay-verType') //提示方式
-      ,value = othis.val();
+      ,value = othis.val()
+      ,tipId = othis.attr('lay-tip') ;
       
       othis.removeClass(DANGER);
       layui.each(vers, function(_, thisVer){
@@ -433,10 +434,11 @@ layui.define('layer', function(exports){
           if(isTrue){
             if(!device.android && !device.ios) item.focus(); //非移动设备自动定位焦点 //解决表单太超长，底部点击提交后，提示框不显示
 
-            if(thisVer === 'required'){
-              layer.msg(errorText, {icon: 5, shift: 6});
-            }else{
+            //if(thisVer === 'required'){
+            //  layer.msg(errorText, {icon: 5, shift: 6});
+            //}else{
               //提示层风格
+            var tips = thisVer === 'char' ? 1 : 2;
               if(verType === 'tips'){
                 layer.tips(errorText, function(){
                   if(typeof othis.attr('lay-ignore') !== 'string'){
@@ -444,17 +446,23 @@ layui.define('layer', function(exports){
                       return othis.next();
                     }
                   }
+                  if(!!tipId){
+                    return $('#'+tipId);
+                  }
                   return othis;
-                }(), {tips: 1,time:5000,tipsMore :true});
+                }(), {tips: tips,time:3000,tipsMore :true});
               } else if(verType === 'alert') {
                 layer.alert(errorText, {title: '提示', shadeClose: true});
               } else {
                 layer.msg(errorText, {icon: 5, shift: 6});
               }
-            }
+            //}
             othis.addClass(DANGER);
             if(thisVer === 'required'){
               requiredStop = true;
+            }else if(thisVer == 'char'){
+              var t = $("#sex-tip-a").offset().top;
+              $(window).scrollTop(t);//滚动到锚点位置
             }
             return stop = true;
           }
