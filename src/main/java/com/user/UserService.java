@@ -12,7 +12,7 @@ public class UserService {
 private static final User dao = new User().dao();
 
 	public Page<User> paginate(int pageNumber, int pageSize) {
-    	return dao.paginate(pageNumber, pageSize, "select *", "from user order by id asc");
+    	return dao.paginate(pageNumber, pageSize, "select *", "from user order by id desc");
     }
 
     public LayUiPage<User> layUiPaginate(int pageNumber, int pageSize) {

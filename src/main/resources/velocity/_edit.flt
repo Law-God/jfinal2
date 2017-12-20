@@ -7,6 +7,9 @@
 </head>
 <body style="padding:15px">
 <form id="form-${tableName}" class="layui-form"  action="/${tableName}/update" method="post">
+<#list columns.primaryColumns as column>
+    <input type="hidden" name="${tableName}.${column.name}" value="#(${tableName}.${column.name}??)" />
+</#list>
     #include("_form.html")
 </form>
 <script src="/js/common.js"></script>

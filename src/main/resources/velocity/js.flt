@@ -1,16 +1,23 @@
-layui.use(['form', 'layedit', 'laydate'], function(){
+layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
     var form = layui.form
     ,layer = layui.layer
     ,layedit = layui.layedit
-    ,laydate = layui.laydate;
+    ,laydate = layui.laydate
+    ,AjaxUtil = layui.AjaxUtil;;
     var $= layui.jquery;
 <#list columns.commonColumns as column>
     <#if column.sqlType == "date">
         //日期
         laydate.render({
             elem: '#${column.name}_date',
-            type : "datetime",
-            format : 'yyyy-MM-dd HH:mm:ss'
+            type : "date",
+            format : 'yyyy-MM-dd',
+            trigger : 'click',
+            done: function(value, date){
+                setTimeout(function(){
+                    layuiBlurCheck($('#${column.name}_date'),verify);
+                },100)
+            }
         });
     </#if>
 </#list>
@@ -80,10 +87,11 @@ layui.use(['form', 'layedit', 'laydate'], function(){
             </#if>
             <#if column.sqlType == "longtext">
                 ${column.layVerify} : function(value){
-                    //layedit.sync(${column.name}Editor);
+                    layedit.sync(${column.name}Editor);
                     var content = layedit.getContent(${column.name}Editor);
                     if(content.length <= 0){
-                        return '请输入${column.remarks}';
+                        //return '请输入${column.remarks}';
+                        return '必填项不能为空';
                     }
                 },
             </#if>
@@ -91,18 +99,58 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     </#list>
     });
 
+    var  verify = form.config.verify;
 <#list columns.commonColumns as column>
-<#if column.sqlType == "char">
+<#if column.sqlType == "string" || column.sqlType == "int" || column.sqlType == "double">
+    $("#${column.name}").blur(function(){
+        layuiBlurCheck($(this),verify);
+    });
+<#elseif column.sqlType == "char">
     form.on('radio(filter-radio-${column.name})', function(data){
         $("#sex-radio-hidden").val(data.value);
     });
 </#if>
 </#list>
 
-
+<#list columns.bigColumns as column>
+<#if column.sqlType == "text">
+    $("#${column.name}").blur(function(){
+        layuiBlurCheck($(this),verify,1);
+    })
+<#elseif column.sqlType == "longtext">
+    $("iframe[textarea='${column.name}_editor']").contents().find("body").blur(function(){
+        layuiBlurCheck($("#${column.name}_editor"),verify,1,$("#${column.name}-tip"));
+    });
+</#if>
+</#list>
 
     form.on('submit(form-${tableName})', function (data) {
-        return true;
+        var url = $('#form-${tableName}').attr('action');
+        AjaxUtil.ajax({url : url,dataType : 'json',data:data.field,success : function(response,status){
+            if(response.success){
+                //parent.layer.closeAll();
+                parent.location.href = '/${tableName}';
+            }else if(response.errorType == 1){
+                var msgList = response.msgList;
+                for(var i= 0,len=msgList.length;i<len;i++){
+                    if(!!msgList[i].value){
+                        var sqlType =  msgList[i].sqlType;
+                        if(sqlType === 'char'){
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key), {tips: 1,time:3000,tipsMore :true});
+                        }else if(sqlType === 'longtext'){
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"-tip"), {tips: 1,time:3000,tipsMore :true});
+                        }else{
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key), {tips: 1,time:3000,tipsMore :true});
+                        }
+                    }
+                }
+            }else{
+                layer.alert(response.msg, {icon: 5});
+            }
+        },error : function(XHR,status,e){
+                layer.alert('系统出错，请联系管理员。', {icon: 5});
+        }});
+        return false;
     });
 
 

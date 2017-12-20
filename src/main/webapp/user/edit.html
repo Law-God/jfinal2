@@ -6,7 +6,8 @@
     #include("/common/_res.html")
 </head>
 <body style="padding:15px">
-<form id="user-form" class="layui-form"  action="/user/update" method="post">
+<form id="form-user" class="layui-form"  action="/user/update" method="post">
+    <input type="hidden" name="user.id" value="#(user.id??)" />
     #include("_form.html")
 </form>
 <script src="/js/common.js"></script>

@@ -3,19 +3,18 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
     ,layer = layui.layer
     ,layedit = layui.layedit
     ,laydate = layui.laydate
-    ,AjaxUtil = layui.AjaxUtil;
+    ,AjaxUtil = layui.AjaxUtil;;
     var $= layui.jquery;
         //日期
         laydate.render({
             elem: '#birthday_date',
-            type : "datetime",
-            format : 'yyyy-MM-dd HH:mm:ss',
+            type : "date",
+            format : 'yyyy-MM-dd',
             trigger : 'click',
             done: function(value, date){
-               setTimeout(function(){
-                   layuiBlurCheck($("#birthday_date"),verify);
-               },100)
-
+                setTimeout(function(){
+                    layuiBlurCheck($('#birthday_date'),verify);
+                },100)
             }
         });
 
@@ -24,9 +23,9 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
 
     //自定义验证规则
     form.verify({
-                string127 : function(value){
-                    if(value.length > 127){
-                        return '不能超过127个字符';
+                string25 : function(value){
+                    if(value.length > 25){
+                        return '不能超过25个字符';
                     }
                 },
 
@@ -36,8 +35,8 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
                     }
                 },
 
-                int11 : function(value){
-                    var regObj = getIntRegByLength(11);
+                int3 : function(value){
+                    var regObj = getIntRegByLength(3);
                     if(!!regObj.reg){
                         var reg = new RegExp(regObj.reg);
                         if(!reg.test(value)){
@@ -70,71 +69,62 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
                     }
                 },
                 longtext : function(value){
-                    //layedit.sync(summaryEditor);
+                    layedit.sync(summaryEditor);
                     var content = layedit.getContent(summaryEditor);
                     if(content.length <= 0){
-                        return '请输入简介';
+                        //return '请输入简介';
+                        return '必填项不能为空';
                     }
                 },
     });
 
-    form.on('radio(filter-radio-sex)', function(data){
-        $("#sex-radio-hidden").val(data.value);
-    });
-
     var  verify = form.config.verify;
-
     $("#name").blur(function(){
         layuiBlurCheck($(this),verify);
     });
-
+    form.on('radio(filter-radio-sex)', function(data){
+        $("#sex-radio-hidden").val(data.value);
+    });
     $("#age").blur(function(){
         layuiBlurCheck($(this),verify);
     });
-
-
-
-    $("#address").blur(function(){
-        layuiBlurCheck($(this),verify,1);
-    })
-
     $("#pay").blur(function(){
         layuiBlurCheck($(this),verify);
     });
 
+    $("#address").blur(function(){
+        layuiBlurCheck($(this),verify,1);
+    })
     $("iframe[textarea='summary_editor']").contents().find("body").blur(function(){
         layuiBlurCheck($("#summary_editor"),verify,1,$("#summary-tip"));
     });
 
-
-
     form.on('submit(form-user)', function (data) {
-        AjaxUtil.ajax({url : '/user/save',dataType : 'json',data:data.field,success : function(response,status){
+        var url = $('#form-user').attr('action');
+        AjaxUtil.ajax({url : url,dataType : 'json',data:data.field,success : function(response,status){
             if(response.success){
-                layui.close(layeruseradd);
+                //parent.layer.closeAll();
+                parent.location.href = '/user';
             }else if(response.errorType == 1){
                 var msgList = response.msgList;
                 for(var i= 0,len=msgList.length;i<len;i++){
-                    console.log(msgList[i].key + "  " + msgList[i].value + " " + (!!msgList[i].value));
+                    if(!!msgList[i].value){
+                        var sqlType =  msgList[i].sqlType;
+                        if(sqlType === 'char'){
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key), {tips: 1,time:3000,tipsMore :true});
+                        }else if(sqlType === 'longtext'){
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"-tip"), {tips: 1,time:3000,tipsMore :true});
+                        }else{
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key), {tips: 1,time:3000,tipsMore :true});
+                        }
+                    }
                 }
-                layer.tips("错误", $("#userPay"), {tips: 1,time:5000,tipsMore :true});
             }else{
                 layer.alert(response.msg, {icon: 5});
             }
         },error : function(XHR,status,e){
-            layer.alert('系统出错，请联系管理员。', {icon: 5});
+                layer.alert('系统出错，请联系管理员。', {icon: 5});
         }});
-
-        //$.ajax({url : '/user/save',dataType : 'json',data:data.field,success : function(response,status){
-        //    if(response.success){
-        //        layui.close(layeruseradd);
-        //    }else{
-        //        layer.alert(response.msg, {icon: 5});
-        //    }
-        //},error : function(XHR,status,e){
-        //    layer.alert('系统出错，请联系管理员。', {icon: 5});
-        //}})
-
         return false;
     });
 

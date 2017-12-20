@@ -3,8 +3,7 @@ package com.user;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.common.model.User;
-import com.jfinal.plugin.activerecord.ActiveRecordException;
-import com.jfinal.plugin.activerecord.LayUiPage;
+import com.common.ReturnMsg;
 
 /**
  * 
@@ -23,11 +22,10 @@ public class UserController extends Controller {
 	public void list() {
 		int page = Integer.valueOf(getPara("page","1"));
 		int limit = Integer.valueOf(getPara("limit","10"));
-		renderJson(service.layUiPaginate(getParaToInt(page, 1), limit));
+		renderJson(service.layUiPaginate(page, limit));
 	}
 
 	public void add() {
-		System.out.println("add");
 	}
 	
 	/**
@@ -40,11 +38,10 @@ public class UserController extends Controller {
 			getModel(User.class).save();
 		}catch (Exception e){
 			e.printStackTrace();
-			renderJson(new LayUiPage(false,"系统出错，请联系管理员"));
+			renderJson(new ReturnMsg(false,"系统出错，请联系管理员"));
 			return;
 		}
-		renderJson(new LayUiPage(true));
-
+		renderJson(new ReturnMsg(true,""));
 	}
 	
 	public void edit() {
@@ -57,8 +54,14 @@ public class UserController extends Controller {
 	 */
 	@Before(UserValidator.class)
 	public void update() {
-		getModel(User.class).update();
-		redirect("/user");
+		try{
+			getModel(User.class).update();
+		}catch (Exception e){
+			e.printStackTrace();
+			renderJson(new ReturnMsg(false,"系统出错，请联系管理员"));
+			return;
+		}
+		renderJson(new ReturnMsg(true,""));
 	}
 	
 	public void delete() {

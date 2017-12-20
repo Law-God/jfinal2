@@ -1,100 +1,105 @@
 package com.user;
 
-import com.common.ReturnMsg;
 import com.common.model.User;
 import com.jfinal.core.Controller;
-import com.jfinal.kit.JsonKit;
 import com.jfinal.validate.Validator;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.common.ReturnMsg;
 
 /**
 *  Validator
 */
 public class UserValidator extends Validator {
 
-
     protected void validate(Controller controller) {
+                                
+                        validateString(true,"user.name", 1,25,"nameMsg", "姓名");
+                                        
+                        validateInteger(true,"user.sex", 1,"sexMsg", "性别");
+                                        
+                        validateInteger(true,"user.age", 3,"ageMsg", "年龄");
+                                        
+                                        
+                        validateDouble(true,"user.pay", 10,"payMsg", "薪资");
+                
         
-        validateString(true,"user.name", 1,127,"nameMsg", "姓名");
-
-
-        validateInteger(true,"user.age", 11,"ageMsg", "年龄");
-
-        validateDouble(true,"user.pay", 10,"payMsg", "薪资");
-
-
-        validateText(true,"user.address", 21845,"addressMsg", "地址");
-
-        validateBlob(true,"user.summary","summaryMsg", "简介");
-
-
+            validateText(true,"user.address", 21845,"addressMsg", "地址");
+            
+            validateBlob(true,"user.summary","summaryMsg", "简介");
     
     }
 
     protected void handleError(Controller controller) {
-        controller.keepModel(User.class);
-        /*String actionKey = getActionKey();
-        if (actionKey.equals("/user/save")){
-            controller.render("add.html");
-        }else if (actionKey.equals("/user/update")){
-            controller.render("edit.html");
-        }*/
         boolean flag = false;
         List errorMsg = new ArrayList();
-        Map m1 = new HashMap();
+
+        Map m = new HashMap();
         Object nameMsg = controller.getAttr("nameMsg");
-        if(nameMsg == null){
+        if(nameMsg != null){
             flag = true;
+            m.put("key","name");
+            m.put("sqlType","string");
+            m.put("value",nameMsg);
+            errorMsg.add(m);
         }
-        m1.put("key","nameMsg");
-        m1.put("sqlType","nameMsg");
-        m1.put("value",nameMsg);
-        errorMsg.add(m1);
-
-        Map m2 = new HashMap();
+        m = new HashMap();
+        Object sexMsg = controller.getAttr("sexMsg");
+        if(sexMsg != null){
+            flag = true;
+            m.put("key","sex");
+            m.put("sqlType","char");
+            m.put("value",sexMsg);
+            errorMsg.add(m);
+        }
+        m = new HashMap();
         Object ageMsg = controller.getAttr("ageMsg");
-        if(nameMsg == null){
+        if(ageMsg != null){
             flag = true;
+            m.put("key","age");
+            m.put("sqlType","int");
+            m.put("value",ageMsg);
+            errorMsg.add(m);
         }
-        m2.put("key","ageMsg");
-        m2.put("value",ageMsg);
-        m2.put("sqlType","nameMsg");
-        errorMsg.add(m2);
-
-        Map m3 = new HashMap();
+        m = new HashMap();
+        Object birthdayMsg = controller.getAttr("birthdayMsg");
+        if(birthdayMsg != null){
+            flag = true;
+            m.put("key","birthday");
+            m.put("sqlType","date");
+            m.put("value",birthdayMsg);
+            errorMsg.add(m);
+        }
+        m = new HashMap();
         Object payMsg = controller.getAttr("payMsg");
-        if(payMsg == null){
+        if(payMsg != null){
             flag = true;
+            m.put("key","pay");
+            m.put("sqlType","double");
+            m.put("value",payMsg);
+            errorMsg.add(m);
         }
-        m3.put("key","payMsg");
-        m3.put("value",payMsg);
-        m3.put("sqlType","nameMsg");
-        errorMsg.add(m3);
-
-        Map m4 = new HashMap();
+        m = new HashMap();
         Object addressMsg = controller.getAttr("addressMsg");
-        if(addressMsg == null){
+        if(addressMsg != null){
             flag = true;
+            m.put("key","address");
+            m.put("sqlType","text");
+            m.put("value",addressMsg);
+            errorMsg.add(m);
         }
-        m4.put("key","addressMsg");
-        m4.put("value",addressMsg);
-        m4.put("sqlType","nameMsg");
-        errorMsg.add(m4);
-
-        Map m5 = new HashMap();
+        m = new HashMap();
         Object summaryMsg = controller.getAttr("summaryMsg");
-        if(summaryMsg == null){
+        if(summaryMsg != null){
             flag = true;
+            m.put("key","summary");
+            m.put("sqlType","longtext");
+            m.put("value",summaryMsg);
+            errorMsg.add(m);
         }
-        m5.put("key","summaryMsg");
-        m5.put("value",summaryMsg);
-        m5.put("sqlType","nameMsg");
-        errorMsg.add(m5);
-
+        m = new HashMap();
         if(flag){
             controller.renderJson(new ReturnMsg(!flag,ReturnMsg.ERROR_TYPE_1,errorMsg));
         }

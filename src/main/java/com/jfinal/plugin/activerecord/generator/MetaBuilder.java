@@ -303,7 +303,7 @@ public class MetaBuilder {
 		}else if("double".equals(sqlType)){
 			sb.append("double"+size);
 		} else if ("date".equals(sqlType)) {
-			sb = new StringBuilder("datetime");
+			sb = new StringBuilder("date");
 		}else if ("text".equals(sqlType)) {
 			sb = new StringBuilder("text");
 		}else if ("blob".equals(sqlType)) {

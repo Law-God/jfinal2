@@ -3,6 +3,7 @@ package ${package};
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import ${modelPackageName}.${className};
+import com.common.ReturnMsg;
 
 /**
  * 
@@ -21,7 +22,7 @@ public class ${className}Controller extends Controller {
 	public void list() {
 		int page = Integer.valueOf(getPara("page","1"));
 		int limit = Integer.valueOf(getPara("limit","10"));
-		renderJson(service.layUiPaginate(getParaToInt(page, 1), limit));
+		renderJson(service.layUiPaginate(page, limit));
 	}
 
 	public void add() {
@@ -33,8 +34,14 @@ public class ${className}Controller extends Controller {
 	 */
 	@Before(${className}Validator.class)
 	public void save() {
-		getModel(${className}.class).save();
-		redirect("/${tableName}");
+		try{
+			getModel(${className}.class).save();
+		}catch (Exception e){
+			e.printStackTrace();
+			renderJson(new ReturnMsg(false,"系统出错，请联系管理员"));
+			return;
+		}
+		renderJson(new ReturnMsg(true,""));
 	}
 	
 	public void edit() {
@@ -47,8 +54,14 @@ public class ${className}Controller extends Controller {
 	 */
 	@Before(${className}Validator.class)
 	public void update() {
-		getModel(${className}.class).update();
-		redirect("/${tableName}");
+		try{
+			getModel(${className}.class).update();
+		}catch (Exception e){
+			e.printStackTrace();
+			renderJson(new ReturnMsg(false,"系统出错，请联系管理员"));
+			return;
+		}
+		renderJson(new ReturnMsg(true,""));
 	}
 	
 	public void delete() {

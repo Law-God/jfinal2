@@ -428,6 +428,7 @@ layui.define('layer', function(exports){
         
         //匹配验证规则
         if(verify[thisVer]){
+          console.log("value=" + value + " isFn=" + isFn + " thisVer=" + thisVer + " verify[thisVer][0].test(value)=" + (isFn ? '' : verify[thisVer][0].test(value)));
           var isTrue = isFn ? errorText = verify[thisVer](value, item) : !verify[thisVer][0].test(value);
           errorText = errorText || verify[thisVer][1];
           //如果是必填项或者非空命中校验，则阻止提交，弹出提示
@@ -438,8 +439,7 @@ layui.define('layer', function(exports){
             //  layer.msg(errorText, {icon: 5, shift: 6});
             //}else{
               //提示层风格
-            var tips = thisVer === 'char' ? 1 : 2;
-            console.log(tips);
+            var tips = (thisVer === 'char' || thisVer == 'longtext') ? 1 : 2;
               if(verType === 'tips'){
                 layer.tips(errorText, function(){
                   if(typeof othis.attr('lay-ignore') !== 'string'){

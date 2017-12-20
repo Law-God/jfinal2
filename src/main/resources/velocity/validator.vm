@@ -3,6 +3,11 @@ package ${package};
 import ${modelPackageName}.${className};
 import com.jfinal.core.Controller;
 import com.jfinal.validate.Validator;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import com.common.ReturnMsg;
 
 /**
 *  Validator
@@ -10,22 +15,24 @@ import com.jfinal.validate.Validator;
 public class ${className}Validator extends Validator {
 
     protected void validate(Controller controller) {
-#foreach (${column} in ${columns.commonColumns})
-    #if($!column.isNullable=="0")
-        #set($isNullable=true)
-    #else
-        #set($isNullable=false)
-    #end
+        #foreach (${column} in ${columns.commonColumns})
+            #if($!column.isNullable=="0")
+                #set($isNullable=true)
+            #else
+                #set($isNullable=false)
+            #end
 
-#if($!column.sqlType ==  "string")
-        #set($size=$column.size / 2)
-        validateString($isNullable,"${tableName}.${column.name}", 1,${size},"${column.name}Msg", "${column.remarks}");
-#elseif($!column.sqlType ==  "int")
-        validateInteger($isNullable,"${tableName}.${column.name}", ${column.size},"${column.name}Msg", "${column.remarks}");
-#elseif($!column.sqlType ==  "double")
-        validateDouble($isNullable,"${tableName}.${column.name}", ${column.size},"${column.name}Msg", "${column.remarks}");
-#end
-#end
+        #if($!column.sqlType ==  "string")
+                #set($size=$column.size / 2)
+                validateString($isNullable,"${tableName}.${column.name}", 1,${size},"${column.name}Msg", "${column.remarks}");
+        #elseif($!column.sqlType ==  "char")
+                validateInteger($isNullable,"${tableName}.${column.name}", ${column.size},"${column.name}Msg", "${column.remarks}");
+        #elseif($!column.sqlType ==  "int")
+                validateInteger($isNullable,"${tableName}.${column.name}", ${column.size},"${column.name}Msg", "${column.remarks}");
+        #elseif($!column.sqlType ==  "double")
+                validateDouble($isNullable,"${tableName}.${column.name}", ${column.size},"${column.name}Msg", "${column.remarks}");
+        #end
+        #end
 
 #foreach (${column} in ${columns.bigColumns})
     #if($!column.isNullable=="0")
@@ -44,12 +51,34 @@ public class ${className}Validator extends Validator {
     }
 
     protected void handleError(Controller controller) {
-        controller.keepModel(${className}.class);
-        String actionKey = getActionKey();
-        if (actionKey.equals("/${tableName}/save")){
-            controller.render("add.html");
-        }else if (actionKey.equals("/${tableName}/update")){
-            controller.render("edit.html");
+        boolean flag = false;
+        List errorMsg = new ArrayList();
+
+        Map m = new HashMap();
+#foreach (${column} in ${columns.commonColumns})
+        Object ${column.name}Msg = controller.getAttr("${column.name}Msg");
+        if(${column.name}Msg != null){
+            flag = true;
+            m.put("key","${column.name}");
+            m.put("sqlType","${column.sqlType}");
+            m.put("value",${column.name}Msg);
+            errorMsg.add(m);
+        }
+        m = new HashMap();
+#end
+#foreach(${column} in ${columns.bigColumns})
+        Object ${column.name}Msg = controller.getAttr("${column.name}Msg");
+        if(${column.name}Msg != null){
+            flag = true;
+            m.put("key","${column.name}");
+            m.put("sqlType","${column.sqlType}");
+            m.put("value",${column.name}Msg);
+            errorMsg.add(m);
+        }
+        m = new HashMap();
+#end
+        if(flag){
+            controller.renderJson(new ReturnMsg(!flag,ReturnMsg.ERROR_TYPE_1,errorMsg));
         }
     }
 }
