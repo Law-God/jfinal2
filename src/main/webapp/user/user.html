@@ -62,7 +62,7 @@
                     {field:'name', title: '姓名'},
                     {field:'sex', title: '性别',templet: '#sex-laytpl'},
                     {field:'age', title: '年龄',templet : '#int-laytpl'},
-                    {field:'birthday', title: '生日'},
+                    {field:'birthday', title: '生日',templet : '#time-laytpl'},
                     {field:'pay', title: '薪资'},
                         {field:'address', title: '地址'},
                         //大文本不显示在列表
@@ -120,7 +120,23 @@
 </script>
 
 <script type="text/html" id="int-laytpl">
-    {{ laytpl.updateValue({{d.age}})}}
+    {{
+        function(){
+            return 'aaa';
+        }
+    }}
+</script>
+
+<script type="text/html" id="time-laytpl">
+    {{# var fn = function(){
+        var date = new Date(d.birthday);
+        var d1 = date.getDate();
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        return y + '-' + m +'-' + d1;
+    };if(true){ }}
+    {{ fn() }}
+    {{# } }}
 </script>
 
 <script type="text/javascript">
