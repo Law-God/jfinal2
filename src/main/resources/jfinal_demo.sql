@@ -1,0 +1,136 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost_3306
+Source Server Version : 50623
+Source Host           : localhost:3306
+Source Database       : jfinal_demo
+
+Target Server Type    : MYSQL
+Target Server Version : 50623
+File Encoding         : 65001
+
+Date: 2017-12-21 17:52:03
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `blog`
+-- ----------------------------
+DROP TABLE IF EXISTS `blog`;
+CREATE TABLE `blog` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `title` varchar(200) NOT NULL COMMENT '标题',
+  `content` text NOT NULL COMMENT '内容',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='主键';
+
+-- ----------------------------
+-- Records of blog
+-- ----------------------------
+INSERT INTO `blog` VALUES ('1', 'JFinal Demo Title here', 'JFinal Demo Content here');
+INSERT INTO `blog` VALUES ('2', 'test 1', 'test 1');
+INSERT INTO `blog` VALUES ('3', 'test 2', 'test 2');
+INSERT INTO `blog` VALUES ('4', 'test 3', 'test 3');
+INSERT INTO `blog` VALUES ('5', 'test 4', 'test 4');
+INSERT INTO `blog` VALUES ('9', 'test5', 'test5');
+INSERT INTO `blog` VALUES ('10', 'test6', 'test6');
+INSERT INTO `blog` VALUES ('11', 'test7', 'test7');
+INSERT INTO `blog` VALUES ('12', 'test8', 'test8');
+INSERT INTO `blog` VALUES ('13', 'test9', 'test9');
+INSERT INTO `blog` VALUES ('14', 'test10', 'test10');
+INSERT INTO `blog` VALUES ('15', 'test11', 'test11');
+INSERT INTO `blog` VALUES ('16', '王尹', '帅帅帅帅帅帅帅帅帅帅帅帅帅帅帅帅帅帅帅帅帅帅');
+INSERT INTO `blog` VALUES ('17', '博客2', '内容2');
+
+-- ----------------------------
+-- Table structure for `register`
+-- ----------------------------
+DROP TABLE IF EXISTS `register`;
+CREATE TABLE `register` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `username` varchar(40) COLLATE utf8_bin NOT NULL COMMENT '用户名',
+  `birthday` date NOT NULL COMMENT '生日',
+  `cardtype` char(1) COLLATE utf8_bin NOT NULL COMMENT '证件类别',
+  `cardno` varchar(20) COLLATE utf8_bin DEFAULT NULL COMMENT '证件编号',
+  `address` text COLLATE utf8_bin NOT NULL COMMENT '家庭地址',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
+-- Records of register
+-- ----------------------------
+INSERT INTO `register` VALUES ('1', '王尹', '2017-12-21', '0', '2312', 0xE98081E8BEBEE696B9E98081E8BEBEE696B9);
+INSERT INTO `register` VALUES ('3', '张三', '2017-12-23', '0', null, 0x736466);
+INSERT INTO `register` VALUES ('4', '王五', '2017-12-29', '0', null, 0x617364);
+
+-- ----------------------------
+-- Table structure for `role`
+-- ----------------------------
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '角色名称',
+  `role_remrk` varchar(200) COLLATE utf8_bin NOT NULL COMMENT '角色描述',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
+-- Records of role
+-- ----------------------------
+INSERT INTO `role` VALUES ('2', '角色3', '角色3描述');
+
+-- ----------------------------
+-- Table structure for `user`
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(50) COLLATE utf8_bin NOT NULL COMMENT '姓名',
+  `sex` char(1) COLLATE utf8_bin NOT NULL COMMENT '性别',
+  `age` int(3) NOT NULL COMMENT '年龄',
+  `address` text COLLATE utf8_bin NOT NULL COMMENT '地址',
+  `birthday` datetime NOT NULL COMMENT '生日',
+  `pay` decimal(8,2) NOT NULL COMMENT '薪资',
+  `summary` longtext COLLATE utf8_bin NOT NULL COMMENT '简介',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES ('7', '张三', '1', '123', 0x313233, '2017-12-16 00:00:00', '1231.00', 0x313233);
+INSERT INTO `user` VALUES ('8', '王尹', '1', '2', 0x343334, '2011-11-30 00:00:00', '34.00', 0x3C70207374796C653D22746578742D616C69676E3A2063656E7465723B223E32333432333C623E343233343C693E3332343332343233343C753E3233343332343233343332343C737472696B653E333234323334333234333332343C2F737472696B653E3C2F753E3C2F693E3C2F623E3C2F703E3C70207374796C653D22746578742D616C69676E3A2063656E7465723B223E3C623E3C693E3C753E3C737472696B653E3C696D67207372633D22687474703A2F2F3139322E32352E3130322E3138373A383038302F6A732F6C617975692F696D616765732F666163652F32392E6769662220616C743D225BE68B9CE68B9C5D223E3C696D67207372633D22687474703A2F2F3139322E32352E3130322E3138373A383038302F6A732F6C617975692F696D616765732F666163652F33342E6769662220616C743D225BE992B15D223E3C2F737472696B653E3C2F753E3C2F693E3C2F623E3C2F703E3C70207374796C653D22746578742D616C69676E3A2063656E7465723B223E3C623E3C693E3C753E3C737472696B653E736473646664663C2F737472696B653E3C2F753E3C2F693E3C2F623E3C2F703E);
+INSERT INTO `user` VALUES ('9', '小七', '0', '12', 0xE68993E58F91E5A3ABE5A4A7E5A4AB, '2017-12-15 17:23:17', '12121.00', 0xE69292E697A6E6B395);
+INSERT INTO `user` VALUES ('10', '23', '0', '23', 0x32333432, '2017-12-20 00:00:00', '234.00', 0x323334);
+INSERT INTO `user` VALUES ('11', '1', '0', '12', 0x3231, '2017-12-20 00:00:00', '31.00', 0x313233);
+INSERT INTO `user` VALUES ('12', '12', '0', '123', 0x313233, '2017-12-20 00:00:00', '123.00', 0x313233);
+INSERT INTO `user` VALUES ('13', '12', '0', '123', 0x333132, '2017-12-20 00:00:00', '12.00', 0x313233);
+INSERT INTO `user` VALUES ('14', '12', '0', '123', 0x333132, '2017-12-20 00:00:00', '12.00', 0x313233);
+INSERT INTO `user` VALUES ('15', '12', '0', '123', 0x333132, '2017-12-20 00:00:00', '12.00', 0x313233);
+INSERT INTO `user` VALUES ('16', '12', '0', '123', 0x333132, '2017-12-20 00:00:00', '12.00', 0x313233);
+INSERT INTO `user` VALUES ('17', '12312', '0', '123', 0x3231333233313233, '2017-12-20 00:00:00', '121.00', 0x3132333132);
+INSERT INTO `user` VALUES ('18', '12312', '0', '12', 0x313233, '2017-12-20 00:00:00', '12231.00', 0x313233);
+INSERT INTO `user` VALUES ('19', '12', '0', '123', 0x313233, '2017-12-20 00:00:00', '12.00', 0x313233);
+INSERT INTO `user` VALUES ('20', '12', '0', '123', 0x313233, '2017-12-20 00:00:00', '12.00', 0x313233);
+INSERT INTO `user` VALUES ('21', '123', '0', '123', 0x33313233, '2017-12-20 00:00:00', '2.00', 0x3132333132);
+INSERT INTO `user` VALUES ('22', '123', '0', '123', 0x33313233, '2017-12-20 00:00:00', '2.00', 0x3132333132);
+INSERT INTO `user` VALUES ('23', '12', '0', '123', 0x31323331, '2017-12-20 00:00:00', '123.00', 0x32333132);
+INSERT INTO `user` VALUES ('24', '123', '0', '123', 0x31323331, '2017-12-20 00:00:00', '123.00', 0x31323331);
+INSERT INTO `user` VALUES ('25', '121', '0', '12', 0x31323331, '2017-12-20 00:00:00', '12.00', 0x3132333132);
+INSERT INTO `user` VALUES ('26', '12312', '0', '123', 0x3231333233313233, '2017-12-19 00:00:00', '121.00', 0x31323331327364);
+INSERT INTO `user` VALUES ('27', '12312', '0', '123', 0x3231333233313233, '2017-12-19 00:00:00', '121.00', 0x31323331327364);
+INSERT INTO `user` VALUES ('28', '123', '0', '1', 0x31323331, '2017-12-20 00:00:00', '1231.00', 0x31323331);
+INSERT INTO `user` VALUES ('29', '123', '0', '123', 0x323331, '2017-12-20 00:00:00', '121.00', 0x3132333132);
+INSERT INTO `user` VALUES ('30', '123', '0', '123', 0x313233, '2017-12-05 00:00:00', '1231.00', 0x313233);
+INSERT INTO `user` VALUES ('31', '123', '0', '123', 0x313233, '2017-12-14 00:00:00', '1231.00', 0x313233);
+INSERT INTO `user` VALUES ('32', '12', '0', '123', 0x3132333132, '2017-12-20 00:00:00', '123.00', 0x3132333132);
+INSERT INTO `user` VALUES ('33', '123', '0', '123', 0x3233313233, '2017-12-20 00:00:00', '1231.00', 0x3132333132);
+INSERT INTO `user` VALUES ('34', '123', '0', '12', 0x323133, '2017-12-20 00:00:00', '12.00', 0x31323331);
+INSERT INTO `user` VALUES ('35', 'sdf', '0', '123', 0x313233, '2017-12-20 00:00:00', '1.00', 0x31323331);
+INSERT INTO `user` VALUES ('36', '12', '0', '123', 0x3132, '2017-12-20 00:00:00', '123.00', 0x313233);
+INSERT INTO `user` VALUES ('37', '123', '0', '123', 0x313233, '2017-12-20 00:00:00', '12.00', 0x313233);
+INSERT INTO `user` VALUES ('38', '123', '0', '123', 0x323331, '2017-12-20 00:00:00', '123.00', 0x313233);
+INSERT INTO `user` VALUES ('39', '123', '0', '12', 0x313233, '2017-12-20 00:00:00', '31.00', 0x313233);
+INSERT INTO `user` VALUES ('40', 'kfl', '1', '111', 0x323334323334323334, '2017-12-14 00:00:00', '234234.00', 0x3C623E3C693E3C753E32333C2F753E3C2F693E3C2F623E);
