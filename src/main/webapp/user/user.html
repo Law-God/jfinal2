@@ -116,4 +116,40 @@
     {{ d.LAY_TABLE_INDEX+1 }}
 </script>
 
+<<<<<<< HEAD
+=======
+<script type="text/html" id="sex-laytpl">
+    #[[
+        {{#  if(d.sex == 0){ }}
+            男
+        {{#  } else { }}
+            女
+        {{#  } }}
+    ]]#
+</script>
+
+<script type="text/html" id="int-laytpl">
+    {{
+        function(){
+            return 'aaa';
+        }
+    }}
+</script>
+
+<script type="text/html" id="time-laytpl">
+    {{# var fn = function(){
+        var date = new Date(d.birthday);
+        var d1 = date.getDate();
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        return y + '-' + m +'-' + d1;
+    };if(true){ }}
+    {{ fn() }}
+    {{# } }}
+</script>
+
+<script type="text/javascript">
+
+</script>
+>>>>>>> 80b0f3e372bc2615f519098df5036c0dc82f7f09
 #end
