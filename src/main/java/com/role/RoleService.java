@@ -12,7 +12,7 @@ public class RoleService {
 private static final Role dao = new Role().dao();
 
 	public Page<Role> paginate(int pageNumber, int pageSize) {
-    	return dao.paginate(pageNumber, pageSize, "select *", "from role order by id asc");
+    	return dao.paginate(pageNumber, pageSize, "select *", "from role order by id desc");
     }
 
     public LayUiPage<Role> layUiPaginate(int pageNumber, int pageSize) {

@@ -1,22 +1,22 @@
-package com.role;
+package com.register;
 
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
-import com.common.model.Role;
+import com.common.model.Register;
 import com.common.ReturnMsg;
 
 /**
  * 
  * Controller
  */
-@Before(RoleInterceptor.class)
-public class RoleController extends Controller {
+@Before(RegisterInterceptor.class)
+public class RegisterController extends Controller {
 	
-	static RoleService service = new RoleService();
+	static RegisterService service = new RegisterService();
 	
 	public void index() {
-		setAttr("rolePage", service.paginate(getParaToInt(0, 1), 10));
-		render("role.html");
+		setAttr("registerPage", service.paginate(getParaToInt(0, 1), 10));
+		render("register.html");
 	}
 
 	public void list() {
@@ -32,10 +32,10 @@ public class RoleController extends Controller {
 	 * save 与 update 的业务逻辑在实际应用中也应该放在 serivce 之中，
 	 * 并要对数据进正确性进行验证，在此仅为了偷懒
 	 */
-	@Before(RoleValidator.class)
+	@Before(RegisterValidator.class)
 	public void save() {
 		try{
-			getModel(Role.class).save();
+			getModel(Register.class).save();
 		}catch (Exception e){
 			e.printStackTrace();
 			renderJson(new ReturnMsg(false,"系统出错，请联系管理员"));
@@ -45,17 +45,17 @@ public class RoleController extends Controller {
 	}
 	
 	public void edit() {
-		setAttr("role", service.findById(getParaToInt()));
+		setAttr("register", service.findById(getParaToInt()));
 	}
 	
 	/**
 	 * save 与 update 的业务逻辑在实际应用中也应该放在 serivce 之中，
 	 * 并要对数据进正确性进行验证，在此仅为了偷懒
 	 */
-	@Before(RoleValidator.class)
+	@Before(RegisterValidator.class)
 	public void update() {
 		try{
-			getModel(Role.class).update();
+			getModel(Register.class).update();
 		}catch (Exception e){
 			e.printStackTrace();
 			renderJson(new ReturnMsg(false,"系统出错，请联系管理员"));
@@ -66,7 +66,7 @@ public class RoleController extends Controller {
 	
 	public void delete() {
 		service.deleteById(getParaToInt());
-		redirect("/role");
+		redirect("/register");
 	}
 }
 

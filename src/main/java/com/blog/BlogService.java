@@ -12,7 +12,7 @@ public class BlogService {
 private static final Blog dao = new Blog().dao();
 
 	public Page<Blog> paginate(int pageNumber, int pageSize) {
-    	return dao.paginate(pageNumber, pageSize, "select *", "from blog order by id asc");
+    	return dao.paginate(pageNumber, pageSize, "select *", "from blog order by id desc");
     }
 
     public LayUiPage<Blog> layUiPaginate(int pageNumber, int pageSize) {

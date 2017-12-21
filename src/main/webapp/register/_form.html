@@ -1,0 +1,66 @@
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;用户名
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="username" name="register.username" value="#(register.username??)" placeholder="请输入用户名" lay-verify="required|string20" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+                <div class="layui-col-xs6">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;生日
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="birthday_date" name="register.birthday" value="#if(register.birthday??)#date(register.birthday,'yyyy-MM-dd')#end"  lay-verify="required|date" placeholder="请选择日期" readonly lay-verType="tips" readonly autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+    </div>
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;证件类别
+                    </label>
+                    <div class="layui-input-block" id="cardtype"  lay-verify="char" lay-verType="tips" lay-tip="cardtype">
+                        <input type="hidden" id="cardtype-radio-hidden" value="#(register.cardtype??)" />
+                        <input type="radio" name="register.cardtype" value="0" title="男" #(register.cardtype?? == '0' ? 'checked="checked"' : '') lay-filter="filter-radio-cardtype" />
+                        <input type="radio" name="register.cardtype" value="1" title="女" #(register.cardtype?? == '1' ? 'checked="checked"' : '') lay-filter="filter-radio-cardtype"/>
+                    </div>
+                 </div>
+            </div>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        证件编号
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="cardno" name="register.cardno" value="#(register.cardno??)" placeholder="请输入证件编号" lay-verify="string10" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <div class="layui-row">
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">
+                <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;家庭地址
+            </label>
+            <div class="layui-input-block">
+                <textarea id="address" name="register.address" placeholder="请输入家庭地址" lay-verify="required|text" lay-verType="tips" class="layui-textarea">#(register.address??)</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="form-register">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </div>

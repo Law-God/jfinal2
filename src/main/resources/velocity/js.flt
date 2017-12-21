@@ -32,45 +32,42 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
     //自定义验证规则
     form.verify({
     <#list columns.commonColumns as column>
-        <#if column.isNullable == "0">
-            <#if column.sqlType == "string">
-                ${column.layVerify} : function(value){
-                    if(value.length > ${(column.size/2)?floor}){
-                        return '不能超过${(column.size/2)?floor}个字符';
+        <#if column.sqlType == "string">
+            ${column.layVerify} : function(value){
+                if(value.length > ${(column.size/2)?floor}){
+                    return '不能超过${(column.size/2)?floor}个字符';
+                }
+            },
+        <#elseif column.sqlType == "int">
+            ${column.layVerify} : function(value){
+                var regObj = getIntRegByLength(${column.size});
+                if(!!regObj.reg){
+                    var reg = new RegExp(regObj.reg);
+                    if(!reg.test(value)){
+                        return '请输入'+regObj.msg;
                     }
-                },
-            <#elseif column.sqlType == "int">
-                ${column.layVerify} : function(value){
-                    var regObj = getIntRegByLength(${column.size});
-                    if(!!regObj.reg){
-                        var reg = new RegExp(regObj.reg);
-                        if(!reg.test(value)){
-                            return '请输入'+regObj.msg;
-                        }
-                    }else{
-                        return '正则表达式为空';
+                }else{
+                    return '正则表达式为空';
+                }
+            },
+        <#elseif column.sqlType == "double">
+            ${column.layVerify} : function(value){
+                var regObj = getDoubleRegByLength(${column.size});
+                if(!!regObj.reg){
+                    var reg = new RegExp(regObj.reg);
+                    if(!reg.test(value)){
+                        return '请输入'+regObj.msg;
                     }
-                },
-            <#elseif column.sqlType == "double">
-                ${column.layVerify} : function(value){
-                    var regObj = getDoubleRegByLength(${column.size});
-                    if(!!regObj.reg){
-                        var reg = new RegExp(regObj.reg);
-                        if(!reg.test(value)){
-                            return '请输入'+regObj.msg;
-                        }
-                    }else{
-                        return '正则表达式为空';
-                    }
-                },
-            <#elseif column.sqlType == "char">
-                ${column.layVerify} : function(){
-                    if(!$("#${column.name}-radio-hidden").val()){
-                        return '请选择${column.remarks}';
-                    }
-                },
-            </#if>
-
+                }else{
+                    return '正则表达式为空';
+                }
+            },
+        <#elseif column.sqlType == "char">
+            ${column.layVerify} : function(){
+                if(!$("#${column.name}-radio-hidden").val()){
+                    return '请选择${column.remarks}';
+                }
+            },
         </#if>
     </#list>
 
@@ -95,6 +92,14 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
                     }
                 },
             </#if>
+        <#else>
+            <#if column.sqlType == "text">
+                ${column.layVerify} : function(value){
+                    if(!!value  && value.length > 1000){
+                        return '内容不能超过1000个字符';
+                    }
+                }
+            </#if>
         </#if>
     </#list>
     });
@@ -107,7 +112,7 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
     });
 <#elseif column.sqlType == "char">
     form.on('radio(filter-radio-${column.name})', function(data){
-        $("#sex-radio-hidden").val(data.value);
+        $("#${column.name}-radio-hidden").val(data.value);
     });
 </#if>
 </#list>

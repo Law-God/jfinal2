@@ -1,21 +1,15 @@
-#@layout()
-#define main()
-<div class="layui-tab">
-    <ul class="layui-tab-title">
-        <li class="layui-this">新增</li>
-    </ul>
-    <div class="layui-tab-content">
-        <div>
-            <a href="/role" class="layui-btn layui-btn-normal"><i class="layui-icon" title="返回">&#xe65c;&nbsp;返回</i></a>
-        </div>
-        <hr class="layui-bg-gray" />
-        <div class="layui-tab-item layui-show">
-            <form id="role-form" class="layui-form"  action="/role/save" method="post">
-                #include("_form.html")
-            </form>
-        </div>
-    </div>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>新增</title>
+    #include("/common/_res.html")
+</head>
+<body style="padding:15px">
+<form id="form-role" class="layui-form"  action="/role/save" method="post">
+    #include("_form.html")
+</form>
 <script src="/js/common.js"></script>
 <script src="/role/role.js"></script>
-#end
+</body>
+</html>

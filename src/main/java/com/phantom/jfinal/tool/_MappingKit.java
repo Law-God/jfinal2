@@ -1,5 +1,9 @@
-package com.common.model;
+package com.phantom.jfinal.tool;
 
+import com.common.model.Blog;
+import com.common.model.Register;
+import com.common.model.Role;
+import com.common.model.User;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 
 /**
@@ -16,6 +20,9 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 public class _MappingKit {
 
 	public static void mapping(ActiveRecordPlugin arp) {
+		arp.addMapping("role", "id", Role.class);
+		arp.addMapping("blog", "id", Blog.class);
+		arp.addMapping("user", "id", User.class);
 		arp.addMapping("register", "id", Register.class);
 	}
 }

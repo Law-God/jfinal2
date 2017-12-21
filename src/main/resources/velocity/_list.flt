@@ -51,7 +51,16 @@
 			,cols: [[
                     {title: '序号',templet: '#seq-laytpl',width:60},
                 <#list  columns.commonColumns  as  column>
-                    {field:'${column.name}', title: '${column.remarks}'},
+                    {field:'${column.name}', title: '${column.remarks}'
+                    <#if column.sqlType == 'char' >
+                        ,formatter : format${column.name}
+                    <#elseif column.sqlType == 'int'>
+                        ,formatter : formatInt
+                    <#elseif column.sqlType == 'double'>
+                        ,formatter : formatDouble
+                    <#elseif column.sqlType == 'date'>
+                        ,formatter : formatDate
+                    </#if>},
                 </#list>
                 <#list  columns.bigColumns  as  column>
                     <#if column.sqlType == 'longtext'>
@@ -92,6 +101,17 @@
             //layer.full(layer${tableName}add);
         })
 	});
+
+<#list  columns.commonColumns  as  column>
+<#if column.sqlType == 'char' >
+        function format${column.name}(value) {
+            if(value == '0')
+                return '男';
+            else
+                return '女';
+        }
+</#if>
+</#list>
 </script>
 
 <script type="text/html" id="${tableName}-bar">
@@ -100,5 +120,8 @@
 	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
-#include('/js/common.laytpl')
+<script type="text/html" id="seq-laytpl">
+    {{ d.LAY_TABLE_INDEX+1 }}
+</script>
+
 #end

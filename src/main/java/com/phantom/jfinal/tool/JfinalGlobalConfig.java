@@ -1,7 +1,6 @@
 package com.phantom.jfinal.tool;
 
 import com.blog.BlogController;
-import com.common.model._MappingKit;
 import com.index.IndexController;
 import com.jfinal.config.*;
 import com.jfinal.core.JFinal;
@@ -9,6 +8,7 @@ import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.template.Engine;
+import com.register.RegisterController;
 import com.role.RoleController;
 import com.user.UserController;
 
@@ -56,6 +56,7 @@ public class JfinalGlobalConfig extends JFinalConfig {
 		me.add("/blog", BlogController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
 		me.add("/user", UserController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
 		me.add("/role", RoleController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
+		me.add("/register", RegisterController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
 	}
 	
 	public void configEngine(Engine me) {

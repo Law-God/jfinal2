@@ -548,7 +548,14 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
               if(item3.toolbar){
                 return laytpl($(item3.toolbar).html()||'').render(tplData);
               }
-              
+
+              if(typeof item3.formatter !== 'undefined') {
+                if($.isFunction( item3.formatter ) ) {
+                  content = item3.formatter(content);
+                }
+                return content;
+              }
+
               return item3.templet ? laytpl($(item3.templet).html() || String(content)).render(tplData) : content;
             }()
           ,'</div></td>'].join('');

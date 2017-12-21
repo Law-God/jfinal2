@@ -5,20 +5,41 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
     ,laydate = layui.laydate
     ,AjaxUtil = layui.AjaxUtil;;
     var $= layui.jquery;
+        //日期
+        laydate.render({
+            elem: '#birthday_date',
+            type : "date",
+            format : 'yyyy-MM-dd',
+            trigger : 'click',
+            done: function(value, date){
+                setTimeout(function(){
+                    layuiBlurCheck($('#birthday_date'),verify);
+                },100)
+            }
+        });
 
 
     //自定义验证规则
     form.verify({
-                required|string100 : function(value){
-                    if(value.length > 100){
-                        return '不能超过100个字符';
-                    }
-                },
-
+            string20 : function(value){
+                if(value.length > 20){
+                    return '不能超过20个字符';
+                }
+            },
+            char : function(){
+                if(!$("#cardtype-radio-hidden").val()){
+                    return '请选择证件类别';
+                }
+            },
+            string10 : function(value){
+                if(value.length > 10){
+                    return '不能超过10个字符';
+                }
+            },
 
                 text : function(value){
                     if(value.length <= 0){
-                        return '请输入内容';
+                        return '请输入家庭地址';
                     }else if(value.length > 1000){
                         return '内容不能超过1000个字符';
                     }
@@ -26,20 +47,26 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
     });
 
     var  verify = form.config.verify;
-    $("#title").blur(function(){
+    $("#username").blur(function(){
+        layuiBlurCheck($(this),verify);
+    });
+    form.on('radio(filter-radio-cardtype)', function(data){
+        $("#cardtype-radio-hidden").val(data.value);
+    });
+    $("#cardno").blur(function(){
         layuiBlurCheck($(this),verify);
     });
 
-    $("#content").blur(function(){
+    $("#address").blur(function(){
         layuiBlurCheck($(this),verify,1);
     })
 
-    form.on('submit(form-blog)', function (data) {
-        var url = $('#form-blog').attr('action');
+    form.on('submit(form-register)', function (data) {
+        var url = $('#form-register').attr('action');
         AjaxUtil.ajax({url : url,dataType : 'json',data:data.field,success : function(response,status){
             if(response.success){
                 //parent.layer.closeAll();
-                parent.location.href = '/blog';
+                parent.location.href = '/register';
             }else if(response.errorType == 1){
                 var msgList = response.msgList;
                 for(var i= 0,len=msgList.length;i<len;i++){

@@ -5,7 +5,7 @@
                         <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;角色名称
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" name="role.role_name" value="#(role.role_name??)" placeholder="请输入角色名称" lay-verify="required|string50" autocomplete="off" class="layui-input">
+                        <input type="text" id="role_name" name="role.role_name" value="#(role.role_name??)" placeholder="请输入角色名称" lay-verify="required|required|string50" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -15,7 +15,7 @@
                         <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;角色描述
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" name="role.role_remrk" value="#(role.role_remrk??)" placeholder="请输入角色描述" lay-verify="required|string100" autocomplete="off" class="layui-input">
+                        <input type="text" id="role_remrk" name="role.role_remrk" value="#(role.role_remrk??)" placeholder="请输入角色描述" lay-verify="required|required|string100" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>

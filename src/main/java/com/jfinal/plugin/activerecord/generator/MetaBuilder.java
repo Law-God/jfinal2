@@ -290,8 +290,8 @@ public class MetaBuilder {
 	protected String getLayVerify(ColumnMeta cm){
 		if(cm == null) return  "";
 		//是否必填
-		String isNullable = cm.isNullable;
-		if(!"0".equals(isNullable))return "";
+//		String isNullable = cm.isNullable;
+//		if(!"0".equals(isNullable))return "";
 		//组合验证规则
 		String sqlType = cm.sqlType;
 		int size = cm.size;

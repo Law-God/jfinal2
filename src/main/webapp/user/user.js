@@ -23,7 +23,7 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
 
     //自定义验证规则
     form.verify({
-                string25 : function(value){
+                required|string25 : function(value){
                     if(value.length > 25){
                         return '不能超过25个字符';
                     }
@@ -35,7 +35,7 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
                     }
                 },
 
-                int3 : function(value){
+                required|int3 : function(value){
                     var regObj = getIntRegByLength(3);
                     if(!!regObj.reg){
                         var reg = new RegExp(regObj.reg);
@@ -48,7 +48,7 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
                 },
 
 
-                double10 : function(value){
+                required|double10 : function(value){
                     var regObj = getDoubleRegByLength(10);
                     if(!!regObj.reg){
                         var reg = new RegExp(regObj.reg);

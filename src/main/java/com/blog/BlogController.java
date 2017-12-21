@@ -3,6 +3,7 @@ package com.blog;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.common.model.Blog;
+import com.common.ReturnMsg;
 
 /**
  * 
@@ -33,8 +34,14 @@ public class BlogController extends Controller {
 	 */
 	@Before(BlogValidator.class)
 	public void save() {
-		getModel(Blog.class).save();
-		redirect("/blog");
+		try{
+			getModel(Blog.class).save();
+		}catch (Exception e){
+			e.printStackTrace();
+			renderJson(new ReturnMsg(false,"系统出错，请联系管理员"));
+			return;
+		}
+		renderJson(new ReturnMsg(true,""));
 	}
 	
 	public void edit() {
@@ -47,8 +54,14 @@ public class BlogController extends Controller {
 	 */
 	@Before(BlogValidator.class)
 	public void update() {
-		getModel(Blog.class).update();
-		redirect("/blog");
+		try{
+			getModel(Blog.class).update();
+		}catch (Exception e){
+			e.printStackTrace();
+			renderJson(new ReturnMsg(false,"系统出错，请联系管理员"));
+			return;
+		}
+		renderJson(new ReturnMsg(true,""));
 	}
 	
 	public void delete() {

@@ -5,7 +5,7 @@
                         <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;姓名
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" id="name" name="user.name" value="#(user.name??)" placeholder="请输入姓名" lay-verify="required|string25" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input type="text" id="name" name="user.name" value="#(user.name??)" placeholder="请输入姓名" lay-verify="required|required|string25" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                         <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;年龄
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" id="age" name="user.age" value="#(user.age??)" placeholder="请输入年龄" lay-verify="required|int3" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input type="text" id="age" name="user.age" value="#(user.age??)" placeholder="请输入年龄" lay-verify="required|required|int3" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                         <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;薪资
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" id="pay" name="user.pay" value="#(user.pay??)" placeholder="请输入薪资" lay-verify="required|double10" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input type="text" id="pay" name="user.pay" value="#(user.pay??)" placeholder="请输入薪资" lay-verify="required|required|double10" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                 <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;地址
             </label>
             <div class="layui-input-block">
-                <textarea id="address" name="user.address" placeholder="请输入地址" lay-verify="required|text" lay-verType="tips" class="layui-textarea">#(user.address??)</textarea>
+                <textarea id="address" name="user.address" placeholder="请输入地址" lay-verify="text" lay-verType="tips" class="layui-textarea">#(user.address??)</textarea>
             </div>
         </div>
     </div>

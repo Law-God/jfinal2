@@ -6,10 +6,10 @@
 	</ul>
 	<div class="layui-tab-content">
 		<div>
-            <button id="blog-add" class="layui-btn layui-btn-sm" title="新增"><i class="layui-icon">&#xe608;&nbsp;新增</i></button>
+            <button id="register-add" class="layui-btn layui-btn-sm" title="新增"><i class="layui-icon">&#xe608;&nbsp;新增</i></button>
 		</div>
 		<div class="layui-tab-item layui-show">
-			<table class="layui-hide" id="table-blog" lay-filter="blog-tool"></table>
+			<table class="layui-hide" id="table-register" lay-filter="register-tool"></table>
 		</div>
 	</div>
 </div>
@@ -19,7 +19,7 @@
 		var table = layui.table;
         var $ = layui.jquery;
         //监听工具条
-        table.on('tool(blog-tool)', function(obj){
+        table.on('tool(register-tool)', function(obj){
             var data = obj.data;
             if(obj.event === 'detail'){
                 //layer.msg('ID：'+ data.id2 + ' 的查看操作');
@@ -27,14 +27,14 @@
                 layer.confirm('确定删除？', function(index){
                     //obj.del();
                     //layer.close(index);
-                    window.location.href='/blog/delete/' + data.id;
+                    window.location.href='/register/delete/' + data.id;
                 });
             } else if(obj.event === 'edit'){
                 var layeruseredit = layer.open({
                     title : "修改",
-                    id: 'layer_blog_edit', //设定一个id，防止重复弹出
+                    id: 'layer_register_edit', //设定一个id，防止重复弹出
                     type: 2,
-                    content: '/blog/edit/' + data.id,
+                    content: '/register/edit/' + data.id,
                     area: ['70%', '90%'],
                     maxmin: true,
                     end: function () {
@@ -45,15 +45,23 @@
             }
         });
 		table.render({
-			elem: '#table-blog'
-			,url:'/blog/list'
+			elem: '#table-register'
+			,url:'/register/list'
 			,cellMinWidth: 60
 			,cols: [[
                     {title: '序号',templet: '#seq-laytpl',width:60},
-                    {field:'title', title: '标题'
+                    {field:'username', title: '用户名'
 },
-                        {field:'content', title: '内容'},
-                    {field:'', title: '操作',minWidth:110,toolbar: '#blog-bar'},
+                    {field:'birthday', title: '生日'
+                        ,formatter : formatDate
+                    },
+                    {field:'cardtype', title: '证件类别'
+                        ,formatter : formatcardtype
+},
+                    {field:'cardno', title: '证件编号'
+},
+                        {field:'address', title: '家庭地址'},
+                    {field:'', title: '操作',minWidth:110,toolbar: '#register-bar'},
 			]]
             ,even: true //开启隔行背景
 			,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
@@ -71,24 +79,30 @@
                 }
             }
 		});
-        $("#blog-add").click(function(){
-            var layerblogadd = layer.open({
+        $("#register-add").click(function(){
+            var layerregisteradd = layer.open({
                 title : "新增",
                 type: 2,
-                content: '/blog/add',
+                content: '/register/add',
                 area: ['70%', '90%'],
                 maxmin: true,
                 end: function () {
                     //location.reload();
                 }
             });
-            //layer.full(layerblogadd);
+            //layer.full(layerregisteradd);
         })
 	});
 
+        function formatcardtype(value) {
+            if(value == '0')
+                return '男';
+            else
+                return '女';
+        }
 </script>
 
-<script type="text/html" id="blog-bar">
+<script type="text/html" id="register-bar">
 	<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>

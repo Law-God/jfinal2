@@ -75,8 +75,59 @@ function layuiBlurCheck($id,verify,tips,$tip){
                     var t = $id.offset().top;
                     $(window).scrollTop(t);//滚动到锚点位置
                 }
-                stop = true;
+                //stop = true;
             }
         }
     });
 }
+
+
+var NumberFormat= {
+    /**
+     * 格式化数字
+     * Author : Z,Mingyu
+     * 参数：
+     * prmNum (Number) : 要格式化的数字
+     * prmPtn (String) : 格式化规则，例如：#,##0.00
+     * * prmNullValue : 当要格式化的数字为null、空或非数字时，返回的结果。默认为0
+     */
+    formatNum: function (prmNum, prmPtn, prmNullValue) {
+        var nullValue = prmNullValue || prmNullValue == "" ? prmNullValue : 0;
+        if (prmNum == "" || prmNum == null) return nullValue;
+        prmNum = String(prmNum).replace(/\,/g, "");
+        if (isNaN(prmNum)) return nullValue;
+        if (prmPtn == "" || prmPtn == null) return prmNum;
+        var ptnLen = prmPtn.length, pointIndex = prmPtn.indexOf("."), groupIndex = prmPtn.indexOf(","),
+            pointLen = (pointIndex == -1 ? 0 : ptnLen - pointIndex - 1), pointStr = "", pointNumIndex;
+        prmNum = parseFloat(prmNum).toFixed(pointLen) + "";
+        if (groupIndex != -1) {
+            if (pointIndex == -1) {
+                pointIndex = ptnLen;
+            } else {
+                pointNumIndex = prmNum.indexOf(".");
+                pointStr = prmNum.substring(pointNumIndex, prmNum.length);
+                prmNum = prmNum.substring(0, pointNumIndex);
+            }
+            var len = pointIndex - groupIndex - 1, reg = new RegExp("(-?\\d+)(\\d{" + len + "})");
+            while (reg.test(prmNum)) prmNum = prmNum.replace(reg, "$1,$2");
+        }
+        return prmNum + pointStr;
+    }
+}
+
+function formatInt(value){
+    return NumberFormat.formatNum(value,"#,##0","");
+}
+
+function formatDouble(value){
+    return NumberFormat.formatNum(value,"#,##0.00","");
+}
+
+function formatDate(value){
+    var date = new Date(value);
+    var d1 = date.getDate();
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    return y + '-' + m +'-' + d1;
+}
+
