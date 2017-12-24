@@ -92,7 +92,7 @@ public class MetaBuilder {
 			for (TableMeta tableMeta : ret) {
 				buildPrimaryKey(tableMeta);
 				buildColumnMetas(tableMeta);
-				buildColumnCommentMetas(tableMeta);
+				//buildColumnCommentMetas(tableMeta);
 			}
 			return ret;
 		}

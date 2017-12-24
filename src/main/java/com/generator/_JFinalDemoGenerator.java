@@ -1,10 +1,10 @@
-package com.phantom.jfinal.tool;
+package com.generator;
 
+import com.common.JfinalGlobalConfig;
 import com.jfinal.kit.PathKit;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.generator.Generator;
 import com.jfinal.plugin.druid.DruidPlugin;
-import com.phantom.jfinal.tool.JfinalGlobalConfig;
 
 import javax.sql.DataSource;
 
@@ -25,25 +25,23 @@ public class _JFinalDemoGenerator {
 	
 	public static void main(String[] args) {
 		// base model 所使用的包名
-		String baseModelPackageName = "com.common.model.base";
+		String baseModelPackageName = "com.model.pojo";
 		// base model 文件保存路径
-		String baseModelOutputDir = PathKit.getWebRootPath() + "/src/main/java/com/common/model/base";
+		String baseModelOutputDir = PathKit.getWebRootPath() + "/src/main/java/com/model/pojo";
 		
 		// model 所使用的包名 (MappingKit 默认使用的包名)
-		String modelPackageName = "com.common.model";
+		String modelPackageName = "com.model";
 		// model 文件保存路径 (MappingKit 与 DataDictionary 文件默认保存路径)
 		String modelOutputDir = baseModelOutputDir + "/..";
 
-		String controllerPackageName = "com";
-		String controllerOutputDir = PathKit.getWebRootPath() + "/src/main/java/com";
 
 		// 创建生成器
-		Generator generator = new Generator(getDataSource(), baseModelPackageName, baseModelOutputDir, modelPackageName, modelOutputDir,controllerPackageName,controllerOutputDir);
+		Generator generator = new Generator(getDataSource(), baseModelPackageName, baseModelOutputDir, modelPackageName, modelOutputDir);
 		//Generator generator = new Generator(getDataSource(), baseModelPackageName, baseModelOutputDir, modelPackageName, modelOutputDir);
 		// 设置是否生成链式 setter 方法
 		generator.setGenerateChainSetter(false);
 		// 添加不需要生成的表名
-		generator.addExcludedTable(new String[]{"blog","user","role"});
+		generator.addExcludedTable(new String[]{"user"});
 		// 设置是否在 Model 中生成 dao 对象
 		generator.setGenerateDaoInModel(true);
 		// 设置是否生成链式 setter 方法

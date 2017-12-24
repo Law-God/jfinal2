@@ -1,6 +1,5 @@
-package com.phantom.jfinal.tool;
+package com.common;
 
-import com.blog.BlogController;
 import com.index.IndexController;
 import com.jfinal.config.*;
 import com.jfinal.core.JFinal;
@@ -8,9 +7,8 @@ import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.template.Engine;
-import com.register.RegisterController;
-import com.role.RoleController;
-import com.user.UserController;
+import com.model._MappingKit;
+
 
 /**
  * 本 demo 仅表达最为粗浅的 jfinal 用法，更为有价值的实用的企业级用法
@@ -53,10 +51,6 @@ public class JfinalGlobalConfig extends JFinalConfig {
 	 */
 	public void configRoute(Routes me) {
 		me.add("/", IndexController.class, "/index");	// 第三个参数为该Controller的视图存放路径
-		me.add("/blog", BlogController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
-		me.add("/user", UserController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
-		me.add("/role", RoleController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
-		me.add("/register", RegisterController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
 	}
 	
 	public void configEngine(Engine me) {

@@ -1,4 +1,4 @@
-package com.common.model;
+package com.model;
 
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 
@@ -16,7 +16,7 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 public class _MappingKit {
 
 	public static void mapping(ActiveRecordPlugin arp) {
-		arp.addMapping("register", "id", Register.class);
+		arp.addMapping("blog", "id", Blog.class);
 	}
 }
 

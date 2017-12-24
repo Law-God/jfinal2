@@ -39,8 +39,6 @@ public class Generator {
 	protected MappingKitGenerator mappingKitGenerator;
 	protected DataDictionaryGenerator dataDictionaryGenerator;
 	protected boolean generateDataDictionary = false;
-	//生成controll代码
-	protected ControllerGenerator controllerGenerator;
 	
 	/**
 	 * 构造 Generator，生成 BaseModel、Model、MappingKit 三类文件，其中 MappingKit 输出目录与包名与 Model相同
@@ -52,18 +50,6 @@ public class Generator {
 	 */
 	public Generator(DataSource dataSource, String baseModelPackageName, String baseModelOutputDir, String modelPackageName, String modelOutputDir) {
 		this(dataSource, new BaseModelGenerator(baseModelPackageName, baseModelOutputDir), new ModelGenerator(modelPackageName, baseModelPackageName, modelOutputDir));
-	}
-
-	/**
-	 * 构造 Generator，生成 BaseModel、Model、MappingKit 三类文件，其中 MappingKit 输出目录与包名与 Model相同
-	 * @param dataSource 数据源
-	 * @param baseModelPackageName base model 包名
-	 * @param baseModelOutputDir base mode 输出目录
-	 * @param modelPackageName model 包名
-	 * @param modelOutputDir model 输出目录
-	 */
-	public Generator(DataSource dataSource, String baseModelPackageName, String baseModelOutputDir, String modelPackageName, String modelOutputDir,String controllerPackageName,String controllerOutputDir) {
-		this(dataSource, new BaseModelGenerator(baseModelPackageName, baseModelOutputDir), new ModelGenerator(modelPackageName, baseModelPackageName, modelOutputDir),new ControllerGenerator(controllerPackageName,controllerOutputDir));
 	}
 
 	/**
@@ -113,29 +99,6 @@ public class Generator {
 		this.dataDictionaryGenerator = new DataDictionaryGenerator(dataSource, modelGenerator.modelOutputDir);
 	}
 
-	public Generator(DataSource dataSource, BaseModelGenerator baseModelGenerator, ModelGenerator modelGenerator,ControllerGenerator controllerGenerator) {
-		if (dataSource == null) {
-			throw new IllegalArgumentException("dataSource can not be null.");
-		}
-		if (baseModelGenerator == null) {
-			throw new IllegalArgumentException("baseModelGenerator can not be null.");
-		}
-		if (modelGenerator == null) {
-			throw new IllegalArgumentException("modelGenerator can not be null.");
-		}
-		if (controllerGenerator == null) {
-			throw new IllegalArgumentException("controllGenerator can not be null.");
-		}
-
-		this.metaBuilder = new MetaBuilder(dataSource);
-		this.baseModelGenerator = baseModelGenerator;
-		this.modelGenerator = modelGenerator;
-		controllerGenerator.modelGenerator = modelGenerator;
-		this.controllerGenerator = controllerGenerator;
-		this.mappingKitGenerator = new MappingKitGenerator(modelGenerator.modelPackageName, modelGenerator.modelOutputDir);
-		this.dataDictionaryGenerator = new DataDictionaryGenerator(dataSource, modelGenerator.modelOutputDir);
-
-	}
 
 	/**
 	 * 设置 MetaBuilder，便于扩展自定义 MetaBuilder
@@ -284,10 +247,6 @@ public class Generator {
 		
 		if (dataDictionaryGenerator != null && generateDataDictionary) {
 			dataDictionaryGenerator.generate(tableMetas);
-		}
-
-		if(controllerGenerator != null){
-			controllerGenerator.generate(tableMetas);
 		}
 
 		long usedTime = (System.currentTimeMillis() - start) / 1000;

@@ -1,4 +1,4 @@
-package com.phantom.jfinal.tool;
+package com.generator;
 
 import java.util.Map;
 import java.util.Set;
