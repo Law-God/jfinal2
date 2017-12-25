@@ -42,5 +42,101 @@ public class ColumnMeta {
 	public int size;	//字段长度
 	public int scale; //小数点右侧的指定列的位数
 	public String layVerify; //layui校验规则
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getJavaType() {
+		return javaType;
+	}
+
+	public void setJavaType(String javaType) {
+		this.javaType = javaType;
+	}
+
+	public String getAttrName() {
+		return attrName;
+	}
+
+	public void setAttrName(String attrName) {
+		this.attrName = attrName;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getIsNullable() {
+		return isNullable;
+	}
+
+	public void setIsNullable(String isNullable) {
+		this.isNullable = isNullable;
+	}
+
+	public String getIsPrimaryKey() {
+		return isPrimaryKey;
+	}
+
+	public void setIsPrimaryKey(String isPrimaryKey) {
+		this.isPrimaryKey = isPrimaryKey;
+	}
+
+	public String getDefaultValue() {
+		return defaultValue;
+	}
+
+	public void setDefaultValue(String defaultValue) {
+		this.defaultValue = defaultValue;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getSqlType() {
+		return sqlType;
+	}
+
+	public void setSqlType(String sqlType) {
+		this.sqlType = sqlType;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public int getScale() {
+		return scale;
+	}
+
+	public void setScale(int scale) {
+		this.scale = scale;
+	}
+
+	public String getLayVerify() {
+		return layVerify;
+	}
+
+	public void setLayVerify(String layVerify) {
+		this.layVerify = layVerify;
+	}
 }
 

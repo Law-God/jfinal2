@@ -83,6 +83,105 @@ public class TableMeta {
 	}
 
 
+	public void addColumnMeta(ColumnMeta columnMeta){
+		columnMetas.add(columnMeta);
+	}
+
+	public String getDatabaseName() {
+		return databaseName;
+	}
+
+	public void setDatabaseName(String databaseName) {
+		this.databaseName = databaseName;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getPrimaryKey() {
+		return primaryKey;
+	}
+
+	public void setPrimaryKey(String primaryKey) {
+		this.primaryKey = primaryKey;
+	}
+
+	public List<ColumnMeta> getColumnMetas() {
+		return columnMetas;
+	}
+
+	public void setColumnMetas(List<ColumnMeta> columnMetas) {
+		this.columnMetas = columnMetas;
+	}
+
+	public String getBaseModelName() {
+		return baseModelName;
+	}
+
+	public void setBaseModelName(String baseModelName) {
+		this.baseModelName = baseModelName;
+	}
+
+	public String getBaseModelContent() {
+		return baseModelContent;
+	}
+
+	public void setBaseModelContent(String baseModelContent) {
+		this.baseModelContent = baseModelContent;
+	}
+
+	public String getModelName() {
+		return modelName;
+	}
+
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
+	}
+
+	public String getModelContent() {
+		return modelContent;
+	}
+
+	public void setModelContent(String modelContent) {
+		this.modelContent = modelContent;
+	}
+
+	public int getColNameMaxLen() {
+		return colNameMaxLen;
+	}
+
+	public void setColNameMaxLen(int colNameMaxLen) {
+		this.colNameMaxLen = colNameMaxLen;
+	}
+
+	public int getColTypeMaxLen() {
+		return colTypeMaxLen;
+	}
+
+	public void setColTypeMaxLen(int colTypeMaxLen) {
+		this.colTypeMaxLen = colTypeMaxLen;
+	}
+
+	public int getColDefaultValueMaxLen() {
+		return colDefaultValueMaxLen;
+	}
+
+	public void setColDefaultValueMaxLen(int colDefaultValueMaxLen) {
+		this.colDefaultValueMaxLen = colDefaultValueMaxLen;
+	}
 }
 
 

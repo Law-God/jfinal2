@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE digester-rules PUBLIC
+        "-//Jakarta Apache //DTD digester-rules XML V1.0//EN"
+        "digester-rules.dtd">
+<digester-rules>
+  <object-create-rule pattern="tableMeta" classname="com.jfinal.plugin.activerecord.generator.TableMeta" />
+  <pattern value="tableMeta/columnMeta">
+    <object-create-rule classname="com.jfinal.plugin.activerecord.generator.ColumnMeta" />
+    <bean-property-setter-rule pattern="name" propertyname="name" />
+    <bean-property-setter-rule pattern="javaType" propertyname="javaType" />
+    <bean-property-setter-rule pattern="attrName" propertyname="attrName" />
+    <bean-property-setter-rule pattern="type" propertyname="type" />
+    <bean-property-setter-rule pattern="isNullable" propertyname="isNullable" />
+    <bean-property-setter-rule pattern="isPrimaryKey" propertyname="isPrimaryKey" />
+    <bean-property-setter-rule pattern="defaultValue" propertyname="defaultValue" />
+    <bean-property-setter-rule pattern="remarks" propertyname="remarks" />
+    <bean-property-setter-rule pattern="sqlType" propertyname="sqlType" />
+    <bean-property-setter-rule pattern="size" propertyname="size" />
+    <bean-property-setter-rule pattern="scale" propertyname="scale" />
+    <bean-property-setter-rule pattern="layVerify" propertyname="layVerify" />
+    <set-properties-rule />
+    <set-next-rule methodname="addColumnMeta" />
+  </pattern>
+</digester-rules>

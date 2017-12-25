@@ -18,6 +18,8 @@ package com.jfinal.plugin.activerecord.generator;
 
 import java.util.List;
 import javax.sql.DataSource;
+
+import com.generator.XmlGenerator;
 import com.jfinal.plugin.activerecord.dialect.Dialect;
 
 /**
@@ -39,6 +41,7 @@ public class Generator {
 	protected MappingKitGenerator mappingKitGenerator;
 	protected DataDictionaryGenerator dataDictionaryGenerator;
 	protected boolean generateDataDictionary = false;
+	protected XmlGenerator xmlGenerator;
 	
 	/**
 	 * 构造 Generator，生成 BaseModel、Model、MappingKit 三类文件，其中 MappingKit 输出目录与包名与 Model相同
@@ -249,8 +252,16 @@ public class Generator {
 			dataDictionaryGenerator.generate(tableMetas);
 		}
 
+		if (xmlGenerator != null ) {
+			xmlGenerator.generate(tableMetas);
+		}
+
 		long usedTime = (System.currentTimeMillis() - start) / 1000;
 		System.out.println("Generate complete in " + usedTime + " seconds.");
+	}
+
+	public void setXmlGenerator(XmlGenerator xmlGenerator) {
+		this.xmlGenerator = xmlGenerator;
 	}
 }
 
