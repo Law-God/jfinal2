@@ -214,8 +214,8 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
       statusName: 'code'
       ,statusCode: 0
       ,msgName: 'msg'
-      ,dataName: 'data'
-      ,countName: 'count'
+      ,dataName: 'list'
+      ,countName: 'totalRow'
     }, options.response);
     
     //如果 page 传入 laypage 对象

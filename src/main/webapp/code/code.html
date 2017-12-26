@@ -31,10 +31,10 @@
                 });
             } else if(obj.event === 'edit'){
                 var layeruseredit = layer.open({
-                    title : "修改",
+                    title : "代码生成",
                     id: 'layer_code_edit', //设定一个id，防止重复弹出
                     type: 2,
-                    content: '/code/edit/' + data.id,
+                    content: '/code/edit?name=' + data.name,
                     area: ['70%', '90%'],
                     maxmin: true,
                     end: function () {
@@ -50,9 +50,8 @@
 			,cellMinWidth: 60
 			,cols: [[
                     {title: '序号',templet: '#seq-laytpl',width:60},
-                    {field:'title', title: '标题'
-},
-                        {field:'content', title: '内容'},
+                    {field:'name', title: '表名'},
+                    {field:'remarks', title: '备注'},
                     {field:'', title: '操作',minWidth:110,toolbar: '#code-bar'},
 			]]
             ,even: true //开启隔行背景
@@ -89,8 +88,7 @@
 </script>
 
 <script type="text/html" id="code-bar">
-	<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+	<a class="layui-btn layui-btn-xs" lay-event="edit">代码配置</a>
 </script>
 
 <script type="text/html" id="seq-laytpl">

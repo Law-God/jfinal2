@@ -1,32 +1,159 @@
-    <div class="layui-row">
-            <div class="layui-col-xs6">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">
-                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;标题
-                    </label>
-                    <div class="layui-input-block">
-                        <input type="text" id="title" name="blog.title" value="#(blog.title??)" placeholder="请输入标题" lay-verify="required|required|string100" lay-verType="tips" autocomplete="off" class="layui-input">
-                    </div>
+<input type="hidden"  id="tableMetaName" value="#(tableMeta.name??)"/>
+<input type="hidden" id="tableMetaPrimaryKey" value="#(tableMeta.primaryKey??)"/>
+
+#for(columnMeta : tableMeta.columnMetas)
+#if(columnMeta.isPrimaryKey == "true")
+<div class="layui-row columns" style="display: none">
+    <input type="hidden" name="name" value="#(columnMeta.name??)" class="column"/>
+    <input type="hidden" name="javaType" value="#(columnMeta.javaType??)" class="column"/>
+    <input type="hidden" name="attrName" value="#(columnMeta.attrName??)" class="column"/>
+    <input type="hidden" name="type" value="#(columnMeta.type??)" class="column"/>
+    <input type="hidden" name="isNullable" value="#(columnMeta.isNullable??)" class="column"/>
+    <input type="hidden" name="isPrimaryKey" value="#(columnMeta.isPrimaryKey??)" class="column"/>
+    <input type="hidden" name="defaultValue" value="#(columnMeta.defaultValue??)" class="column"/>
+    <input type="hidden" name="remarks" value="#(columnMeta.remarks??)" class="column"/>
+    <input type="hidden" name="sqlType" value="#(columnMeta.sqlType??)" class="column"/>
+    <input type="hidden" name="size" value="#(columnMeta.size??)" class="column"/>
+    <input type="hidden" name="scale" value="#(columnMeta.scale??)" class="column"/>
+    <input type="hidden" name="layVerify" value="#(columnMeta.layVerify??)" class="column"/>
+</div>
+#else
+<div class="layui-row columns">
+    <input type="hidden" name="name" value="#(columnMeta.name??)" class="column"/>
+<blockquote class="layui-elem-quote">#(columnMeta.name??)</blockquote>
+
+<div class="layui-col-xs3">
+    <div class="layui-form-item">
+        <div class="grid-demo grid-demo-bg1">
+            <label class="layui-form-label">显示文字</label>
+            <div class="layui-input-block">
+                <input type="text" id="remarks" name="remarks" value="#(columnMeta.remarks??)" autocomplete="off" class="layui-input column">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="layui-col-xs3">
+    <div class="layui-form-item">
+        <div class="grid-demo grid-demo-bg1">
+            <label class="layui-form-label">是否必填</label>
+            <div class="layui-input-block">
+<!--
+                <input type="hidden" id="isNullable" name="isNullable" value="#(columnMeta.isNullable??)" class="column"/>
+-->
+                <input type="checkbox" lay-skin="switch" name="isNullable" value="#(columnMeta.isNullable??)" lay-filter="switchTest" lay-text="ON|OFF" class="column">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="layui-col-xs3">
+    <div class="layui-form-item">
+        <div class="grid-demo grid-demo-bg1">
+            <div class="grid-demo">
+                <label class="layui-form-label">业务类型</label>
+                <div class="layui-input-block">
+                    <select name="businessType" class="column">
+                        <option value="0">字符型</option>
+                        <option value="1">数值型</option>
+                        <option value="2">日期型</option>
+                        <option value="3">文本域</option>
+                        <option value="5">图片</option>
+                        <option value="6">文件</option>
+                        <option value="7">编辑器</option>
+                    </select>
                 </div>
             </div>
+        </div>
     </div>
+</div>
 
-    <div class="layui-row">
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">
-                <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;内容
-            </label>
-            <div class="layui-input-block">
-                <textarea id="content" name="blog.content" placeholder="请输入内容" lay-verify="text" lay-verType="tips" class="layui-textarea">#(blog.content??)</textarea>
+<div class="layui-col-xs3">
+    <div class="layui-form-item">
+        <div class="grid-demo grid-demo-bg1">
+            <div class="grid-demo">
+                <label class="layui-form-label">校验规则</label>
+                <div class="layui-input-block">
+                    <select name="layVerify" class="column">
+                        <option value="">无</option>
+                        <option value="phone">手机号</option>
+                        <option value="email">邮箱</option>
+                        <option value="url">链接</option>
+                        <option value="number">数字</option>
+                        <option value="date">日期</option>
+                        <option value="identity">身份证号</option>
+                        <option value="regexp">正则表达式</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="layui-row">
-        <div class="layui-form-item">
+<div class="layui-col-xs3 size">
+    <div class="layui-form-item">
+        <div class="grid-demo grid-demo-bg1">
+            <label class="layui-form-label">长度</label>
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="form-blog">立即提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                <input type="text" name="size"  value="#(columnMeta.size??)"  autocomplete="off" class="layui-input column">
             </div>
         </div>
     </div>
+</div>
+
+<div class="layui-col-xs3 scale">
+    <div class="layui-form-item">
+        <div class="grid-demo grid-demo-bg1">
+            <label class="layui-form-label">精度</label>
+            <div class="layui-input-block">
+                <input type="text" name="scale"  value="#(columnMeta.scale??)"  autocomplete="off" class="layui-input column">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="layui-col-xs6 regexp">
+    <div class="layui-form-item">
+        <div class="grid-demo grid-demo-bg1">
+            <label class="layui-form-label">正则表达式</label>
+            <div class="layui-input-block">
+                <input type="text" id="regexp" name="regexp" value="#(columnMeta.regexp??)" autocomplete="off" class="layui-input column">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="layui-col-xs6">
+    <div class="layui-form-item">
+        <div class="grid-demo grid-demo-bg1">
+            <label class="layui-form-label">提示</label>
+            <div class="layui-input-block">
+                <input type="text" id="tip" name="tip" value="#(columnMeta.tip??)" autocomplete="off" class="layui-input column">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="layui-col-xs6 regexp">
+    <div class="layui-form-item">
+        <div class="grid-demo grid-demo-bg1">
+            <label class="layui-form-label">默认值</label>
+            <div class="layui-input-block">
+                <input type="text" id="defaultValue" name="defaultValue" value="#(columnMeta.defaultValue??)" autocomplete="off" class="layui-input column">
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+#end
+#end
+
+
+<div class="layui-row">
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="form-code">立即提交</button>
+        </div>
+    </div>
+</div>

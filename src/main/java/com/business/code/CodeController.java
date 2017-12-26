@@ -1,8 +1,14 @@
 package com.business.code;
 
+import com.alibaba.fastjson.JSONObject;
 import com.common.ReturnMsg;
+import com.generator.DigesterTool;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.generator.TableMeta;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -33,12 +39,14 @@ public class CodeController extends Controller {
 	 */
 	@Before(CodeValidator.class)
 	public void save() {
-
+		TableMeta tableMeta = getModel(TableMeta.class);
 		renderJson(new ReturnMsg(true,""));
 	}
 	
 	public void edit() {
-
+		String name = getPara("name");
+		TableMeta tableMeta = DigesterTool.readXml(name);
+		setAttr("tableMeta",tableMeta);
 	}
 	
 	/**
@@ -47,8 +55,8 @@ public class CodeController extends Controller {
 	 */
 	@Before(CodeValidator.class)
 	public void update() {
-
-		renderJson(new ReturnMsg(true,""));
+		String tableMetaJsonStr = getPara("tableMeta");
+		TableMeta TableMeta =  JSONObject.parseObject(tableMetaJsonStr,TableMeta.class);
 	}
 	
 	public void delete() {

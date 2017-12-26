@@ -4,6 +4,10 @@
         "digester-rules.dtd">
 <digester-rules>
   <object-create-rule pattern="tableMeta" classname="com.jfinal.plugin.activerecord.generator.TableMeta" />
+  <set-properties-rule pattern="tableMeta">
+    <alias attr-name="name" prop-name="name" />
+    <alias attr-name="primaryKey" prop-name="primaryKey" />
+  </set-properties-rule>
   <pattern value="tableMeta/columnMeta">
     <object-create-rule classname="com.jfinal.plugin.activerecord.generator.ColumnMeta" />
     <bean-property-setter-rule pattern="name" propertyname="name" />

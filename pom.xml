@@ -146,7 +146,25 @@
 
   <build>
     <finalName>jfinal</finalName>
+    <resources>
+      <!-- copy resources 目录文件  开始-->
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+      </resource>
+      <!-- copy resources 目录文件  结束-->
 
+      <!-- copy java 目录下 mybatis文件  开始-->
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/*.xml</include>
+        </includes>
+      </resource>
+      <!-- copy java 目录下 mybatis文件  结束-->
+    </resources>
     <plugins>
       <plugin>
       <groupId>org.apache.maven.plugins</groupId>

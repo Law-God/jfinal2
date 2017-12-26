@@ -16,10 +16,12 @@
 
 package com.jfinal.plugin.activerecord.generator;
 
+import com.jfinal.plugin.activerecord.IBean;
+import com.jfinal.plugin.activerecord.Model;
 /**
  * ColumnMeta
  */
-public class ColumnMeta {
+public class ColumnMeta{
 	
 	public String name;				// 字段名
 	public String javaType;			// 字段对应的 java 类型
@@ -42,6 +44,10 @@ public class ColumnMeta {
 	public int size;	//字段长度
 	public int scale; //小数点右侧的指定列的位数
 	public String layVerify; //layui校验规则
+	public String businessType;//业务类型
+	public String regexp;//正则匹配
+	public String tip;//提示
+
 
 	public String getName() {
 		return name;
@@ -137,6 +143,30 @@ public class ColumnMeta {
 
 	public void setLayVerify(String layVerify) {
 		this.layVerify = layVerify;
+	}
+
+	public String getBusinessType() {
+		return businessType;
+	}
+
+	public void setBusinessType(String businessType) {
+		this.businessType = businessType;
+	}
+
+	public String getRegexp() {
+		return regexp;
+	}
+
+	public void setRegexp(String regexp) {
+		this.regexp = regexp;
+	}
+
+	public String getTip() {
+		return tip;
+	}
+
+	public void setTip(String tip) {
+		this.tip = tip;
 	}
 }
 

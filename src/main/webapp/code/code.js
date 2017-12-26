@@ -34,9 +34,32 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
         layuiBlurCheck($(this),verify,1);
     })
 
+    //监听指定开关
+    form.on('switch(switchTest)', function(data){
+        //this.checked ? $("#isNullable").val(0) : $("#isNullable").val(1);
+        this.checked ? this.value=0 : this.value=1;
+        /*layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
+            offset: '6px'
+        });*/
+    });
+
     form.on('submit(form-code)', function (data) {
+        var tableMeta = {};
+        tableMeta.name = $("#tableMetaName").val();
+        tableMeta.primaryKey = $("#tableMetaPrimaryKey").val();
+        var columns = [];
+        $(".columns").each(function(){
+            var column = {};
+            $(this).find(".column").each(function(){
+                var name = $(this).attr("name");
+                var value = $(this).val();
+                column[name] = value;
+            })
+            columns.push(column);
+        })
+        tableMeta.columnMetas = columns;
         var url = $('#form-code').attr('action');
-        AjaxUtil.ajax({url : url,dataType : 'json',data:data.field,success : function(response,status){
+        AjaxUtil.ajax({url : url,dataType : 'json',data:{"tableMeta":JSON.stringify(tableMeta)},success : function(response,status){
             if(response.success){
                 //parent.layer.closeAll();
                 parent.location.href = '/code';

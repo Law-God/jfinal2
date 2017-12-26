@@ -32,7 +32,8 @@ public class Page<T> implements Serializable {
 	private int pageSize;				// result amount of this page
 	private int totalPage;				// total page
 	private int totalRow;				// total row
-	
+	private int code; //layui 分页参数
+	private String msg;//layui 分页参数
 	/**
 	 * Constructor.
 	 * @param list the list of paginate result
@@ -95,13 +96,23 @@ public class Page<T> implements Serializable {
 	public boolean isLastPage() {
 		return pageNumber >= totalPage;
 	}
-	
+
+	public int getCode() {
+		return code;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
 	public String toString() {
 		StringBuilder msg = new StringBuilder();
 		msg.append("pageNumber : ").append(pageNumber);
 		msg.append("\npageSize : ").append(pageSize);
 		msg.append("\ntotalPage : ").append(totalPage);
 		msg.append("\ntotalRow : ").append(totalRow);
+		msg.append("\ncode : ").append(code);
+		msg.append("\nmsg : ").append(msg);
 		return msg.toString();
 	}
 }

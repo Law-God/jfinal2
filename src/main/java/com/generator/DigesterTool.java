@@ -11,18 +11,36 @@ import java.awt.print.Book;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * Created by Administrator on 2017-12-25.
  */
 public class DigesterTool {
+
+    public static TableMeta readXml(String xmlName){
+        URL classpath = Thread.currentThread().getContextClassLoader().getResource("");
+        String path = classpath.getPath();
+        String digesterRulePath = path + "com" + File.separator + "generator" + File.separator + "xml" + File.separator + "tablemeta-rule.xml";
+        String xmlPath = path + "com" + File.separator + "generator" + File.separator + "xml" + File.separator + xmlName + ".xml";
+        try {
+            // 解析XML文件,并得到ROOT元素
+            Digester digester = DigesterLoader.createDigester(new InputSource(new FileInputStream(new File(digesterRulePath))));
+            TableMeta tableMeta = (TableMeta) digester.parse(new File(xmlPath));
+            return tableMeta;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+        return  null;
+    }
+
     public static void main(String[] args) {
         try {
             // 解析XML文件,并得到ROOT元素
             Digester digester = DigesterLoader.createDigester(new InputSource(new FileInputStream(new File("d:\\phantom\\jfinal2\\src\\main\\java\\com\\generator\\xml\\tablemeta-rule.xml"))));
-            TableMeta library = (TableMeta) digester.parse(new File("d:\\phantom\\jfinal2\\src\\main\\java\\com\\generator\\xml\\blog.xml"));
-            System.out.println(" 图书馆: " + library.name);
-
+            TableMeta tableMeta = (TableMeta) digester.parse(new File("d:\\phantom\\jfinal2\\src\\main\\java\\com\\generator\\xml\\blog.xml"));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SAXException e) {
