@@ -2,3 +2,5 @@ jdbcUrl = jdbc:mysql://localhost:3306/jfinal_demo2?useUnicode=true&characterEnco
 user = root
 password = admin
 devMode = true
+
+xmlpath = J:\\phantom\\jfinal2\\src\\main\\resources\\xml\\

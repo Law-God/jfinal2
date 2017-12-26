@@ -3,6 +3,7 @@ package com.business.code;
 import com.alibaba.fastjson.JSONObject;
 import com.common.ReturnMsg;
 import com.generator.DigesterTool;
+import com.generator.Dom4jXML;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.generator.TableMeta;
@@ -56,7 +57,10 @@ public class CodeController extends Controller {
 	@Before(CodeValidator.class)
 	public void update() {
 		String tableMetaJsonStr = getPara("tableMeta");
-		TableMeta TableMeta =  JSONObject.parseObject(tableMetaJsonStr,TableMeta.class);
+		TableMeta tableMeta =  JSONObject.parseObject(tableMetaJsonStr,TableMeta.class);
+		String tableMetaName = tableMeta.name;
+		tableMeta.setName(tableMetaName +"_view");
+		Dom4jXML.generate(tableMeta);
 	}
 	
 	public void delete() {

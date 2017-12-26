@@ -1,5 +1,6 @@
 package com.generator;
 
+import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.generator.ColumnMeta;
 import com.jfinal.plugin.activerecord.generator.TableMeta;
 import org.apache.commons.digester.Digester;
@@ -19,10 +20,8 @@ import java.net.URL;
 public class DigesterTool {
 
     public static TableMeta readXml(String xmlName){
-        URL classpath = Thread.currentThread().getContextClassLoader().getResource("");
-        String path = classpath.getPath();
-        String digesterRulePath = path + "com" + File.separator + "generator" + File.separator + "xml" + File.separator + "tablemeta-rule.xml";
-        String xmlPath = path + "com" + File.separator + "generator" + File.separator + "xml" + File.separator + xmlName + ".xml";
+        String digesterRulePath = PropKit.get("xmlpath") + "tablemeta-rule.xml";
+        String xmlPath = PropKit.get("xmlpath") + xmlName + ".xml";
         try {
             // 解析XML文件,并得到ROOT元素
             Digester digester = DigesterLoader.createDigester(new InputSource(new FileInputStream(new File(digesterRulePath))));

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tableMeta name="blog_view" primaryKey="id">
+  <!--±íblog_view-->
+
+  <columnMeta>
+    <name>id</name>
+    <javaType>java.lang.Integer</javaType>
+    <attrName>id</attrName>
+    <type></type>
+    <isNullable>0</isNullable>
+    <isPrimaryKey>true</isPrimaryKey>
+    <defaultValue></defaultValue>
+    <remarks></remarks>
+    <sqlType>int</sqlType>
+    <size>11</size>
+    <scale>0</scale>
+    <layVerify>int11</layVerify>
+    <businessType></businessType>
+    <regexp></regexp>
+    <tip></tip>
+  </columnMeta>
+  <columnMeta>
+    <name>title</name>
+    <javaType></javaType>
+    <attrName></attrName>
+    <type></type>
+    <isNullable>0</isNullable>
+    <isPrimaryKey></isPrimaryKey>
+    <defaultValue></defaultValue>
+    <remarks></remarks>
+    <sqlType></sqlType>
+    <size>200</size>
+    <scale>0</scale>
+    <layVerify></layVerify>
+    <businessType>0</businessType>
+    <regexp></regexp>
+    <tip></tip>
+  </columnMeta>
+  <columnMeta>
+    <name>content</name>
+    <javaType></javaType>
+    <attrName></attrName>
+    <type></type>
+    <isNullable>0</isNullable>
+    <isPrimaryKey></isPrimaryKey>
+    <defaultValue></defaultValue>
+    <remarks></remarks>
+    <sqlType></sqlType>
+    <size>5592405</size>
+    <scale>0</scale>
+    <layVerify></layVerify>
+    <businessType>0</businessType>
+    <regexp></regexp>
+    <tip></tip>
+  </columnMeta>
+</tableMeta>
