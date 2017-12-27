@@ -37,7 +37,6 @@ public class _JFinalDemoGenerator {
 
 		// 创建生成器
 		Generator generator = new Generator(getDataSource(), baseModelPackageName, baseModelOutputDir, modelPackageName, modelOutputDir);
-		//Generator generator = new Generator(getDataSource(), baseModelPackageName, baseModelOutputDir, modelPackageName, modelOutputDir);
 		// 设置是否生成链式 setter 方法
 		generator.setGenerateChainSetter(false);
 		// 添加不需要生成的表名

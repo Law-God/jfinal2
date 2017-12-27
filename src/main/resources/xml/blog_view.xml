@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<tableMeta name="blog_view" primaryKey="id">
-  <!--��blog_view-->
+<tableMeta name="blog" primaryKey="id">
+  <!--表blog-->
 
   <columnMeta>
     <name>id</name>
@@ -15,43 +15,46 @@
     <sqlType>int</sqlType>
     <size>11</size>
     <scale>0</scale>
-    <layVerify>int11</layVerify>
+    <layVerify>string</layVerify>
+    <layVerifyValue></layVerifyValue>
     <businessType></businessType>
     <regexp></regexp>
     <tip></tip>
   </columnMeta>
   <columnMeta>
     <name>title</name>
-    <javaType></javaType>
-    <attrName></attrName>
+    <javaType>java.lang.String</javaType>
+    <attrName>title</attrName>
     <type></type>
-    <isNullable>0</isNullable>
-    <isPrimaryKey></isPrimaryKey>
-    <defaultValue></defaultValue>
-    <remarks></remarks>
-    <sqlType></sqlType>
-    <size>200</size>
+    <isNullable>1</isNullable>
+    <isPrimaryKey>false</isPrimaryKey>
+    <defaultValue>请输入标题</defaultValue>
+    <remarks>标题</remarks>
+    <sqlType>string</sqlType>
+    <size>100</size>
     <scale>0</scale>
-    <layVerify></layVerify>
-    <businessType>0</businessType>
+    <layVerify>string</layVerify>
+    <layVerifyValue></layVerifyValue>
+    <businessType>string</businessType>
     <regexp></regexp>
-    <tip></tip>
+    <tip>标题长度0~100个字符</tip>
   </columnMeta>
   <columnMeta>
     <name>content</name>
-    <javaType></javaType>
-    <attrName></attrName>
+    <javaType>java.lang.String</javaType>
+    <attrName>content</attrName>
     <type></type>
     <isNullable>0</isNullable>
-    <isPrimaryKey></isPrimaryKey>
+    <isPrimaryKey>false</isPrimaryKey>
     <defaultValue></defaultValue>
-    <remarks></remarks>
-    <sqlType></sqlType>
+    <remarks>内容</remarks>
+    <sqlType>text</sqlType>
     <size>5592405</size>
     <scale>0</scale>
     <layVerify></layVerify>
-    <businessType>0</businessType>
+    <layVerifyValue></layVerifyValue>
+    <businessType>edit</businessType>
     <regexp></regexp>
-    <tip></tip>
+    <tip>请输入内容</tip>
   </columnMeta>
 </tableMeta>

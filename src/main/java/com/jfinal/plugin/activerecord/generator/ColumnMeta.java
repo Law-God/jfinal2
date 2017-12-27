@@ -44,6 +44,7 @@ public class ColumnMeta{
 	public int size;	//字段长度
 	public int scale; //小数点右侧的指定列的位数
 	public String layVerify; //layui校验规则
+	public String layVerifyValue; //layui校验规则
 	public String businessType;//业务类型
 	public String regexp;//正则匹配
 	public String tip;//提示
@@ -167,6 +168,14 @@ public class ColumnMeta{
 
 	public void setTip(String tip) {
 		this.tip = tip;
+	}
+
+	public String getLayVerifyValue() {
+		return layVerifyValue;
+	}
+
+	public void setLayVerifyValue(String layVerifyValue) {
+		this.layVerifyValue = layVerifyValue;
 	}
 }
 

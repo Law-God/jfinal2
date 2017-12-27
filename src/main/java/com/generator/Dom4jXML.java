@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Dom4jXML extends XmlGenerator {
 
-    public static void generate(TableMeta tableMeta){
+    public static void generate(TableMeta tableMeta,String view){
         //用工厂类创建一个document实例
         Document doc = DocumentHelper.createDocument();
         String tableName = tableMeta.name;//表名
@@ -55,12 +55,13 @@ public class Dom4jXML extends XmlGenerator {
 
         //将document中的内容写入文件中
         try {
-            String xmlPath = PropKit.get("xmlpath") + tableName + ".xml";
+            String fileName = tableName + (view == null ? "" : view);
+            String xmlPath = PropKit.get("xmlpath") + fileName + ".xml";
                /* File file = new File(xmlPath);
                 if(!file.exists()){
                     file.createNewFile();
                 }*/
-            Writer out = new FileWriter(xmlPath);
+            //Writer out = new FileWriter(xmlPath);
 
             //Writer out = new FileWriter("d:\\phantom\\jfinal2\\src\\main\\java\\com\\generator\\xml\\"+tableName+".xml");
             //格式化输出,类型IE浏览一样
@@ -68,7 +69,13 @@ public class Dom4jXML extends XmlGenerator {
             //OutputFormat format = OutputFormat.createCompactFormat();
             format.setEncoding("UTF-8");
             //创建写出对象
-            XMLWriter writer = new XMLWriter(out,format);
+            /**
+             * 必须要用FileOutputStream 才能转码，用FileWriter不能转码
+             * FileWriter此类的构造方法假定默认字符编码和默认字节缓冲区大小都是可接受的。
+             * 要自己指定这些值，可以先在 FileOutputStream 上构造一个 OutputStreamWriter。
+             * FileWriter 用于写入字符流。要写入原始字节流，请考虑使用 FileOutputStream。
+             */
+            XMLWriter writer = new XMLWriter(new FileOutputStream(new File(xmlPath)),format);
             writer.write(doc);
             writer.close();
             System.out.println("生成xml成功。");
@@ -82,7 +89,7 @@ public class Dom4jXML extends XmlGenerator {
 
     public  void generate(List<TableMeta> tableMetas){
         for(TableMeta tableMeta : tableMetas) {
-            generate(tableMeta);
+            generate(tableMeta,null);
         }
     }
 }

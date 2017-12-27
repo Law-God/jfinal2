@@ -15,7 +15,7 @@
     <sqlType>int</sqlType>
     <size>11</size>
     <scale>0</scale>
-    <layVerify>int11</layVerify>
+    <layVerify></layVerify>
     <businessType></businessType>
     <regexp></regexp>
     <tip></tip>
@@ -25,14 +25,14 @@
     <javaType>java.lang.String</javaType>
     <attrName>title</attrName>
     <type></type>
-    <isNullable>0</isNullable>
+    <isNullable>1</isNullable>
     <isPrimaryKey>false</isPrimaryKey>
     <defaultValue></defaultValue>
     <remarks></remarks>
     <sqlType>string</sqlType>
     <size>200</size>
     <scale>0</scale>
-    <layVerify>string100</layVerify>
+    <layVerify></layVerify>
     <businessType></businessType>
     <regexp></regexp>
     <tip></tip>
@@ -46,10 +46,10 @@
     <isPrimaryKey>false</isPrimaryKey>
     <defaultValue></defaultValue>
     <remarks></remarks>
-    <sqlType>longtext</sqlType>
+    <sqlType>text</sqlType>
     <size>5592405</size>
     <scale>0</scale>
-    <layVerify>longtext</layVerify>
+    <layVerify></layVerify>
     <businessType></businessType>
     <regexp></regexp>
     <tip></tip>

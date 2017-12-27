@@ -1,0 +1,70 @@
+package ${package};
+
+import ${modelPackageName}.${className};
+import com.jfinal.core.Controller;
+import com.jfinal.validate.Validator;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import com.common.ReturnMsg;
+
+/**
+*  Validator
+*/
+public class ${className}Validator extends Validator {
+
+    protected void validate(Controller controller) {
+<#list  columns.commonColumns  as  column>
+    <#if column.sqlType == 'string' >
+        validateString(${column.isNullable},"${tableName}.${column.name}", 1,${column.size},"${column.name}Msg", "${column.remarks}");
+    <#elseif column.sqlType ==  "char">
+        validateInteger(${column.isNullable},"${tableName}.${column.name}", ${column.size},"${column.name}Msg", "${column.remarks}");
+    <#elseif column.sqlType ==  "int">
+        validateInteger(${column.isNullable},"${tableName}.${column.name}", ${column.size},"${column.name}Msg", "${column.remarks}");
+    <#elseif column.sqlType ==  "double">
+        validateInteger(${column.isNullable},"${tableName}.${column.name}", ${column.size},"${column.name}Msg", "${column.remarks}");
+    </#if>
+</#list>
+
+<#list  columns.bigColumns  as  column>
+    <#if column.sqlType == 'text' >
+        validateText(${column.isNullable},"${tableName}.${column.name}", 0,"${column.name}Msg", "${column.remarks}");
+    </#if>
+</#list>
+    }
+
+    protected void handleError(Controller controller) {
+        boolean flag = false;
+        List errorMsg = new ArrayList();
+
+        Map m = new HashMap();
+
+    <#list  columns.bigColumns  as  column>
+        Object ${column.name}Msg = controller.getAttr("${column.name}Msg");
+        if(${column.name}Msg != null){
+            flag = true;
+            m.put("key","${column.name}");
+            m.put("sqlType","${column.sqlType}");
+            m.put("value",${column.name}Msg);
+            errorMsg.add(m);
+        }
+        m = new HashMap();
+    </#list>
+
+    <#list  columns.commonColumns  as  column>
+        Object ${column.name}Msg = controller.getAttr("${column.name}Msg");
+            if(${column.name}Msg != null){
+                flag = true;
+                m.put("key","${column.name}");
+                m.put("sqlType","${column.sqlType}");
+                m.put("value",${column.name}Msg);
+                errorMsg.add(m);
+            }
+        m = new HashMap();
+    </#list>
+        if(flag){
+            controller.renderJson(new ReturnMsg(!flag,ReturnMsg.ERROR_TYPE_1,errorMsg));
+        }
+    }
+}

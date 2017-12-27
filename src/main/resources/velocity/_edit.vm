@@ -1,3 +1,0 @@
-<form id="${tableName}_update_form" class="layui-form "  action="/${tableName}/update" method="post" style="display: none">
-	\#include("_form.html")
-</form>

@@ -1,4 +1,4 @@
-package com.business.code;
+package com.generator.code;
 
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;

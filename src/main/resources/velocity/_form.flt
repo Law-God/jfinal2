@@ -11,7 +11,7 @@
                         <#if column2.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column2.remarks}
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" id="${column2.name}" name="${tableName}.${column2.name}" value="#(${tableName}.${column2.name}??)" placeholder="请输入${column2.remarks}" lay-verify="${ (column2.isNullable == '0')?string('required|','')}${column2.layVerify!""}" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input type="text" id="${column2.name}" name="${tableName}.${column2.name}" value="#(${tableName}.${column2.name}??)" placeholder="${column2.defaultValue}" lay-verify="${ (column2.isNullable == '0')?string('required|','')}${column2.layVerifyValue!""}" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                         <#if column2.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column2.remarks}
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" id="${column2.name}" name="${tableName}.${column2.name}" value="#(${tableName}.${column2.name}??)" placeholder="请输入${column2.remarks}" lay-verify="${ (column2.isNullable == '0')?string('required|','')}${column2.layVerify!""}" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input type="text" id="${column2.name}" name="${tableName}.${column2.name}" value="#(${tableName}.${column2.name}??)" placeholder="${column2.defaultValue}" lay-verify="${ (column2.isNullable == '0')?string('required|','')}${column2.layVerifyValue!""}" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                             <#if column2.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column2.remarks}
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" id="${column2.name}_date" name="${tableName}.${column2.name}" value="#if(${tableName}.${column2.name}??)#date(${tableName}.${column2.name},'yyyy-MM-dd')#end"  lay-verify="${ (column2.isNullable == '0')?string('required|','')}${column2.layVerify!""}" placeholder="请选择日期" readonly lay-verType="tips" readonly autocomplete="off" class="layui-input">
+                            <input type="text" id="${column2.name}_date" name="${tableName}.${column2.name}" value="#if(${tableName}.${column2.name}??)#date(${tableName}.${column2.name},'yyyy-MM-dd')#end"  lay-verify="${ (column2.isNullable == '0')?string('required|','')}${column2.layVerifyValue!""}" placeholder="${column2.defaultValue}" readonly lay-verType="tips" readonly autocomplete="off" class="layui-input">
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                     <label class="layui-form-label">
                         <#if column2.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column2.remarks}
                     </label>
-                    <div class="layui-input-block" id="${column2.name}"  lay-verify="${column2.layVerify!""}" lay-verType="tips" lay-tip="${column2.name}">
+                    <div class="layui-input-block" id="${column2.name}"  lay-verify="${column2.layVerifyValue!""}" lay-verType="tips" lay-tip="${column2.name}">
                         <input type="hidden" id="${column2.name}-radio-hidden" value="#(${tableName}.${column2.name}??)" />
                         <input type="radio" name="${tableName}.${column2.name}" value="0" title="男" #(${tableName}.${column2.name}?? == '0' ? 'checked="checked"' : '') lay-filter="filter-radio-${column2.name}" />
                         <input type="radio" name="${tableName}.${column2.name}" value="1" title="女" #(${tableName}.${column2.name}?? == '1' ? 'checked="checked"' : '') lay-filter="filter-radio-${column2.name}"/>
@@ -57,7 +57,7 @@
                         <#if column2.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column2.remarks}
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" id="${column2.name}" name="${tableName}.${column2.name}" value="#(${tableName}.${column2.name}??)" placeholder="请输入${column2.remarks}" lay-verify="${ (column2.isNullable == '0')?string('required|','')}${column2.layVerify!""}" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input type="text" id="${column2.name}" name="${tableName}.${column2.name}" value="#(${tableName}.${column2.name}??)" placeholder="${column2.defaultValue}" lay-verify="${ (column2.isNullable == '0')?string('required|','')}${column2.layVerifyValue!""}" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                 <#if column.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column.remarks}
             </label>
             <div class="layui-input-block">
-                <textarea id="${column.name}" name="${tableName}.${column.name}" placeholder="请输入${column.remarks}" lay-verify="${ (column.isNullable == '0')?string('required|','')}${column.layVerify!""}" lay-verType="tips" class="layui-textarea">#(${tableName}.${column.name}??)</textarea>
+                <textarea id="${column.name}" name="${tableName}.${column.name}" placeholder="${column.tip}" lay-verify="${ (column.isNullable == '0')?string('required|','')}${column.layVerifyValue!""}" lay-verType="tips" class="layui-textarea">#(${tableName}.${column.name}??)</textarea>
             </div>
         </div>
     </div>
@@ -87,7 +87,7 @@
                 <#if column.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column.remarks}
             </label>
             <div class="layui-input-block" id="${column.name}-tip">
-                <textarea  class="layui-textarea layui-hide" name="${tableName}.${column.name}" placeholder="请输入${column.remarks}" lay-verify="${column.layVerify!""}" lay-verType="tips" id="${column.name}_editor" lay-tip="${column.name}-tip">#(${tableName}.${column.name}??)</textarea>
+                <textarea  class="layui-textarea layui-hide" name="${tableName}.${column.name}" placeholder="${column.tip}" lay-verify="${column.layVerifyValue!""}" lay-verType="tips" id="${column.name}_editor" lay-tip="${column.name}-tip">#(${tableName}.${column.name}??)</textarea>
             </div>
         </div>
     </div>

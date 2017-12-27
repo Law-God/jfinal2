@@ -563,9 +563,9 @@ public abstract class Validator implements Interceptor {
 		}
 	}
 
-	protected void validateString(boolean required,String field,int minLen,int maxLen,String errorKey,String errorMessage){
+	protected void validateString(int required,String field,int minLen,int maxLen,String errorKey,String errorMessage){
 		String value = controller.getPara(field);
-		if(required){
+		if(required == 0){
 			if (StrKit.isBlank(value)) {
 				addError(errorKey, errorMessage + "不能为空");
 				return ;
@@ -584,7 +584,7 @@ public abstract class Validator implements Interceptor {
 		}
 	}
 
-	protected void validateInteger(boolean required,String field,int len,String errorKey,String errorMessage){
+	protected void validateInteger(int required,String field,int len,String errorKey,String errorMessage){
 		String value = controller.getPara(field);
 		String regex = "^(0|[1-9][0-9]{0,"+(len > 0 ? len -1 : len)+"})$";
 		int temp = len;
@@ -595,7 +595,7 @@ public abstract class Validator implements Interceptor {
 		}
 		String msg = "0-"+regNumber;
 		boolean flag = Pattern.compile(regex).matcher(value).matches();
-		if(required){
+		if(required == 0){
 			if (StrKit.isBlank(value)) {
 				addError(errorKey, errorMessage + "不能为空");
 				return ;
@@ -640,9 +640,9 @@ public abstract class Validator implements Interceptor {
 		}
 	}
 
-	protected void validateText(boolean required,String field,int len,String errorKey,String errorMessage){
+	protected void validateText(int required,String field,int len,String errorKey,String errorMessage){
 		String value = controller.getPara(field);
-		if(required){
+		if(required == 0){
 			if (StrKit.isBlank(value)) {
 				addError(errorKey, errorMessage + "不能为空");
 				return ;
@@ -659,9 +659,9 @@ public abstract class Validator implements Interceptor {
 		}
 	}
 
-	protected void validateBlob(boolean required,String field,String errorKey,String errorMessage){
+	protected void validateBlob(int required,String field,String errorKey,String errorMessage){
 		String value = controller.getPara(field);
-		if(required){
+		if(required == 0){
 			if (StrKit.isBlank(value)) {
 				addError(errorKey, errorMessage + "不能为空");
 				return ;

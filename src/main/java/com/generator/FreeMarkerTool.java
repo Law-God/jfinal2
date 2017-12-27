@@ -1,5 +1,6 @@
 package com.generator;
 
+import com.jfinal.kit.PropKit;
 import freemarker.cache.FileTemplateLoader;
 import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
@@ -17,8 +18,7 @@ import java.util.Map;
  * Created by zzk on 2017-11-29.
  */
 public class FreeMarkerTool {
-
-    public static String FREE_MARKER_TEMPLATE_PATH = "src/velocity/";
+    public static final String FREE_MARKER_TEMPLATE_PATH = PropKit.get("freemarkerpath");
 
     /**
      * 填充模板内容
@@ -26,10 +26,6 @@ public class FreeMarkerTool {
      * @return
      */
     public static String fillTemplateContent(String templateName, Map<String,Object> params){
-        URL classpath = Thread.currentThread().getContextClassLoader().getResource("");
-        String path = classpath.getPath();
-        String templatePath = path + "velocity" + File.separator;
-
         //创建freemarker配置类
         Configuration configuration = new Configuration();
         //设置编码
@@ -37,7 +33,7 @@ public class FreeMarkerTool {
 
         try {
             //ftl模板文件统一配置到velocity目录下
-            TemplateLoader templateLoader = new FileTemplateLoader(new File(templatePath));
+            TemplateLoader templateLoader = new FileTemplateLoader(new File(FREE_MARKER_TEMPLATE_PATH));
             configuration.setTemplateLoader(templateLoader);
             //获取模板并设置模板编码
             Template template = configuration.getTemplate(templateName);

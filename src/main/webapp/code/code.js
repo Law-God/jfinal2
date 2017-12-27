@@ -1,46 +1,32 @@
-layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
+layui.use(['form', 'AjaxUtil'], function(){
     var form = layui.form
     ,layer = layui.layer
-    ,layedit = layui.layedit
-    ,laydate = layui.laydate
     ,AjaxUtil = layui.AjaxUtil;;
     var $= layui.jquery;
 
-
-    //自定义验证规则
-    form.verify({
-                string100 : function(value){
-                    if(value.length > 100){
-                        return '不能超过100个字符';
-                    }
-                },
-
-
-                text : function(value){
-                    if(value.length <= 0){
-                        return '请输入内容';
-                    }else if(value.length > 1000){
-                        return '内容不能超过1000个字符';
-                    }
-                },
+    //监听select
+    form.on('select(selectLayVerify)', function(data){
+        var val = data.value;
+        $("input[name='layVerify']").val(val);
+        if(val == 'regexp'){
+            $(this).closest(".layui-row").find($("div .size,div .scale")).css("display","none");
+            $(this).closest(".layui-row").find($("div .regexp")).css("display","");
+        }else if(val == 'string'){
+            $(this).closest(".layui-row").find($("div .size")).css("display","");
+            $(this).closest(".layui-row").find($("div .scale,div .regexp")).css("display","none");
+        }else if(val == "number"){
+            $(this).closest(".layui-row").find($("div .size,div .scale")).css("display","");
+            $(this).closest(".layui-row").find($("div .regexp")).css("display","none");
+        }else {
+            $(this).closest(".layui-row").find($("div .size,div .scale,div .regexp")).css("display","none");
+        }
     });
 
-    var  verify = form.config.verify;
-    $("#title").blur(function(){
-        layuiBlurCheck($(this),verify);
-    });
-
-    $("#content").blur(function(){
-        layuiBlurCheck($(this),verify,1);
-    })
 
     //监听指定开关
     form.on('switch(switchTest)', function(data){
-        //this.checked ? $("#isNullable").val(0) : $("#isNullable").val(1);
-        this.checked ? this.value=0 : this.value=1;
-        /*layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
-            offset: '6px'
-        });*/
+        //是否必填  0：否 1：是
+        this.checked ? $(this).val(0) : $(this).val(1);
     });
 
     form.on('submit(form-code)', function (data) {

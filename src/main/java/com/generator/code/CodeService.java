@@ -1,4 +1,4 @@
-package com.business.code;
+package com.generator.code;
 
 import com.generator._JFinalDemoGenerator;
 import com.jfinal.plugin.activerecord.Page;
@@ -27,7 +27,6 @@ public class CodeService {
         try {
             conn = dataSource.getConnection();
             dbMeta = conn.getMetaData();
-            conn = dataSource.getConnection();
             rs = dbMeta.getTables(conn.getCatalog(), null, null, new String[]{"TABLE"});
             while (rs.next()) {
                 String tableName = rs.getString("TABLE_NAME");
@@ -43,6 +42,7 @@ public class CodeService {
         }finally {
             try {
                 if(rs != null){
+                    System.out.println("rs.close()");
                     rs.close();
                 }
             } catch (SQLException e) {
@@ -51,6 +51,7 @@ public class CodeService {
 
             if(conn != null){
                 try {
+                    System.out.println("conn.close()");
                     conn.close();
                 } catch (SQLException e) {
                     e.printStackTrace();

@@ -32,38 +32,50 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
     //自定义验证规则
     form.verify({
     <#list columns.commonColumns as column>
-        <#if column.sqlType == "string">
-            ${column.layVerify} : function(value){
-                if(value.length > ${(column.size/2)?floor}){
-                    return '不能超过${(column.size/2)?floor}个字符';
+        <#if column.layVerify == "string">
+            ${column.layVerifyValue} : function(value){
+                if(value.length > ${(column.size)?floor}){
+                    <#if column.tip != "">
+                        return '${column.tip}';
+                    <#else >
+                        return '不能超过${(column.size)?floor}个字符';
+                    </#if>
                 }
             },
-        <#elseif column.sqlType == "int">
-            ${column.layVerify} : function(value){
+        <#elseif column.layVerify == "int">
+            ${column.layVerifyValue} : function(value){
                 var regObj = getIntRegByLength(${column.size});
                 if(!!regObj.reg){
                     var reg = new RegExp(regObj.reg);
                     if(!reg.test(value)){
+                    <#if column.tip != "">
+                        return '${column.tip}';
+                    <#else >
                         return '请输入'+regObj.msg;
+                    </#if>
                     }
                 }else{
                     return '正则表达式为空';
                 }
             },
-        <#elseif column.sqlType == "double">
-            ${column.layVerify} : function(value){
+        <#elseif column.layVerify == "double">
+            ${column.layVerifyValue} : function(value){
                 var regObj = getDoubleRegByLength(${column.size});
                 if(!!regObj.reg){
                     var reg = new RegExp(regObj.reg);
                     if(!reg.test(value)){
+                    <#if column.tip != "">
+                        return '${column.tip}';
+                    <#else >
                         return '请输入'+regObj.msg;
+                    </#if>
                     }
                 }else{
                     return '正则表达式为空';
                 }
             },
-        <#elseif column.sqlType == "char">
-            ${column.layVerify} : function(){
+        <#elseif column.layVerify == "char">
+            ${column.layVerifyValue} : function(){
                 if(!$("#${column.name}-radio-hidden").val()){
                     return '请选择${column.remarks}';
                 }
@@ -73,28 +85,26 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
 
     <#list columns.bigColumns as column>
         <#if column.isNullable == "0">
-            <#if column.sqlType == "text">
-                ${column.layVerify} : function(value){
-                    if(value.length <= 0){
-                        return '请输入${column.remarks}';
-                    }else if(value.length > 1000){
+            <#if column.layVerify == "text">
+                ${column.layVerifyValue} : function(value){
+                     if(value.length > 1000){
                         return '内容不能超过1000个字符';
                     }
                 },
             </#if>
-            <#if column.sqlType == "longtext">
-                ${column.layVerify} : function(value){
+            <#if column.layVerify == "edit">
+                ${column.layVerifyValue} : function(value){
                     layedit.sync(${column.name}Editor);
                     var content = layedit.getContent(${column.name}Editor);
                     if(content.length <= 0){
-                        //return '请输入${column.remarks}';
+                        //return '${column.defaultValue}';
                         return '必填项不能为空';
                     }
                 },
             </#if>
         <#else>
-            <#if column.sqlType == "text">
-                ${column.layVerify} : function(value){
+            <#if column.layVerify == "text">
+                ${column.layVerifyValue} : function(value){
                     if(!!value  && value.length > 1000){
                         return '内容不能超过1000个字符';
                     }

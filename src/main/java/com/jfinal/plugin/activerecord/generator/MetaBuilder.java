@@ -92,7 +92,7 @@ public class MetaBuilder {
 			for (TableMeta tableMeta : ret) {
 				buildPrimaryKey(tableMeta);
 				buildColumnMetas(tableMeta);
-				//buildColumnCommentMetas(tableMeta);
+				buildColumnCommentMetas(tableMeta);
 			}
 			return ret;
 		}
@@ -253,15 +253,7 @@ public class MetaBuilder {
 			//对应sql.Types类型
 			int sqlType = rsmd.getColumnType(i);
 			String sqlTypeStr = SqlTypeMapping.getSqlType(sqlType);
-			if("text".equals(sqlTypeStr)){
-				if(21845 == size){
-					cm.sqlType = sqlTypeStr ;
-				}else{
-					cm.sqlType = SqlTypeMapping.getSqlType(-1000); ;
-				}
-			}else{
-				cm.sqlType = sqlTypeStr ;
-			}
+			cm.sqlType = sqlTypeStr ;
 
 			//是否为空
 			int nullable = rsmd.isNullable(i);//0 不允许空  1 允许为空
@@ -273,48 +265,13 @@ public class MetaBuilder {
 			// 构造字段对应的属性名 attrName
 			cm.attrName = buildAttrName(cm.name);
 
-
-
 			int scale = rsmd.getScale(i);
 			cm.scale = scale;
 
-			cm.layVerify = getLayVerify(cm);
-
 			tableMeta.columnMetas.add(cm);
 		}
-		
 		rs.close();
 		stm.close();
-	}
-
-	protected String getLayVerify(ColumnMeta cm){
-		if(cm == null) return  "";
-		//是否必填
-//		String isNullable = cm.isNullable;
-//		if(!"0".equals(isNullable))return "";
-		//组合验证规则
-		String sqlType = cm.sqlType;
-		int size = cm.size;
-		StringBuilder sb = new StringBuilder("");
-		if("int".equals(sqlType)){
-			sb.append("int"+size);
-		}else if("string".equals(sqlType)){
-			sb.append("string" + size/2);
-		}else if("double".equals(sqlType)){
-			sb.append("double"+size);
-		} else if ("date".equals(sqlType)) {
-			sb = new StringBuilder("date");
-		}else if ("text".equals(sqlType)) {
-			sb = new StringBuilder("text");
-		}else if ("blob".equals(sqlType)) {
-			sb = new StringBuilder("blob");
-		}else if ("longtext".equals(sqlType)) {
-			sb = new StringBuilder("longtext");
-		}else if ("char".equals(sqlType)) {
-			sb = new StringBuilder("char");
-		}
-		//int scale = cm.scale;
-		return sb.toString();
 	}
 
 	/**

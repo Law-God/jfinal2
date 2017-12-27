@@ -1,7 +1,6 @@
 package ${package};
 
 import ${modelPackageName}.${className};
-import com.jfinal.plugin.activerecord.LayUiPage;
 import com.jfinal.plugin.activerecord.Page;
 
 /**
@@ -13,10 +12,6 @@ private static final ${className} dao = new ${className}().dao();
 
 	public Page<${className}> paginate(int pageNumber, int pageSize) {
     	return dao.paginate(pageNumber, pageSize, "select *", "from ${tableName} order by id desc");
-    }
-
-    public LayUiPage<${className}> layUiPaginate(int pageNumber, int pageSize) {
-        return new LayUiPage(paginate(pageNumber,pageSize));
     }
 
     public ${className} findById(int id) {
