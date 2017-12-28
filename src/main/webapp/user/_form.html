@@ -1,0 +1,108 @@
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;用户名
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="username" name="user.username" value="#(user.username??)" placeholder="请输入3位用户名" lay-verify="required|usernameRegexp" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;年龄
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="age" name="user.age" value="#(user.age??)" placeholder="0-999" lay-verify="required|ageInt3" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="layui-row">
+                <div class="layui-col-xs6">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;生日
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="birthday_date" name="user.birthday" value="#if(user.birthday??)#date(user.birthday,'yyyy-MM-dd')#end"  lay-verify="required|date" placeholder="请选择日期" readonly lay-verType="tips" readonly autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;手机号
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="phone" name="user.phone" value="#(user.phone??)" placeholder="13100000000" lay-verify="required|phoneRegexp" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;邮箱
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="email" name="user.email" value="#(user.email??)" placeholder="123@abc.com" lay-verify="required|email" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;链接
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="url" name="user.url" value="#(user.url??)" placeholder="http://www.baidu.com" lay-verify="required|url" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;身份证
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="idcard" name="user.idcard" value="#(user.idcard??)" placeholder="请输入身份证号" lay-verify="required|identity" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <div class="layui-row">
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">
+                <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;地址
+            </label>
+            <div class="layui-input-block">
+                <textarea id="address" name="user.address" placeholder="" lay-verify="required|addressString255" lay-verType="tips" class="layui-textarea">#(user.address??)</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">
+                <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;简介
+            </label>
+            <div class="layui-input-block" id="summary-tip">
+                <textarea  class="layui-textarea layui-hide" name="user.summary" placeholder="" lay-verify="summaryRegexp" lay-verType="tips" id="summary_editor" lay-tip="summary-tip">#(user.summary??)</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="form-user">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </div>

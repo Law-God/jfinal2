@@ -16,14 +16,24 @@ public class ${className}Validator extends Validator {
 
     protected void validate(Controller controller) {
 <#list  columns.commonColumns  as  column>
-    <#if column.sqlType == 'string' >
-        validateString(${column.isNullable},"${tableName}.${column.name}", 1,${column.size},"${column.name}Msg", "${column.remarks}");
-    <#elseif column.sqlType ==  "char">
-        validateInteger(${column.isNullable},"${tableName}.${column.name}", ${column.size},"${column.name}Msg", "${column.remarks}");
-    <#elseif column.sqlType ==  "int">
-        validateInteger(${column.isNullable},"${tableName}.${column.name}", ${column.size},"${column.name}Msg", "${column.remarks}");
-    <#elseif column.sqlType ==  "double">
-        validateInteger(${column.isNullable},"${tableName}.${column.name}", ${column.size},"${column.name}Msg", "${column.remarks}");
+    <#if column.layVerify == 'string' >
+        validateString(${column.isNullable},"${tableName}.${column.name}", 1,${column.size},"${column.name}Msg", "${column.tip}");
+    <#elseif column.layVerify == 'int' >
+        validateInteger(${column.isNullable},"${tableName}.${column.name}", ${column.size},"${column.name}Msg", "${column.tip}");
+    <#elseif column.layVerify == 'double' >
+        validateDouble(${column.isNullable},"${tableName}.${column.name}", 1,${column.size},"${column.name}Msg", "${column.tip}");
+    <#elseif column.layVerify ==  "phone">
+        validatePhone(${column.isNullable},"${tableName}.${column.name}","${column.name}Msg", "${column.tip}");
+    <#elseif column.layVerify ==  "email">
+        validateEmail(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}");
+    <#elseif column.layVerify ==  "url">
+        validateUrl(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}");
+    <#elseif column.layVerify ==  "identity">
+        validateIdentity(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}");
+    <#elseif column.layVerify ==  "date">
+        validateDate(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}");
+    <#elseif column.layVerify ==  "regexp">
+        validateRegexp(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}","${column.regexp}");
     </#if>
 </#list>
 

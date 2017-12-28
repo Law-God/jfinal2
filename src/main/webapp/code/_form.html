@@ -29,7 +29,7 @@
 
 <div class="layui-col-xs3">
     <div class="layui-form-item">
-        <label class="layui-form-label">显示文字</label>
+        <label class="layui-form-label">显示名称</label>
         <div class="layui-input-block">
             <input type="text" id="remarks" name="remarks" value="#(columnMeta.remarks??)" autocomplete="off" class="layui-input column">
         </div>
@@ -53,18 +53,18 @@
                 <div class="layui-input-block">
                     <select name="businessType" class="column">
                     #if(columnMeta.sqlType == 'string')
-                        <option value="string">字符型</option>
-                        <option value="text">文本域</option>
-                        <option value="picture">图片</option>
-                        <option value="file">文件</option>
+                        <option value="string" #if(columnMeta.businessType == 'string') selected #end>文本框</option>
+                        <option value="text" #if(columnMeta.businessType == 'text') selected #end>文本域</option>
+                        <option value="picture" #if(columnMeta.businessType == 'picture') selected #end>图片</option>
+                        <option value="file" #if(columnMeta.businessType == 'file') selected #end>文件</option>
                     #elseif(columnMeta.sqlType == 'int')
-                        <option value="int">整数型</option>
+                        <option value="int" #if(columnMeta.businessType == 'int') selected #end>整数型</option>
                     #elseif(columnMeta.sqlType == 'double')
-                        <option value="double">浮点型</option>
+                        <option value="double" #if(columnMeta.businessType == 'double') selected #end>浮点型</option>
                     #elseif(columnMeta.sqlType == 'date')
-                        <option value="date">日期型</option>
+                        <option value="date" #if(columnMeta.businessType == 'date') selected #end>日期型</option>
                     #elseif(columnMeta.sqlType == 'text')
-                        <option value="edit">编辑器</option>
+                        <option value="edit" #if(columnMeta.businessType == 'edit') selected #end>编辑器</option>
                     #end
                     </select>
                 </div>
@@ -79,23 +79,22 @@
             <div class="grid-demo">
                 <label class="layui-form-label">校验规则</label>
                 <div class="layui-input-block">
-                    <input type="hidden" name="layVerify" value="#(columnMeta.layVerify)"/>
                     <select lay-filter="selectLayVerify" name="layVerify" class="column">
-                        <option value="">无</option>
                         #if(columnMeta.sqlType == 'string')
-                            <option value="string">字符</option>
-                            <option value="phone">手机号</option>
-                            <option value="email">邮箱</option>
-                            <option value="url">链接</option>
-                            <option value="identity">身份证号</option>
+                            <option value="string" #if(columnMeta.layVerify == 'string') selected #end>字符</option>
+                            <option value="phone" #if(columnMeta.layVerify == 'phone') selected #end>手机号</option>
+                            <option value="email" #if(columnMeta.layVerify == 'email') selected #end>邮箱</option>
+                            <option value="url" #if(columnMeta.layVerify == 'url') selected #end>链接</option>
+                            <option value="identity" #if(columnMeta.layVerify == 'identity') selected #end>身份证号</option>
                         #elseif(columnMeta.sqlType == 'int')
-                            <option value="int">整数</option>
+                            <option value="int" #if(columnMeta.layVerify == 'int') selected #end>整数</option>
                         #elseif(columnMeta.sqlType == 'double')
-                            <option value="double">浮点数</option>
+                            <option value="double" #if(columnMeta.layVerify == 'double') selected #end>浮点数</option>
                         #elseif(columnMeta.sqlType == 'date')
-                            <option value="date">日期</option>
+                            <option value="date" #if(columnMeta.layVerify == 'date') selected #end>日期</option>
+                        #else
                         #end
-                        <option value="regexp">正则表达式</option>
+                        <option value="regexp" #if(columnMeta.layVerify == 'regexp') selected #end>正则表达式</option>
                     </select>
                 </div>
             </div>

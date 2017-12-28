@@ -7,21 +7,39 @@ layui.use(['form', 'AjaxUtil'], function(){
     //监听select
     form.on('select(selectLayVerify)', function(data){
         var val = data.value;
-        $("input[name='layVerify']").val(val);
-        if(val == 'regexp'){
-            $(this).closest(".layui-row").find($("div .size,div .scale")).css("display","none");
-            $(this).closest(".layui-row").find($("div .regexp")).css("display","");
-        }else if(val == 'string'){
-            $(this).closest(".layui-row").find($("div .size")).css("display","");
-            $(this).closest(".layui-row").find($("div .scale,div .regexp")).css("display","none");
-        }else if(val == "number"){
-            $(this).closest(".layui-row").find($("div .size,div .scale")).css("display","");
-            $(this).closest(".layui-row").find($("div .regexp")).css("display","none");
-        }else {
-            $(this).closest(".layui-row").find($("div .size,div .scale,div .regexp")).css("display","none");
-        }
+        //$(this).closest(".layui-row").find($("input[name='layVerify']")).val(val);
+        verifyControll($(this),val);
     });
 
+    $(function(){
+        $("select[lay-filter='selectLayVerify']").each(function(){
+            var val = $(this).val();
+            verifyControll($(this),val);
+        })
+    });
+
+    /**
+     * 根据选择校验规则控制显示控件
+     * @param _$select
+     * @param val
+     */
+    function verifyControll(_$select,val){
+        if(val == 'regexp'){
+            _$select.closest(".layui-row").find($("div .size,div .scale")).css("display","none");
+            _$select.closest(".layui-row").find($("div .regexp")).css("display","");
+        }else if(val == 'string'){
+            _$select.closest(".layui-row").find($("div .size")).css("display","");
+            _$select.closest(".layui-row").find($("div .scale,div .regexp")).css("display","none");
+        }else if(val =='int'){
+            _$select.closest(".layui-row").find($("div .size")).css("display","");
+            _$select.closest(".layui-row").find($("div .regexp,div .scale")).css("display","none");
+        }else if(val == 'double'){
+            _$select.closest(".layui-row").find($("div .size,div .scale")).css("display","");
+            _$select.closest(".layui-row").find($("div .regexp")).css("display","none");
+        }else {
+            _$select.closest(".layui-row").find($("div .size,div .scale,div .regexp")).css("display","none");
+        }
+    }
 
     //监听指定开关
     form.on('switch(switchTest)', function(data){

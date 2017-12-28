@@ -4,7 +4,7 @@
         <#list  columns.commonColumns  as  column2>
         <#assign column2_2 = column_index + 2>
         <#if column2_index gte column_index && column2_index lt column2_2>
-            <#if column2.sqlType == 'int'>
+            <#if column2.businessType == 'int'>
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
                     <label class="layui-form-label">
@@ -15,7 +15,7 @@
                     </div>
                 </div>
             </div>
-            <#elseif column2.sqlType == 'double'>
+            <#elseif column2.businessType == 'double'>
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
                     <label class="layui-form-label">
@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <#elseif column2.sqlType == 'date'>
+            <#elseif column2.businessType == 'date'>
                 <div class="layui-col-xs6">
                     <div class="layui-form-item">
                         <label class="layui-form-label">
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                 </div>
-            <#elseif column2.sqlType == 'char'>
+            <#elseif column2.businessType == 'char'>
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
                     <label class="layui-form-label">
@@ -69,7 +69,7 @@
 </#list>
 
 <#list  columns.bigColumns  as  column>
-    <#if column.sqlType == 'text'>
+    <#if column.businessType == 'text'>
     <div class="layui-row">
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">
@@ -80,7 +80,7 @@
             </div>
         </div>
     </div>
-    <#elseif column.sqlType == 'longtext'>
+    <#elseif column.businessType == 'edit'>
     <div class="layui-row">
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">

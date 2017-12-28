@@ -23,6 +23,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.common.PatternConstant;
+import com.common.PatternUtil;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
@@ -665,6 +668,114 @@ public abstract class Validator implements Interceptor {
 			if (StrKit.isBlank(value)) {
 				addError(errorKey, errorMessage + "不能为空");
 				return ;
+			}
+		}
+	}
+
+	protected void validatePhone(int required,String field,String errorKey,String errorMessage){
+		String value = controller.getPara(field);
+		if(required == 0){
+			if (StrKit.isBlank(value)) {
+				addError(errorKey, "必填项不能为空");
+				return ;
+			}
+			if(!PatternUtil.match(value, PatternConstant.TELEPHONE_REGEX)){
+				addError(errorKey, errorMessage);
+				return ;
+			}
+		}else{
+			if(!PatternUtil.match(value, PatternConstant.TELEPHONE_REGEX)){
+				addError(errorKey, errorMessage);
+			}
+		}
+	}
+
+	protected void validateEmail(int required,String field,String errorKey,String errorMessage){
+		String value = controller.getPara(field);
+		if(required == 0){
+			if (StrKit.isBlank(value)) {
+				addError(errorKey, "必填项不能为空");
+				return ;
+			}
+			if(!PatternUtil.match(value, PatternConstant.EMAIL_REGEX)){
+				addError(errorKey, errorMessage);
+				return ;
+			}
+		}else{
+			if(!PatternUtil.match(value, PatternConstant.EMAIL_REGEX)){
+				addError(errorKey, errorMessage);
+			}
+		}
+	}
+
+	protected void validateUrl(int required,String field,String errorKey,String errorMessage){
+		String value = controller.getPara(field);
+		if(required == 0){
+			if (StrKit.isBlank(value)) {
+				addError(errorKey, "必填项不能为空");
+				return ;
+			}
+			if(!PatternUtil.match(value, PatternConstant.URL_REGEX)){
+				addError(errorKey, errorMessage);
+				return ;
+			}
+		}else{
+			if(!PatternUtil.match(value, PatternConstant.URL_REGEX)){
+				addError(errorKey, errorMessage);
+			}
+		}
+	}
+
+	protected void validateIdentity(int required,String field,String errorKey,String errorMessage){
+		String value = controller.getPara(field);
+		if(required == 0){
+			if (StrKit.isBlank(value)) {
+				addError(errorKey, "必填项不能为空");
+				return ;
+			}
+			if(!PatternUtil.match(value, PatternConstant.ID_CARD_REGEX)){
+				addError(errorKey, errorMessage);
+				return ;
+			}
+		}else{
+			if(!PatternUtil.match(value, PatternConstant.ID_CARD_REGEX)){
+				addError(errorKey, errorMessage);
+			}
+		}
+	}
+
+	protected void validateDate(int required,String field,String errorKey,String errorMessage){
+		String value = controller.getPara(field);
+		if(required == 0){
+			if (StrKit.isBlank(value)) {
+				addError(errorKey, "必填项不能为空");
+				return ;
+			}
+			if(!PatternUtil.match(value, PatternConstant.PATTERN_DATE)){
+				addError(errorKey, errorMessage);
+				return ;
+			}
+		}else{
+			if(!PatternUtil.match(value, PatternConstant.PATTERN_DATE)){
+				addError(errorKey, errorMessage);
+			}
+		}
+	}
+
+	protected void validateRegexp(int required,String field,String errorKey,String errorMessage,String regexp){
+		String value = controller.getPara(field);
+		if(required == 0){
+			if (StrKit.isBlank(value)) {
+				addError(errorKey, "必填项不能为空");
+				return ;
+			}
+			if(!Pattern.compile(regexp).matcher(value).matches()){
+				addError(errorKey, errorMessage);
+				return ;
+			}
+		}else{
+			if(!Pattern.compile(regexp).matcher(value).matches()){
+				addError(errorKey, errorMessage);
 			}
 		}
 	}

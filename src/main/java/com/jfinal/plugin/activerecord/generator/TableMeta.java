@@ -67,7 +67,7 @@ public class TableMeta {
                     primaryColumns.add(column);
                     continue;
                 }
-                if ("text".equals(columnMeta.sqlType) || "longtext".equals(columnMeta.sqlType) || "blob".equals(columnMeta.sqlType)) {
+                if ("text".equals(columnMeta.businessType) || "edit".equals(columnMeta.businessType)) {
                     bigColumns.add(column);
                 } else {
                     commonColumns.add(column);

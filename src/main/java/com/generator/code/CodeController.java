@@ -78,29 +78,24 @@ public class CodeController extends Controller {
 			String name = columnMeta.name;
 			String layVerify = columnMeta.getLayVerify();
 			int size = columnMeta.size;
-			switch (layVerify){
-				case "string" :
-					columnMeta.layVerifyValue = name + "String" + size;
-					break;
-				case "int" :
-					columnMeta.layVerifyValue = name + "Int" + size;
-					break;
-				case "double":
-					columnMeta.layVerifyValue = name + "Double" + size;
-					break;
-				case "regexp":
-					columnMeta.layVerifyValue = name + "Regexp";
-					break;
-				case "edit":
-					columnMeta.layVerifyValue = name + "Edit";
-					break;
-				default:
-					break;
+			if("string".equals(layVerify)){
+				columnMeta.layVerifyValue = name + "String" + size;
+			}else if("int".equals(layVerify)){
+				columnMeta.layVerifyValue = name + "Int" + size;
+			}else if("double".equals(layVerify)){
+				columnMeta.layVerifyValue = name + "Double" + size;
+			}else if("regexp".equals(layVerify)){
+				columnMeta.layVerifyValue = name + "Regexp";
+			}else if("edit".equals(layVerify)){
+				columnMeta.layVerifyValue = name + "Edit";
+			}else{
+				columnMeta.layVerifyValue = columnMeta.layVerify;
 			}
 		}
 		ViewGenerator viewGenerator = new ViewGenerator(tableMeta);
 		viewGenerator.generate();
 
+		renderJson(new ReturnMsg(true,""));
 	}
 	
 	public void delete() {

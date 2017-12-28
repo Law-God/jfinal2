@@ -1,6 +1,7 @@
 package com.common;
 
 import com.business.blog.BlogController;
+import com.business.user.UserController;
 import com.generator.code.CodeController;
 import com.index.IndexController;
 import com.jfinal.config.*;
@@ -54,6 +55,8 @@ public class JfinalGlobalConfig extends JFinalConfig {
 		me.add("/", IndexController.class, "/index");	// 第三个参数为该Controller的视图存放路径
 		me.add("/code", CodeController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
 		me.add("/blog", BlogController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
+		me.add("/user", UserController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
+
 	}
 	
 	public void configEngine(Engine me) {

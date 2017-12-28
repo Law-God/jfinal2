@@ -6,7 +6,7 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
     ,AjaxUtil = layui.AjaxUtil;;
     var $= layui.jquery;
 <#list columns.commonColumns as column>
-    <#if column.sqlType == "date">
+    <#if column.businessType == "date">
         //日期
         laydate.render({
             elem: '#${column.name}_date',
@@ -23,7 +23,7 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
 </#list>
 
 <#list columns.bigColumns as column>
-    <#if column.sqlType == "longtext">
+    <#if column.businessType == "edit">
         //创建一个编辑器
         var ${column.name}Editor = layedit.build('${column.name}_editor');
     </#if>
@@ -44,6 +44,9 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
             },
         <#elseif column.layVerify == "int">
             ${column.layVerifyValue} : function(value){
+                <#if column.isNullable == '1'>
+                if(value == "") return false;
+                </#if>
                 var regObj = getIntRegByLength(${column.size});
                 if(!!regObj.reg){
                     var reg = new RegExp(regObj.reg);
@@ -60,6 +63,9 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
             },
         <#elseif column.layVerify == "double">
             ${column.layVerifyValue} : function(value){
+                <#if column.isNullable == '1'>
+                if(value == "") return false;
+                </#if>
                 var regObj = getDoubleRegByLength(${column.size});
                 if(!!regObj.reg){
                     var reg = new RegExp(regObj.reg);
@@ -77,37 +83,62 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
         <#elseif column.layVerify == "char">
             ${column.layVerifyValue} : function(){
                 if(!$("#${column.name}-radio-hidden").val()){
-                    return '请选择${column.remarks}';
+                    <#if column.tip != "">
+                        return '${column.tip}';
+                        <#else >
+                        return '请选择${column.remarks};
+                        </#if>
+                    }
                 }
             },
+        <#elseif column.layVerify == "regexp">
+            ${column.layVerifyValue} : function(value){
+            <#if column.layVerify == 'regexp' && column.regexp != ''>
+                var reg = new RegExp('${column.regexp}');
+                if(!reg.test(value)){
+                    return '${column.tip}';
+                }
+            },
+            </#if>
         </#if>
     </#list>
 
     <#list columns.bigColumns as column>
         <#if column.isNullable == "0">
-            <#if column.layVerify == "text">
+            <#if column.businessType == "text">
                 ${column.layVerifyValue} : function(value){
                      if(value.length > 1000){
                         return '内容不能超过1000个字符';
                     }
                 },
             </#if>
-            <#if column.layVerify == "edit">
+            <#if column.businessType == "edit">
                 ${column.layVerifyValue} : function(value){
                     layedit.sync(${column.name}Editor);
                     var content = layedit.getContent(${column.name}Editor);
+                    <#if column.layVerify == 'regexp' && column.regexp != ''>
+                    var reg = new RegExp('${column.regexp}');
+                    if(!reg.test(value)){
+                        return '${column.tip}';
+                    }
+                    <#else>
                     if(content.length <= 0){
                         //return '${column.defaultValue}';
                         return '必填项不能为空';
                     }
+                    </#if>
                 },
             </#if>
         <#else>
-            <#if column.layVerify == "text">
+            <#if column.businessType == "text">
                 ${column.layVerifyValue} : function(value){
-                    if(!!value  && value.length > 1000){
-                        return '内容不能超过1000个字符';
+                    <#if column.layVerify == 'regexp' && column.regexp != ''>
+                    var reg = new RegExp(${column.regexp});
+                    if(!reg.test(value)){
+                        return ${column.tip};
                     }
+                    <#else>
+                    </#if>
                 }
             </#if>
         </#if>
@@ -116,23 +147,24 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
 
     var  verify = form.config.verify;
 <#list columns.commonColumns as column>
-<#if column.sqlType == "string" || column.sqlType == "int" || column.sqlType == "double">
-    $("#${column.name}").blur(function(){
-        layuiBlurCheck($(this),verify);
-    });
-<#elseif column.sqlType == "char">
+<#if column.layVerify == "char">
     form.on('radio(filter-radio-${column.name})', function(data){
         $("#${column.name}-radio-hidden").val(data.value);
+    });
+<#elseif column.layVerify == "date">
+<#else>
+    $("#${column.name}").blur(function(){
+        layuiBlurCheck($(this),verify);
     });
 </#if>
 </#list>
 
 <#list columns.bigColumns as column>
-<#if column.sqlType == "text">
+<#if column.businessType == "text">
     $("#${column.name}").blur(function(){
         layuiBlurCheck($(this),verify,1);
     })
-<#elseif column.sqlType == "longtext">
+<#elseif column.businessType == "edit">
     $("iframe[textarea='${column.name}_editor']").contents().find("body").blur(function(){
         layuiBlurCheck($("#${column.name}_editor"),verify,1,$("#${column.name}-tip"));
     });

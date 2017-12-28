@@ -23,33 +23,53 @@ layui.define('layer', function(exports){
           /[\S]+/
           ,'必填项不能为空'
         ]
-        ,phone: [
-          /^1\d{10}$/
-          ,'请输入正确的手机号'
-        ]
-        ,email: [
-          /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
-          ,'邮箱格式不正确'
-        ]
-        ,url: [
-          /(^#)|(^http(s*):\/\/[^\s]+\.[^\s]+)/
-          ,'链接格式不正确'
-        ]
-        ,number: function(value){
+        ,phone: function(value){
+          if(value == '') return false;
+          var reg =  /^1[3|4|5|7|8]\d{9}$/;
+          if(!reg.test(value)){
+            return '请输入正确的手机号';
+          }
+
+        }
+        ,email : function(value){
+          if(value == '') return false;
+          var reg =  /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}$/
+          if(!reg.test(value)){
+            return '邮箱格式不正确';
+          }
+        }
+        ,url : function(value){
+          if(value == '') return false;
+          var reg =  /(^#)|(^http(s*):\/\/[^\s]+\.[^\s]+)/
+          if(!reg.test(value)){
+            return '链接格式不正确';
+          }
+        }
+        ,number : function(value){
+          if(value == '') return false;
           if(!value || isNaN(value)) return '只能填写数字'
         }
         ,datetime : function(value){
-          /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)\s(0\d{1}|1\d{1}|2[0-3]):([0-5]\d{1}):([0-5]\d{1})$/
-          ,'日期格式不正确'
+          if(value == '') return false;
+          var reg = /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)\s(0\d{1}|1\d{1}|2[0-3]):([0-5]\d{1}):([0-5]\d{1})$/;
+          if(!reg.test(value)){
+            return '日期格式不正确';
+          }
         }
-        ,date: [
-          /^(\d{4})[-\/](\d{1}|0\d{1}|1[0-2])([-\/](\d{1}|0\d{1}|[1-2][0-9]|3[0-1]))*$/
-          ,'日期格式不正确'
-        ]
-        ,identity: [
-          /(^\d{15}$)|(^\d{17}(x|X|\d)$)/
-          ,'请输入正确的身份证号'
-        ]
+        ,date : function(value){
+          if(value == '') return false;
+          var reg = /^(\d{4})[-\/](\d{1}|0\d{1}|1[0-2])([-\/](\d{1}|0\d{1}|[1-2][0-9]|3[0-1]))*$/;
+          if(!reg.test(value)){
+            return '日期格式不正确';
+          }
+        }
+        ,identity : function(value){
+          if(value == '') return false;
+          var reg = /(^\d{15}$)|(^\d{17}(x|X|\d)$)/;
+          if(!reg.test(value)){
+            return '请输入正确的身份证号';
+          }
+        }
       }
     };
   };

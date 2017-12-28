@@ -75,7 +75,7 @@ function layuiBlurCheck($id,verify,tips,$tip){
                     var t = $id.offset().top;
                     $(window).scrollTop(t);//滚动到锚点位置
                 }
-                //stop = true;
+                stop = true;
             }
         }
     });
