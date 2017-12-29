@@ -1,9 +1,10 @@
-layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
+layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
     var form = layui.form
     ,layer = layui.layer
     ,layedit = layui.layedit
     ,laydate = layui.laydate
-    ,AjaxUtil = layui.AjaxUtil;;
+    ,AjaxUtil = layui.AjaxUtil
+    ,upload = layui.upload;
     var $= layui.jquery;
 <#list columns.commonColumns as column>
     <#if column.businessType == "date">
@@ -26,6 +27,33 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
     <#if column.businessType == "edit">
         //创建一个编辑器
         var ${column.name}Editor = layedit.build('${column.name}_editor');
+    <#elseif column.businessType == 'picture'>
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#${column.name}Btn'
+            ,url: '/${tableName}/upload'
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#${column.name}Img').attr('src', result); //图片链接（base64）
+                });
+            }
+            ,done: function(res){
+                //如果上传失败
+                if(res.code > 0){
+                return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+            ,error: function(){
+                    //演示失败状态，并实现重传
+                    var demoText = $('#${column.name}Tip');
+                    demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                    demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+        });
     </#if>
 </#list>
 
@@ -94,7 +122,7 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
         <#elseif column.layVerify == "regexp">
             ${column.layVerifyValue} : function(value){
             <#if column.layVerify == 'regexp' && column.regexp != ''>
-                var reg = new RegExp('${column.regexp}');
+                var reg = new RegExp('${column.regexp?js_string}');
                 if(!reg.test(value)){
                     return '${column.tip}';
                 }
@@ -117,7 +145,7 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
                     layedit.sync(${column.name}Editor);
                     var content = layedit.getContent(${column.name}Editor);
                     <#if column.layVerify == 'regexp' && column.regexp != ''>
-                    var reg = new RegExp('${column.regexp}');
+                    var reg = new RegExp('${column.regexp?js_string}');
                     if(!reg.test(value)){
                         return '${column.tip}';
                     }
@@ -133,7 +161,7 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
             <#if column.businessType == "text">
                 ${column.layVerifyValue} : function(value){
                     <#if column.layVerify == 'regexp' && column.regexp != ''>
-                    var reg = new RegExp(${column.regexp});
+                    var reg = new RegExp(${column.regexp?js_string});
                     if(!reg.test(value)){
                         return ${column.tip};
                     }
@@ -181,11 +209,13 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
                 var msgList = response.msgList;
                 for(var i= 0,len=msgList.length;i<len;i++){
                     if(!!msgList[i].value){
-                        var sqlType =  msgList[i].sqlType;
-                        if(sqlType === 'char'){
+                        var businessType =  msgList[i].businessType;
+                        if(businessType === 'text'){
                             layer.tips(msgList[i].value, $("#"+msgList[i].key), {tips: 1,time:3000,tipsMore :true});
-                        }else if(sqlType === 'longtext'){
+                        }else if(businessType === 'edit'){
                             layer.tips(msgList[i].value, $("#"+msgList[i].key+"-tip"), {tips: 1,time:3000,tipsMore :true});
+                        }else if(businessType === 'date'){
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"_date"), {tips: 1,time:3000,tipsMore :true});
                         }else{
                             layer.tips(msgList[i].value, $("#"+msgList[i].key), {tips: 1,time:3000,tipsMore :true});
                         }

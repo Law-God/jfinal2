@@ -93,7 +93,30 @@
                 <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;简介
             </label>
             <div class="layui-input-block" id="summary-tip">
-                <textarea  class="layui-textarea layui-hide" name="user.summary" placeholder="" lay-verify="summaryRegexp" lay-verType="tips" id="summary_editor" lay-tip="summary-tip">#(user.summary??)</textarea>
+                <textarea  class="layui-textarea layui-hide" name="user.summary" placeholder="必填项不能为空" lay-verify="summaryRegexp" lay-verType="tips" id="summary_editor" lay-tip="summary-tip">#(user.summary??)</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-col-xs6">
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    头像
+                </label>
+                <div class="layui-input-block">
+                    <div class="layui-upload">
+                        <input type="hidden" id="picture" name="picture"/>
+                        <input type="hidden" id="fileName" name="fileName"/>
+                        <input type="hidden" id="originalFileName" name="originalFileName"/>
+                        <input type="hidden" id="businessType" name="businessType"/>
+                        <input type="hidden" id="contentType" name="contentType"/>
+                        <button type="button" class="layui-btn" id="pictureBtn">上传图片</button>
+                        <div class="layui-upload-list">
+                            <img class="layui-upload-img" id="pictureImg" style="width:92px;height: 92px;margin : 0 10px 10px 0">
+                            <p id="pictureTip"></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

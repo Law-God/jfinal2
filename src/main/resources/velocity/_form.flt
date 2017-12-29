@@ -91,6 +91,25 @@
             </div>
         </div>
     </div>
+    <#elseif column.businessType == 'picture'>
+    <div class="layui-row">
+        <div class="layui-col-xs6">
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    头像
+                </label>
+                <div class="layui-input-block">
+                    <div class="layui-upload">
+                        <button type="button" class="layui-btn" id="${column.name}Btn">上传图片</button>
+                        <div class="layui-upload-list">
+                            <img class="layui-upload-img" id="${column.name}Img" style="width:92px;height: 92px;margin : 0 10px 10px 0">
+                            <p id="${column.name}Tip"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </#if>
 </#list>
 

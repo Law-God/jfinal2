@@ -495,10 +495,10 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
       layui.each(data, function(i1, item1){
         var tds = [], tds_fixed = [], tds_fixed_r = []
         ,numbers = i1 + options.limit*(curr - 1) + 1; //序号
-        
         if(item1.length === 0) return;
         if(!sort){
-          item1[table.config.indexName] = i1;
+          //item1[table.config.indexName] = i1;
+          item1[table.config.indexName] = numbers;
         }
         
         that.eachCols(function(i3, item3){

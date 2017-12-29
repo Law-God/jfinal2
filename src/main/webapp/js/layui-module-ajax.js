@@ -1,5 +1,7 @@
 //============================Ajax相关==============================
 layui.define('jquery',function(exports){ //提示：模块也可以依赖其它模块，如：layui.define('layer', callback);
+    "use strict";
+
     var $ = layui.jquery;
     //ajax基本参数
     var defaults={
@@ -72,7 +74,7 @@ layui.define('jquery',function(exports){ //提示：模块也可以依赖其它�
                 }
             },defaults.dataType === undefined ? 'json' : defaults.dataType);
         },
-        put : function(options){
+       /* put : function(options){
             options.type='POST';
             options.data._method='PUT';
             return ajax(options);
@@ -81,7 +83,7 @@ layui.define('jquery',function(exports){ //提示：模块也可以依赖其它�
             options.type='POST';
             options.data._method='DELETE';
             return ajax(options);
-        },
+        },*/
         ajax : function(options){
             $.extend(defaults,options);
             //MaskLayer.show();

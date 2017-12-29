@@ -99,4 +99,13 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return getStr("idcard");
 	}
 
+	public M setPicture(java.lang.String picture) {
+		set("picture", picture);
+		return (M)this;
+	}
+
+	public java.lang.String getPicture() {
+		return getStr("picture");
+	}
+
 }

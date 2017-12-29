@@ -46,6 +46,8 @@ public class JfinalGlobalConfig extends JFinalConfig {
 		// 加载少量必要配置，随后可用PropKit.get(...)获取值
 		PropKit.use("dataSource.txt");
 		me.setDevMode(PropKit.getBoolean("devMode", false));
+		me.setBaseUploadPath(PropKit.get("baseUploadPath"));//设置文件上传路径
+		me.setBaseDownloadPath(PropKit.get("baseUploadPath"));//设置文件下载路径
 	}
 	
 	/**

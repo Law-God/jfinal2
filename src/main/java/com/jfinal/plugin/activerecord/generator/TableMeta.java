@@ -67,7 +67,7 @@ public class TableMeta {
                     primaryColumns.add(column);
                     continue;
                 }
-                if ("text".equals(columnMeta.businessType) || "edit".equals(columnMeta.businessType)) {
+                if ("text".equals(columnMeta.businessType) || "edit".equals(columnMeta.businessType) || "picture".equals(columnMeta.businessType)) {
                     bigColumns.add(column);
                 } else {
                     commonColumns.add(column);

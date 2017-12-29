@@ -4,9 +4,11 @@ import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import ${modelPackageName}.${className};
 import com.common.ReturnMsg;
+import org.springframework.util.StringUtils;
+
 
 /**
- * 
+ *
  * Controller
  */
 @Before(${className}Interceptor.class)
@@ -65,8 +67,22 @@ public class ${className}Controller extends Controller {
 	}
 	
 	public void delete() {
-		service.deleteById(getParaToInt());
-		redirect("/${tableName}");
+		try{
+			String idParam = getPara();
+			if(!StringUtils.isEmpty(idParam)){
+				String[] ids = idParam.split(",");
+				for(String id : ids){
+					service.deleteById(new Integer(id));
+				}
+				renderJson(new ReturnMsg(true,""));
+			}
+			renderJson(new ReturnMsg(false,"操作失败"));
+		}catch (Exception e){
+			e.printStackTrace();
+			renderJson(new ReturnMsg(false,"系统出错，请联系管理员"));
+			return;
+		}
+		renderJson(new ReturnMsg(true,""));
 	}
 }
 

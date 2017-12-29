@@ -10,3 +10,5 @@ webpath = D:\\phantom\\jfinal2\\src\\main\\webapp\\
 controllerpath = D:\\phantom\\jfinal2\\src\\main\\java\\com\\business\\
 
 freemarkerpath = D:\\phantom\\jfinal2\\src\\main\\resources\\velocity\\
+
+baseUploadPath = D:\\phantom\\jfinal2\\src\\main\\webapp\\upload\\

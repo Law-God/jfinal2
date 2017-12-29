@@ -16,7 +16,7 @@ public class UserValidator extends Validator {
 
     protected void validate(Controller controller) {
         validateRegexp(0,"user.username", "usernameMsg", "用户名不正确","^[\\S]{3}$");
-        validateInteger(0,"user.age", 3,"ageMsg", "年龄");
+        validateInteger(0,"user.age", 3,"ageMsg", "");
         validateDate(0,"user.birthday", "birthdayMsg", "日期格式错误");
         validateRegexp(0,"user.phone", "phoneMsg", "手机号格式错误","^13\\d{9}$");
         validateEmail(0,"user.email", "emailMsg", "邮箱格式错误");
@@ -36,7 +36,7 @@ public class UserValidator extends Validator {
         if(addressMsg != null){
             flag = true;
             m.put("key","address");
-            m.put("sqlType","string");
+            m.put("businessType","text");
             m.put("value",addressMsg);
             errorMsg.add(m);
         }
@@ -45,8 +45,17 @@ public class UserValidator extends Validator {
         if(summaryMsg != null){
             flag = true;
             m.put("key","summary");
-            m.put("sqlType","text");
+            m.put("businessType","edit");
             m.put("value",summaryMsg);
+            errorMsg.add(m);
+        }
+        m = new HashMap();
+        Object pictureMsg = controller.getAttr("pictureMsg");
+        if(pictureMsg != null){
+            flag = true;
+            m.put("key","picture");
+            m.put("businessType","picture");
+            m.put("value",pictureMsg);
             errorMsg.add(m);
         }
         m = new HashMap();
@@ -55,7 +64,7 @@ public class UserValidator extends Validator {
             if(usernameMsg != null){
                 flag = true;
                 m.put("key","username");
-                m.put("sqlType","string");
+                m.put("businessType","string");
                 m.put("value",usernameMsg);
                 errorMsg.add(m);
             }
@@ -64,7 +73,7 @@ public class UserValidator extends Validator {
             if(ageMsg != null){
                 flag = true;
                 m.put("key","age");
-                m.put("sqlType","int");
+                m.put("businessType","int");
                 m.put("value",ageMsg);
                 errorMsg.add(m);
             }
@@ -73,7 +82,7 @@ public class UserValidator extends Validator {
             if(birthdayMsg != null){
                 flag = true;
                 m.put("key","birthday");
-                m.put("sqlType","date");
+                m.put("businessType","date");
                 m.put("value",birthdayMsg);
                 errorMsg.add(m);
             }
@@ -82,7 +91,7 @@ public class UserValidator extends Validator {
             if(phoneMsg != null){
                 flag = true;
                 m.put("key","phone");
-                m.put("sqlType","string");
+                m.put("businessType","string");
                 m.put("value",phoneMsg);
                 errorMsg.add(m);
             }
@@ -91,7 +100,7 @@ public class UserValidator extends Validator {
             if(emailMsg != null){
                 flag = true;
                 m.put("key","email");
-                m.put("sqlType","string");
+                m.put("businessType","string");
                 m.put("value",emailMsg);
                 errorMsg.add(m);
             }
@@ -100,7 +109,7 @@ public class UserValidator extends Validator {
             if(urlMsg != null){
                 flag = true;
                 m.put("key","url");
-                m.put("sqlType","string");
+                m.put("businessType","string");
                 m.put("value",urlMsg);
                 errorMsg.add(m);
             }
@@ -109,7 +118,7 @@ public class UserValidator extends Validator {
             if(idcardMsg != null){
                 flag = true;
                 m.put("key","idcard");
-                m.put("sqlType","string");
+                m.put("businessType","string");
                 m.put("value",idcardMsg);
                 errorMsg.add(m);
             }

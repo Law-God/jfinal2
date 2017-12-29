@@ -33,7 +33,7 @@ public class ${className}Validator extends Validator {
     <#elseif column.layVerify ==  "date">
         validateDate(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}");
     <#elseif column.layVerify ==  "regexp">
-        validateRegexp(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}","${column.regexp}");
+        validateRegexp(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}","${column.regexp?j_string}");
     </#if>
 </#list>
 
@@ -55,7 +55,7 @@ public class ${className}Validator extends Validator {
         if(${column.name}Msg != null){
             flag = true;
             m.put("key","${column.name}");
-            m.put("sqlType","${column.sqlType}");
+            m.put("businessType","${column.businessType}");
             m.put("value",${column.name}Msg);
             errorMsg.add(m);
         }
@@ -67,7 +67,7 @@ public class ${className}Validator extends Validator {
             if(${column.name}Msg != null){
                 flag = true;
                 m.put("key","${column.name}");
-                m.put("sqlType","${column.sqlType}");
+                m.put("businessType","${column.businessType}");
                 m.put("value",${column.name}Msg);
                 errorMsg.add(m);
             }
