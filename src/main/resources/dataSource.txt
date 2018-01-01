@@ -3,12 +3,12 @@ user = root
 password = admin
 devMode = true
 
-xmlpath = D:\\phantom\\jfinal2\\src\\main\\resources\\xml\\
+xmlpath = j:\\phantom\\jfinal2\\src\\main\\resources\\xml\\
 
-webpath = D:\\phantom\\jfinal2\\src\\main\\webapp\\
+webpath = j:\\phantom\\jfinal2\\src\\main\\webapp\\
 
-controllerpath = D:\\phantom\\jfinal2\\src\\main\\java\\com\\business\\
+controllerpath = j:\\phantom\\jfinal2\\src\\main\\java\\com\\business\\
 
-freemarkerpath = D:\\phantom\\jfinal2\\src\\main\\resources\\velocity\\
+freemarkerpath = j:\\phantom\\jfinal2\\src\\main\\resources\\velocity\\
 
-baseUploadPath = D:\\phantom\\jfinal2\\src\\main\\webapp\\upload\\
+baseUploadPath = j:\\phantom\\jfinal2\\src\\main\\webapp\\upload\\

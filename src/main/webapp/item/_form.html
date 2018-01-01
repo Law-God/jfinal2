@@ -1,0 +1,91 @@
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;菜单编码
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="itemCode" name="item.itemCode" value="#(item.itemCode??)" placeholder="" lay-verify="required|itemCodeString6" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;菜单编码值
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="itemSup" name="item.itemSup" value="#(item.itemSup??)" placeholder="" lay-verify="required|itemSupString6" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;菜单名
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="itemName" name="item.itemName" value="#(item.itemName??)" placeholder="" lay-verify="required|itemNameString100" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;菜单访问路径
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="itemUrl" name="item.itemUrl" value="#(item.itemUrl??)" placeholder="" lay-verify="required|itemUrlString100" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="layui-row">
+                <div class="layui-col-xs6">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;创建时间
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="createDate_date" name="item.createDate" value="#if(item.createDate??)#date(item.createDate,'yyyy-MM-dd')#end"  lay-verify="required|date" placeholder="" readonly lay-verType="tips" readonly autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        是否可用
+                    </label>
+                    <div class="layui-input-block" id="enable"  lay-verify="enableRadio" lay-verType="tips" lay-tip="enable">
+                        <input type="hidden" id="enable-radio-hidden" value="#(item.enable??)" />
+                            <input type="radio" name="item.enable" value="0" title="不可用" #(item.enable?? == '0' ? 'checked="checked"' : '') lay-filter="filter-radio-enable" />
+                            <input type="radio" name="item.enable" value="1" title="可用" #(item.enable?? == '1' ? 'checked="checked"' : '') lay-filter="filter-radio-enable" />
+                    </div>
+                 </div>
+            </div>
+    </div>
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;菜单代码当前值
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="itemSub" name="item.itemSub" value="#(item.itemSub??)" placeholder="" lay-verify="required|itemSubString6" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="form-item">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </div>

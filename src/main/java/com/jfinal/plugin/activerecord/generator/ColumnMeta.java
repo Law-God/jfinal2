@@ -18,6 +18,11 @@ package com.jfinal.plugin.activerecord.generator;
 
 import com.jfinal.plugin.activerecord.IBean;
 import com.jfinal.plugin.activerecord.Model;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /**
  * ColumnMeta
  */
@@ -48,6 +53,8 @@ public class ColumnMeta{
 	public String businessType;//业务类型
 	public String regexp;//正则匹配
 	public String tip;//提示
+	public String other;//单选按钮值
+	public List<Map> otherList = new ArrayList<Map>();
 
 
 	public String getName() {
@@ -176,6 +183,22 @@ public class ColumnMeta{
 
 	public void setLayVerifyValue(String layVerifyValue) {
 		this.layVerifyValue = layVerifyValue;
+	}
+
+	public String getOther() {
+		return other;
+	}
+
+	public void setOther(String other) {
+		this.other = other;
+	}
+
+	public List<Map> getOtherList() {
+		return otherList;
+	}
+
+	public void setOtherList(List<Map> otherList) {
+		this.otherList = otherList;
 	}
 }
 

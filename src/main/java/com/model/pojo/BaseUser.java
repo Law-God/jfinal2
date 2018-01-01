@@ -108,4 +108,22 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return getStr("picture");
 	}
 
+	public M setFile(java.lang.String file) {
+		set("file", file);
+		return (M)this;
+	}
+
+	public java.lang.String getFile() {
+		return getStr("file");
+	}
+
+	public M setSex(java.lang.String sex) {
+		set("sex", sex);
+		return (M)this;
+	}
+
+	public java.lang.String getSex() {
+		return getStr("sex");
+	}
+
 }

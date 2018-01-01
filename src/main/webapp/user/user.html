@@ -67,9 +67,10 @@
 },
                     {field:'idcard', title: '身份证'
 },
+                    {field:'sex', title: '性别'
+},
                         {field:'address', title: '地址'},
                         {field:'summary', title: '简介'},
-                        {field:'picture', title: '头像'},
                     {field:'', title: '操作',minWidth:110,toolbar: '#user-bar',fixed:'right'},
 			]]
             ,even: true //开启隔行背景
@@ -142,6 +143,12 @@
         }
 	});
 
+        function formatsex(value) {
+            if(value == '0')
+                return '男';
+            else
+                return '女';
+        }
 </script>
 
 <script type="text/html" id="user-bar">

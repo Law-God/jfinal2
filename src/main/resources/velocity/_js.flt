@@ -27,11 +27,17 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
     <#if column.businessType == "edit">
         //创建一个编辑器
         var ${column.name}Editor = layedit.build('${column.name}_editor');
-    <#elseif column.businessType == 'picture'>
+    </#if>
+</#list>
+
+<#list columns.fileColumns as column>
+    <#if column.businessType == 'picture'>
         //普通图片上传
-        var uploadInst = upload.render({
+        var ${column.name}uploadInst = upload.render({
             elem: '#${column.name}Btn'
-            ,url: '/${tableName}/upload'
+            ,accept: 'images'
+            ,url: '/upload/upload?businessType=${tableName}&businessField=${column.name}'
+            ,size : 2048//上传大小2m
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
@@ -39,23 +45,64 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
                 });
             }
             ,done: function(res){
-                //如果上传失败
-                if(res.code > 0){
-                return layer.msg('上传失败');
+                //如果上传成功
+                if(res.success){
+                    var obj = JSON.parse(res.msg);
+                    $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}").val("");//修改页面重新上传文件
+                    $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}_fileName").val(obj.fileName || "");
+                    $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}_originalFileName").val(obj.originalFileName || "");
+                    $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}_businessType").val(obj.businessType || "");
+                    $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}_businessField").val(obj.businessField || "");
+                    $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}_contentType").val(obj.contentType || "");
+                }else{
+                    return layer.msg('上传失败');
                 }
-                //上传成功
             }
             ,error: function(){
                     //演示失败状态，并实现重传
                     var demoText = $('#${column.name}Tip');
                     demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
                     demoText.find('.demo-reload').on('click', function(){
-                    uploadInst.upload();
+                    ${column.name}uploadInst.upload();
+                });
+            }
+        });
+    <#elseif column.businessType == 'file'>
+        //普通图片上传
+        var ${column.name}uploadInst = upload.render({
+            elem: '#${column.name}Btn'
+            ,accept: 'file'
+            ,url: '/upload/upload?businessType=${tableName}&businessField=${column.name}'
+            ,size : 2048//上传大小2m
+            ,done: function(res){
+                //如果上传成功
+                if(res.success){
+                    var obj = JSON.parse(res.msg);
+                    $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}").val("");//修改页面重新上传文件
+                    $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}_fileName").val(obj.fileName || "");
+                    $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}_originalFileName").val(obj.originalFileName || "");
+                    $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}_businessType").val(obj.businessType || "");
+                    $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}_businessField").val(obj.businessField || "");
+                    $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}_contentType").val(obj.contentType || "");
+                    var demoText = $('#fileTip');
+                    demoText.html('<span>上传成功</span>'+obj.originalFileName);
+                }else{
+                    return layer.msg('上传失败');
+                }
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#${column.name}Tip');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    ${column.name}uploadInst.upload();
                 });
             }
         });
     </#if>
 </#list>
+
+
 
     //自定义验证规则
     form.verify({
@@ -108,26 +155,41 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
                     return '正则表达式为空';
                 }
             },
-        <#elseif column.layVerify == "char">
+        <#elseif column.layVerify == "radio">
             ${column.layVerifyValue} : function(){
                 if(!$("#${column.name}-radio-hidden").val()){
                     <#if column.tip != "">
-                        return '${column.tip}';
-                        <#else >
-                        return '请选择${column.remarks};
-                        </#if>
-                    }
+                    return '${column.tip}';
+                    <#else >
+                    return '请选择${column.remarks}';
+                    </#if>
                 }
             },
         <#elseif column.layVerify == "regexp">
             ${column.layVerifyValue} : function(value){
-            <#if column.layVerify == 'regexp' && column.regexp != ''>
+            <#if column.isNullable == "1">
+                if(value == "") return false;
+            <#elseif column.layVerify == 'regexp' && column.regexp != ''>
                 var reg = new RegExp('${column.regexp?js_string}');
                 if(!reg.test(value)){
                     return '${column.tip}';
                 }
-            },
             </#if>
+            },
+        </#if>
+    </#list>
+
+    <#list columns.fileColumns as column>
+        <#if column.isNullable == "0">
+                upload${column.name} : function(){
+                    if($("#${column.name}").closest(".layui-upload").find("#fileName").val() == ""){
+                        <#if column.tip != ''>
+                         return '${column.tip}';
+                        <#else >
+                        return "请上传图片";
+                        </#if>
+                    }
+                },
         </#if>
     </#list>
 
@@ -167,7 +229,7 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
                     }
                     <#else>
                     </#if>
-                }
+                },
             </#if>
         </#if>
     </#list>
@@ -175,7 +237,7 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
 
     var  verify = form.config.verify;
 <#list columns.commonColumns as column>
-<#if column.layVerify == "char">
+<#if column.layVerify == "radio">
     form.on('radio(filter-radio-${column.name})', function(data){
         $("#${column.name}-radio-hidden").val(data.value);
     });
@@ -201,7 +263,7 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
 
     form.on('submit(form-${tableName})', function (data) {
         var url = $('#form-${tableName}').attr('action');
-        AjaxUtil.ajax({url : url,dataType : 'json',data:data.field,success : function(response,status){
+        AjaxUtil.ajax({url : url,type:'POST',dataType : 'json',data:data.field,success : function(response,status){
             if(response.success){
                 //parent.layer.closeAll();
                 parent.location.href = '/${tableName}';
@@ -216,6 +278,8 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
                             layer.tips(msgList[i].value, $("#"+msgList[i].key+"-tip"), {tips: 1,time:3000,tipsMore :true});
                         }else if(businessType === 'date'){
                             layer.tips(msgList[i].value, $("#"+msgList[i].key+"_date"), {tips: 1,time:3000,tipsMore :true});
+                        }else if(businessType === 'picture'){
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"Btn"), {tips: 2,time:3000,tipsMore :true});
                         }else{
                             layer.tips(msgList[i].value, $("#"+msgList[i].key), {tips: 1,time:3000,tipsMore :true});
                         }

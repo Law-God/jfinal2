@@ -20,6 +20,8 @@
     <businessType></businessType>
     <regexp></regexp>
     <tip></tip>
+    <other></other>
+    <otherList>[]</otherList>
   </columnMeta>
   <columnMeta>
     <name>username</name>
@@ -38,6 +40,8 @@
     <businessType></businessType>
     <regexp></regexp>
     <tip></tip>
+    <other></other>
+    <otherList>[]</otherList>
   </columnMeta>
   <columnMeta>
     <name>age</name>
@@ -56,6 +60,8 @@
     <businessType></businessType>
     <regexp></regexp>
     <tip></tip>
+    <other></other>
+    <otherList>[]</otherList>
   </columnMeta>
   <columnMeta>
     <name>address</name>
@@ -74,6 +80,8 @@
     <businessType></businessType>
     <regexp></regexp>
     <tip></tip>
+    <other></other>
+    <otherList>[]</otherList>
   </columnMeta>
   <columnMeta>
     <name>birthday</name>
@@ -92,6 +100,8 @@
     <businessType></businessType>
     <regexp></regexp>
     <tip></tip>
+    <other></other>
+    <otherList>[]</otherList>
   </columnMeta>
   <columnMeta>
     <name>summary</name>
@@ -110,6 +120,8 @@
     <businessType></businessType>
     <regexp></regexp>
     <tip></tip>
+    <other></other>
+    <otherList>[]</otherList>
   </columnMeta>
   <columnMeta>
     <name>phone</name>
@@ -128,6 +140,8 @@
     <businessType></businessType>
     <regexp></regexp>
     <tip></tip>
+    <other></other>
+    <otherList>[]</otherList>
   </columnMeta>
   <columnMeta>
     <name>email</name>
@@ -146,6 +160,8 @@
     <businessType></businessType>
     <regexp></regexp>
     <tip></tip>
+    <other></other>
+    <otherList>[]</otherList>
   </columnMeta>
   <columnMeta>
     <name>url</name>
@@ -164,6 +180,8 @@
     <businessType></businessType>
     <regexp></regexp>
     <tip></tip>
+    <other></other>
+    <otherList>[]</otherList>
   </columnMeta>
   <columnMeta>
     <name>idcard</name>
@@ -182,6 +200,8 @@
     <businessType></businessType>
     <regexp></regexp>
     <tip></tip>
+    <other></other>
+    <otherList>[]</otherList>
   </columnMeta>
   <columnMeta>
     <name>picture</name>
@@ -200,5 +220,47 @@
     <businessType></businessType>
     <regexp></regexp>
     <tip></tip>
+    <other></other>
+    <otherList>[]</otherList>
+  </columnMeta>
+  <columnMeta>
+    <name>file</name>
+    <javaType>java.lang.String</javaType>
+    <attrName>file</attrName>
+    <type></type>
+    <isNullable>1</isNullable>
+    <isPrimaryKey>false</isPrimaryKey>
+    <defaultValue></defaultValue>
+    <remarks></remarks>
+    <sqlType>string</sqlType>
+    <size>200</size>
+    <scale>0</scale>
+    <layVerify></layVerify>
+    <layVerifyValue></layVerifyValue>
+    <businessType></businessType>
+    <regexp></regexp>
+    <tip></tip>
+    <other></other>
+    <otherList>[]</otherList>
+  </columnMeta>
+  <columnMeta>
+    <name>sex</name>
+    <javaType>java.lang.String</javaType>
+    <attrName>sex</attrName>
+    <type></type>
+    <isNullable>1</isNullable>
+    <isPrimaryKey>false</isPrimaryKey>
+    <defaultValue></defaultValue>
+    <remarks></remarks>
+    <sqlType>char</sqlType>
+    <size>1</size>
+    <scale>0</scale>
+    <layVerify></layVerify>
+    <layVerifyValue></layVerifyValue>
+    <businessType></businessType>
+    <regexp></regexp>
+    <tip></tip>
+    <other></other>
+    <otherList>[]</otherList>
   </columnMeta>
 </tableMeta>

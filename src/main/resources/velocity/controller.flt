@@ -1,11 +1,14 @@
 package ${package};
 
+import com.common.ModelUtils;
+import com.generator.upload.UploadService;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import ${modelPackageName}.${className};
 import com.common.ReturnMsg;
 import org.springframework.util.StringUtils;
-
+import com.model.Upload;
+import java.util.List;
 
 /**
  *
@@ -15,7 +18,8 @@ import org.springframework.util.StringUtils;
 public class ${className}Controller extends Controller {
 	
 	static ${className}Service service = new ${className}Service();
-	
+	static UploadService uploadService = new UploadService();
+
 	public void index() {
 		setAttr("${tableName}Page", service.paginate(getParaToInt(0, 1), 10));
 		render("${tableName}.html");
@@ -37,7 +41,20 @@ public class ${className}Controller extends Controller {
 	@Before(${className}Validator.class)
 	public void save() {
 		try{
-			getModel(${className}.class).save();
+		<#if (columns.fileColumns?size > 0) >
+			${className} model = getModel(${className}.class);
+        	List<Upload> uploadList = ModelUtils.batchInjectModel(getRequest(),Upload.class,"upload");
+            for(Upload upload : uploadList){
+            	upload.save();
+            	String businessField = upload.getBusinessField();
+            	model.set(businessField.toString(),upload.getUploadid());
+            }
+            model.save();
+		<#else>
+        	getModel(${className}.class).save();
+		</#if>
+
+
 		}catch (Exception e){
 			e.printStackTrace();
 			renderJson(new ReturnMsg(false,"系统出错，请联系管理员"));
@@ -47,7 +64,23 @@ public class ${className}Controller extends Controller {
 	}
 	
 	public void edit() {
-		setAttr("${tableName}", service.findById(getParaToInt()));
+		${className} ${tableName} = service.findById(getParaToInt());
+	<#if (columns.fileColumns?size > 0) >
+		<#list  columns.fileColumns  as  column>
+			String upload${column.name}Id = ${tableName}.get("${column.name}");
+			if(!StringUtils.isEmpty(upload${column.name}Id)){
+				Upload upload${column.name} = uploadService.findById(new Integer(upload${column.name}Id ));
+			<#if column.businessType == 'picture'>
+				setAttr("uploadPicture", upload${column.name});
+			<#elseif column.businessType == 'file'>
+				setAttr("uploadFile", upload${column.name});
+			</#if>
+			}
+		</#list>
+        setAttr("${tableName}", ${tableName});
+	<#else>
+        	setAttr("${tableName}", service.findById(getParaToInt()));
+	</#if>
 	}
 	
 	/**
@@ -57,7 +90,19 @@ public class ${className}Controller extends Controller {
 	@Before(${className}Validator.class)
 	public void update() {
 		try{
-			getModel(${className}.class).update();
+			<#if (columns.fileColumns?size > 0)>
+				${className} ${tableName} = getModel(${className}.class);
+				<#list columns.fileColumns as column>
+				if(StringUtils.isEmpty(${tableName}.get("${column.name}"))){
+					Upload upload = getModel(Upload.class);
+					upload.save();
+					${tableName}.set("${column.name}",upload.getUploadid());
+				}
+				</#list>
+				${tableName}.update();
+			<#else>
+            getModel(${className}.class).update();
+			</#if>
 		}catch (Exception e){
 			e.printStackTrace();
 			renderJson(new ReturnMsg(false,"系统出错，请联系管理员"));

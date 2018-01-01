@@ -1,18 +1,14 @@
 package com.business.user;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.common.ModelUtils;
+import com.generator.upload.UploadService;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
-import com.jfinal.upload.UploadFile;
-import com.model.Upload;
 import com.model.User;
 import com.common.ReturnMsg;
 import org.springframework.util.StringUtils;
-
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-
+import com.model.Upload;
+import java.util.List;
 
 /**
  *
@@ -22,7 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 public class UserController extends Controller {
 	
 	static UserService service = new UserService();
-	
+	static UploadService uploadService = new UploadService();
+
 	public void index() {
 		setAttr("userPage", service.paginate(getParaToInt(0, 1), 10));
 		render("user.html");
@@ -44,7 +41,16 @@ public class UserController extends Controller {
 	@Before(UserValidator.class)
 	public void save() {
 		try{
-			getModel(User.class).save();
+        	User model = getModel(User.class);
+        	List<Upload> uploadList = ModelUtils.batchInjectModel(getRequest(),Upload.class,"upload");
+            for(Upload upload : uploadList){
+            	upload.save();
+            	String businessField = upload.getBusinessField();
+            	model.set(businessField.toString(),upload.getUploadid());
+            }
+            model.save();
+
+
 		}catch (Exception e){
 			e.printStackTrace();
 			renderJson(new ReturnMsg(false,"系统出错，请联系管理员"));
@@ -54,7 +60,18 @@ public class UserController extends Controller {
 	}
 	
 	public void edit() {
-		setAttr("user", service.findById(getParaToInt()));
+		User user = service.findById(getParaToInt());
+			String uploadpictureId = user.get("picture");
+			if(!StringUtils.isEmpty(uploadpictureId)){
+				Upload uploadpicture = uploadService.findById(new Integer(uploadpictureId ));
+				setAttr("uploadPicture", uploadpicture);
+			}
+			String uploadfileId = user.get("file");
+			if(!StringUtils.isEmpty(uploadfileId)){
+				Upload uploadfile = uploadService.findById(new Integer(uploadfileId ));
+				setAttr("uploadFile", uploadfile);
+			}
+        setAttr("user", user);
 	}
 	
 	/**
@@ -64,7 +81,18 @@ public class UserController extends Controller {
 	@Before(UserValidator.class)
 	public void update() {
 		try{
-			getModel(User.class).update();
+				User user = getModel(User.class);
+				if(StringUtils.isEmpty(user.get("picture"))){
+					Upload upload = getModel(Upload.class);
+					upload.save();
+					user.set("picture",upload.getUploadid());
+				}
+				if(StringUtils.isEmpty(user.get("file"))){
+					Upload upload = getModel(Upload.class);
+					upload.save();
+					user.set("file",upload.getUploadid());
+				}
+				user.update();
 		}catch (Exception e){
 			e.printStackTrace();
 			renderJson(new ReturnMsg(false,"系统出错，请联系管理员"));
@@ -90,16 +118,6 @@ public class UserController extends Controller {
 			return;
 		}
 		renderJson(new ReturnMsg(true,""));
-	}
-
-	public void upload(){
-		UploadFile uploadFile = getFile();
-		Upload upload = new Upload();
-		upload.setFileName(uploadFile.getFileName());
-		upload.setBusinessType("user");
-		upload.setContentType(uploadFile.getContentType());
-		upload.setOriginalFileName(uploadFile.getOriginalFileName());
-		renderJson(new ReturnMsg(true, JSONObject.toJSONString(upload)));
 	}
 }
 

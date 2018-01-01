@@ -26,7 +26,7 @@
     <javaType>java.lang.String</javaType>
     <attrName>title</attrName>
     <type></type>
-    <isNullable>1</isNullable>
+    <isNullable>0</isNullable>
     <isPrimaryKey>false</isPrimaryKey>
     <defaultValue>请输入标题</defaultValue>
     <remarks>标题</remarks>
@@ -51,7 +51,7 @@
     <sqlType>text</sqlType>
     <size>5592405</size>
     <scale>0</scale>
-    <layVerify></layVerify>
+    <layVerify>regexp</layVerify>
     <layVerifyValue></layVerifyValue>
     <businessType>edit</businessType>
     <regexp></regexp>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>首页</title>
+    #include("/common/_res.html")
+</head>
+
+<body>
+
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo"><i>Phantom</i></div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="/">首页</a></li>
+            <!--<li class="layui-nav-item"><a href="">商品管理</a></li>
+            <li class="layui-nav-item"><a href="">用户</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它系统</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>-->
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <!--<a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    贤心
+                </a>-->
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">登录</a></li>
+        </ul>
+    </div>
+
+    <div class="" style="text-align:center;padding:2px;">
+        <!-- 内容主体区域 -->
+        <div class="layui-carousel" id="banner">
+            <div carousel-item="">
+                #for(pic : session.pictureList)
+                <div><img src="/upload/download/#(pic.pictureId)"></div>
+                #end
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-footer" style="width:100%;left:0;text-align:center;background-color: #23262E;color:rgba(255,255,255,.7)">
+        <!-- 底部固定区域 -->
+        © 2018-01-01 Phantom
+    </div>
+</div>
+
+<script>
+    layui.use(['carousel', 'form','util'], function(){
+        var carousel = layui.carousel
+                ,form = layui.form
+                ,util = layui.util;
+
+
+        //改变下时间间隔、动画类型、高度
+        carousel.render({
+            elem: '#test2'
+            ,interval: 1800
+            ,anim: 'fade'
+            ,height: '120px'
+        });
+
+        //图片轮播
+        carousel.render({
+            elem: '#banner'
+            //,width: ''
+            ,height: '768px'
+            ,interval: 3000
+        });
+
+        //固定块
+        util.fixbar({
+            bar1: false
+            //,bar2: true
+            ,css: {right: 50, bottom: 100}
+            ,bgcolor: '#393D49'
+            ,click: function(type){
+                if(type === 'bar1'){
+                    layer.msg('icon是可以随便换的')
+                } else if(type === 'bar2') {
+                    layer.msg('两个bar都可以设定是否开启')
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -44,8 +44,8 @@ layui.define('jquery', function(exports){
   
   //默认配置
   Class.prototype.config = {
-    width: '600px'
-    ,height: '280px'
+    height: '280px'
+    //,width: '600px'
     ,full: false //是否全屏
     ,arrow: 'hover' //切换箭头默认显示状态：hover/always/none
     ,indicator: 'inside' //指示器位置：inside/outside/none

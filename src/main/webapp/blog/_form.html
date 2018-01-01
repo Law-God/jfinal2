@@ -2,22 +2,23 @@
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
                     <label class="layui-form-label">
-                        标题
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;标题
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" id="title" name="blog.title" value="#(blog.title??)" placeholder="请输入标题" lay-verify="titleString100" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input type="text" id="title" name="blog.title" value="#(blog.title??)" placeholder="请输入标题" lay-verify="required|titleString100" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
     </div>
+
 
     <div class="layui-row">
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">
                 <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;内容
             </label>
-            <div class="layui-input-block">
-                <textarea id="content" name="blog.content" placeholder="请输入内容" lay-verify="required|" lay-verType="tips" class="layui-textarea">#(blog.content??)</textarea>
+            <div class="layui-input-block" id="content-tip">
+                <textarea  class="layui-textarea layui-hide" name="blog.content" placeholder="请输入内容" lay-verify="contentRegexp" lay-verType="tips" id="content_editor" lay-tip="content-tip">#(blog.content??)</textarea>
             </div>
         </div>
     </div>

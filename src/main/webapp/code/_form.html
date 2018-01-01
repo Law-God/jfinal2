@@ -65,6 +65,8 @@
                         <option value="date" #if(columnMeta.businessType == 'date') selected #end>日期型</option>
                     #elseif(columnMeta.sqlType == 'text')
                         <option value="edit" #if(columnMeta.businessType == 'edit') selected #end>编辑器</option>
+                    #elseif(columnMeta.sqlType == 'char')
+                        <option value="radio" #if(columnMeta.businessType == 'radio') selected #end>单选按钮</option>
                     #end
                     </select>
                 </div>
@@ -92,6 +94,8 @@
                             <option value="double" #if(columnMeta.layVerify == 'double') selected #end>浮点数</option>
                         #elseif(columnMeta.sqlType == 'date')
                             <option value="date" #if(columnMeta.layVerify == 'date') selected #end>日期</option>
+                        #elseif(columnMeta.sqlType == 'char')
+                            <option value="radio" #if(columnMeta.layVerify == 'radio') selected #end>单选</option>
                         #else
                         #end
                         <option value="regexp" #if(columnMeta.layVerify == 'regexp') selected #end>正则表达式</option>
@@ -146,6 +150,17 @@
         </div>
     </div>
 </div>
+
+<div class="layui-col-xs6">
+    <div class="layui-form-item">
+        <label class="layui-form-label">单选按钮值</label>
+        <div class="layui-input-block">
+            <input type="text" id="other" name="other" value="#(columnMeta.other??)" autocomplete="off" class="layui-input column">
+        </div>
+    </div>
+</div>
+
+
 
 </div>
 #end

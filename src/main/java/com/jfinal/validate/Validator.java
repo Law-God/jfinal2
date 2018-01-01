@@ -657,7 +657,7 @@ public abstract class Validator implements Interceptor {
 			if (!StrKit.isBlank(value)){
 				if(value.length() > 1000){
 					addError(errorKey, errorMessage + "内容不能超过1000个字符");
-				};
+				}
 			}
 		}
 	}
@@ -684,7 +684,7 @@ public abstract class Validator implements Interceptor {
 				return ;
 			}
 		}else{
-			if(!PatternUtil.match(value, PatternConstant.TELEPHONE_REGEX)){
+			if(!StrKit.isBlank(value) && !PatternUtil.match(value, PatternConstant.TELEPHONE_REGEX)){
 				addError(errorKey, errorMessage);
 			}
 		}
@@ -702,7 +702,7 @@ public abstract class Validator implements Interceptor {
 				return ;
 			}
 		}else{
-			if(!PatternUtil.match(value, PatternConstant.EMAIL_REGEX)){
+			if(!StrKit.isBlank(value) && !PatternUtil.match(value, PatternConstant.EMAIL_REGEX)){
 				addError(errorKey, errorMessage);
 			}
 		}
@@ -720,7 +720,7 @@ public abstract class Validator implements Interceptor {
 				return ;
 			}
 		}else{
-			if(!PatternUtil.match(value, PatternConstant.URL_REGEX)){
+			if(!StrKit.isBlank(value) && !PatternUtil.match(value, PatternConstant.URL_REGEX)){
 				addError(errorKey, errorMessage);
 			}
 		}
@@ -738,7 +738,7 @@ public abstract class Validator implements Interceptor {
 				return ;
 			}
 		}else{
-			if(!PatternUtil.match(value, PatternConstant.ID_CARD_REGEX)){
+			if(!StrKit.isBlank(value) && !PatternUtil.match(value, PatternConstant.ID_CARD_REGEX)){
 				addError(errorKey, errorMessage);
 			}
 		}
@@ -756,7 +756,7 @@ public abstract class Validator implements Interceptor {
 				return ;
 			}
 		}else{
-			if(!PatternUtil.match(value, PatternConstant.PATTERN_DATE)){
+			if(!StrKit.isBlank(value) && !PatternUtil.match(value, PatternConstant.PATTERN_DATE)){
 				addError(errorKey, errorMessage);
 			}
 		}
@@ -774,11 +774,20 @@ public abstract class Validator implements Interceptor {
 				return ;
 			}
 		}else{
-			if(!Pattern.compile(regexp).matcher(value).matches()){
+			if(!StrKit.isBlank(value) && !Pattern.compile(regexp).matcher(value).matches()){
 				addError(errorKey, errorMessage);
 			}
 		}
 	}
+
+	protected void validateRequireString(int required,String field,String errorKey,String errorMessage){
+		String value = controller.getPara(field);
+		if (required == 0 && StrKit.isBlank(value)) {
+			addError(errorKey, errorMessage);
+		}
+	}
+
+
 }
 
 

@@ -1,0 +1,48 @@
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        描述
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="title" name="picture.title" value="#(picture.title??)" placeholder="" lay-verify="titleString100" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <div class="layui-row">
+        <div class="layui-col-xs6">
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;首页图片
+                </label>
+                <div class="layui-input-block">
+                    <div class="layui-upload">
+                        <input type="hidden" id="picture" name="picture.picture" value="#(picture.picture??)"/>
+                        <input type="hidden" id="picture_uploadid" name="upload[0].uploadid" value="#(picture.picture??)"/>
+                        <input type="hidden" id="picture_fileName" name="upload[0].fileName" value="#(uploadPicture.fileName??)"/>
+                        <input type="hidden" id="picture_originalFileName" name="upload[0].originalFileName" value="#(uploadPicture.originalFileName??)"/>
+                        <input type="hidden" id="picture_businessType" name="upload[0].businessType" value="#(uploadPicture.businessType??)"/>
+                        <input type="hidden" id="picture_businessField" name="upload[0].businessField" value="#(uploadPicture.businessField??)"/>
+                        <input type="hidden" id="picture_contentType" name="upload[0].contentType" value="#(uploadPicture.contentType??)"/>
+                        <button type="button" class="layui-btn" id="pictureBtn" lay-verify="uploadpicture" lay-verType="tips">上传图片</button>
+                        <div class="layui-upload-list">
+                            <img class="layui-upload-img" #if(picture.picture??) src="/upload/download/#(picture.picture??)" #end  id="pictureImg" style="width:92px;height: 92px;margin : 0 10px 10px 0">
+                            <p id="pictureTip"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="form-picture">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </div>

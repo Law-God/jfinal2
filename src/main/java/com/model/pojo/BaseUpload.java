@@ -54,4 +54,13 @@ public abstract class BaseUpload<M extends BaseUpload<M>> extends Model<M> imple
 		return getStr("contentType");
 	}
 
+	public M setBusinessField(java.lang.String businessField) {
+		set("businessField", businessField);
+		return (M)this;
+	}
+
+	public java.lang.String getBusinessField() {
+		return getStr("businessField");
+	}
+
 }

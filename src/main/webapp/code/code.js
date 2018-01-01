@@ -63,7 +63,7 @@ layui.use(['form', 'AjaxUtil'], function(){
         })
         tableMeta.columnMetas = columns;
         var url = $('#form-code').attr('action');
-        AjaxUtil.ajax({url : url,dataType : 'json',data:{"tableMeta":JSON.stringify(tableMeta)},success : function(response,status){
+        AjaxUtil.ajax({url : url,type : 'POST',dataType : 'json',data:{"tableMeta":JSON.stringify(tableMeta)},success : function(response,status){
             if(response.success){
                 //parent.layer.closeAll();
                 parent.location.href = '/code';

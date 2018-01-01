@@ -25,6 +25,7 @@
     <bean-property-setter-rule pattern="businessType" propertyname="businessType" />
     <bean-property-setter-rule pattern="regexp" propertyname="regexp" />
     <bean-property-setter-rule pattern="tip" propertyname="tip" />
+    <bean-property-setter-rule pattern="other" propertyname="other" />
     <set-properties-rule />
     <set-next-rule methodname="addColumnMeta" />
   </pattern>

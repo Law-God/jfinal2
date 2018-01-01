@@ -34,11 +34,18 @@ public class ${className}Validator extends Validator {
         validateDate(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}");
     <#elseif column.layVerify ==  "regexp">
         validateRegexp(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}","${column.regexp?j_string}");
+    <#elseif column.layVerify ==  "radio">
+        validateRequireString(${column.isNullable},"upload.fileName","${column.name}Msg", "${column.remarks}");
+    </#if>
+</#list>
+<#list  columns.fileColumns  as  column>
+    <#if column.businessType == 'picture' >
+    //validateRequireString(${column.isNullable},"upload.fileName","${column.name}Msg", "${column.remarks}");
     </#if>
 </#list>
 
 <#list  columns.bigColumns  as  column>
-    <#if column.sqlType == 'text' >
+    <#if column.businessType == 'text' >
         validateText(${column.isNullable},"${tableName}.${column.name}", 0,"${column.name}Msg", "${column.remarks}");
     </#if>
 </#list>
@@ -51,6 +58,18 @@ public class ${className}Validator extends Validator {
         Map m = new HashMap();
 
     <#list  columns.bigColumns  as  column>
+        Object ${column.name}Msg = controller.getAttr("${column.name}Msg");
+        if(${column.name}Msg != null){
+            flag = true;
+            m.put("key","${column.name}");
+            m.put("businessType","${column.businessType}");
+            m.put("value",${column.name}Msg);
+            errorMsg.add(m);
+        }
+        m = new HashMap();
+    </#list>
+
+    <#list  columns.fileColumns  as  column>
         Object ${column.name}Msg = controller.getAttr("${column.name}Msg");
         if(${column.name}Msg != null){
             flag = true;

@@ -1,15 +1,21 @@
 package com.common;
 
 import com.business.blog.BlogController;
+import com.business.item.ItemController;
+import com.business.picture.PictureController;
 import com.business.user.UserController;
 import com.generator.code.CodeController;
+import com.generator.upload.UploadController;
 import com.index.IndexController;
+import com.index.IndexInterceptor;
 import com.jfinal.config.*;
 import com.jfinal.core.JFinal;
+import com.jfinal.ext.interceptor.SessionInViewInterceptor;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.template.Engine;
+import com.model.Upload;
 import com.model._MappingKit;
 
 /**
@@ -54,11 +60,13 @@ public class JfinalGlobalConfig extends JFinalConfig {
 	 * 配置路由
 	 */
 	public void configRoute(Routes me) {
-		me.add("/", IndexController.class, "/index");	// 第三个参数为该Controller的视图存放路径
+		me.add("/", IndexController.class);	// 第三个参数为该Controller的视图存放路径
+		me.add("/upload", UploadController.class);	// 文件处理
 		me.add("/code", CodeController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
 		me.add("/blog", BlogController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
 		me.add("/user", UserController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
-
+		me.add("/item", ItemController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
+		me.add("/picture", PictureController.class);
 	}
 	
 	public void configEngine(Engine me) {
@@ -89,7 +97,8 @@ public class JfinalGlobalConfig extends JFinalConfig {
 	 * 配置全局拦截器
 	 */
 	public void configInterceptor(Interceptors me) {
-		
+		me.add(new SessionInViewInterceptor());
+		me.add(new IndexInterceptor());
 	}
 	
 	/**

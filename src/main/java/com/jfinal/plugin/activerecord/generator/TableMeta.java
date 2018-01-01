@@ -16,6 +16,8 @@
 
 package com.jfinal.plugin.activerecord.generator;
 
+import com.jfinal.kit.StrKit;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +53,7 @@ public class TableMeta {
         List<Map<String, Object>> primaryColumns = new ArrayList<Map<String, Object>>(); //主键字段
         List<Map<String, Object>> commonColumns = new ArrayList<Map<String, Object>>();    //普通字段
         List<Map<String, Object>> bigColumns = new ArrayList<Map<String, Object>>();    //大文本字段
+        List<Map<String, Object>> fileColumns = new ArrayList<Map<String, Object>>();    //文件字段
         try {
             for (ColumnMeta columnMeta : columnMetas) {
                 Map<String, Object> column = new HashMap<String, Object>();
@@ -67,8 +70,27 @@ public class TableMeta {
                     primaryColumns.add(column);
                     continue;
                 }
-                if ("text".equals(columnMeta.businessType) || "edit".equals(columnMeta.businessType) || "picture".equals(columnMeta.businessType)) {
+                if ("text".equals(columnMeta.businessType) || "edit".equals(columnMeta.businessType)) {
                     bigColumns.add(column);
+                }else if("picture".equals(columnMeta.businessType) || "file".equals(columnMeta.businessType)){
+                    fileColumns.add(column);
+                }else if("radio".equals(columnMeta.businessType)){
+                    String other = columnMeta.getOther();
+                    List<Map> list = new ArrayList<Map>();
+                    if(!StrKit.isBlank(other)){
+                        String[] otherStrs = other.split(";");
+                        for(String str : otherStrs){
+                            String[] keyValue = str.split(":");
+                            String key = keyValue[0];
+                            String value = keyValue[1];
+                            Map m = new HashMap();
+                            m.put("key",key);
+                            m.put("value",value);
+                            list.add(m);
+                        }
+                    }
+                    columnMeta.setOtherList(list);
+                    commonColumns.add(column);
                 } else {
                     commonColumns.add(column);
                 }
@@ -81,6 +103,7 @@ public class TableMeta {
         m.put("primaryColumns", primaryColumns);
         m.put("bigColumns", bigColumns);
         m.put("commonColumns", commonColumns);
+        m.put("fileColumns",fileColumns);
         return m;
     }
 

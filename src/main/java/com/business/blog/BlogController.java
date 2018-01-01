@@ -1,19 +1,25 @@
 package com.business.blog;
 
+import com.generator.upload.UploadService;
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.model.Blog;
 import com.common.ReturnMsg;
+import org.springframework.util.StringUtils;
+import com.model.Upload;
+import com.alibaba.fastjson.JSONObject;
+import com.jfinal.upload.UploadFile;
 
 /**
- * 
+ *
  * Controller
  */
 @Before(BlogInterceptor.class)
 public class BlogController extends Controller {
 	
 	static BlogService service = new BlogService();
-	
+	static UploadService uploadService = new UploadService();
+
 	public void index() {
 		setAttr("blogPage", service.paginate(getParaToInt(0, 1), 10));
 		render("blog.html");
@@ -35,7 +41,9 @@ public class BlogController extends Controller {
 	@Before(BlogValidator.class)
 	public void save() {
 		try{
-			getModel(Blog.class).save();
+        	getModel(Blog.class).save();
+
+
 		}catch (Exception e){
 			e.printStackTrace();
 			renderJson(new ReturnMsg(false,"系统出错，请联系管理员"));
@@ -45,7 +53,8 @@ public class BlogController extends Controller {
 	}
 	
 	public void edit() {
-		setAttr("blog", service.findById(getParaToInt()));
+
+        	setAttr("blog", service.findById(getParaToInt()));
 	}
 	
 	/**
@@ -55,7 +64,7 @@ public class BlogController extends Controller {
 	@Before(BlogValidator.class)
 	public void update() {
 		try{
-			getModel(Blog.class).update();
+            getModel(Blog.class).update();
 		}catch (Exception e){
 			e.printStackTrace();
 			renderJson(new ReturnMsg(false,"系统出错，请联系管理员"));
@@ -65,8 +74,22 @@ public class BlogController extends Controller {
 	}
 	
 	public void delete() {
-		service.deleteById(getParaToInt());
-		redirect("/blog");
+		try{
+			String idParam = getPara();
+			if(!StringUtils.isEmpty(idParam)){
+				String[] ids = idParam.split(",");
+				for(String id : ids){
+					service.deleteById(new Integer(id));
+				}
+				renderJson(new ReturnMsg(true,""));
+			}
+			renderJson(new ReturnMsg(false,"操作失败"));
+		}catch (Exception e){
+			e.printStackTrace();
+			renderJson(new ReturnMsg(false,"系统出错，请联系管理员"));
+			return;
+		}
+		renderJson(new ReturnMsg(true,""));
 	}
 }
 

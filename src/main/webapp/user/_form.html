@@ -2,20 +2,20 @@
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
                     <label class="layui-form-label">
-                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;用户名
+                        用户名
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" id="username" name="user.username" value="#(user.username??)" placeholder="请输入3位用户名" lay-verify="required|usernameRegexp" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input type="text" id="username" name="user.username" value="#(user.username??)" placeholder="请输入3位用户名" lay-verify="usernameRegexp" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
                     <label class="layui-form-label">
-                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;年龄
+                        年龄
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" id="age" name="user.age" value="#(user.age??)" placeholder="0-999" lay-verify="required|ageInt3" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input type="text" id="age" name="user.age" value="#(user.age??)" placeholder="0-999" lay-verify="ageInt3" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -24,20 +24,20 @@
                 <div class="layui-col-xs6">
                     <div class="layui-form-item">
                         <label class="layui-form-label">
-                            <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;生日
+                            生日
                         </label>
                         <div class="layui-input-inline">
-                            <input type="text" id="birthday_date" name="user.birthday" value="#if(user.birthday??)#date(user.birthday,'yyyy-MM-dd')#end"  lay-verify="required|date" placeholder="请选择日期" readonly lay-verType="tips" readonly autocomplete="off" class="layui-input">
+                            <input type="text" id="birthday_date" name="user.birthday" value="#if(user.birthday??)#date(user.birthday,'yyyy-MM-dd')#end"  lay-verify="date" placeholder="请选择日期" readonly lay-verType="tips" readonly autocomplete="off" class="layui-input">
                         </div>
                     </div>
                 </div>
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
                     <label class="layui-form-label">
-                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;手机号
+                        手机号
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" id="phone" name="user.phone" value="#(user.phone??)" placeholder="13100000000" lay-verify="required|phoneRegexp" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input type="text" id="phone" name="user.phone" value="#(user.phone??)" placeholder="13100000000" lay-verify="phoneRegexp" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -46,20 +46,20 @@
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
                     <label class="layui-form-label">
-                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;邮箱
+                        邮箱
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" id="email" name="user.email" value="#(user.email??)" placeholder="123@abc.com" lay-verify="required|email" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input type="text" id="email" name="user.email" value="#(user.email??)" placeholder="123@abc.com" lay-verify="email" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
                     <label class="layui-form-label">
-                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;链接
+                        链接
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" id="url" name="user.url" value="#(user.url??)" placeholder="http://www.baidu.com" lay-verify="required|url" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input type="text" id="url" name="user.url" value="#(user.url??)" placeholder="http://www.baidu.com" lay-verify="url" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -68,22 +68,84 @@
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
                     <label class="layui-form-label">
-                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;身份证
+                        身份证
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" id="idcard" name="user.idcard" value="#(user.idcard??)" placeholder="请输入身份证号" lay-verify="required|identity" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input type="text" id="idcard" name="user.idcard" value="#(user.idcard??)" placeholder="请输入身份证号" lay-verify="identity" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        性别
+                    </label>
+                    <div class="layui-input-block" id="sex"  lay-verify="sexRadio" lay-verType="tips" lay-tip="sex">
+                        <input type="hidden" id="sex-radio-hidden" value="#(user.sex??)" />
+                            <input type="radio" name="user.sex" value="0" title="男" #(user.sex?? == '0' ? 'checked="checked"' : '') lay-filter="filter-radio-sex" />
+                            <input type="radio" name="user.sex" value="1" title="女" #(user.sex?? == '1' ? 'checked="checked"' : '') lay-filter="filter-radio-sex" />
+                    </div>
+                 </div>
+            </div>
+    </div>
+
+    <div class="layui-row">
+        <div class="layui-col-xs6">
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;头像
+                </label>
+                <div class="layui-input-block">
+                    <div class="layui-upload">
+                        <input type="hidden" id="picture" name="user.picture" value="#(user.picture??)"/>
+                        <input type="hidden" id="picture_uploadid" name="upload[0].uploadid" value="#(user.picture??)"/>
+                        <input type="hidden" id="picture_fileName" name="upload[0].fileName" value="#(uploadPicture.fileName??)"/>
+                        <input type="hidden" id="picture_originalFileName" name="upload[0].originalFileName" value="#(uploadPicture.originalFileName??)"/>
+                        <input type="hidden" id="picture_businessType" name="upload[0].businessType" value="#(uploadPicture.businessType??)"/>
+                        <input type="hidden" id="picture_businessField" name="upload[0].businessField" value="#(uploadPicture.businessField??)"/>
+                        <input type="hidden" id="picture_contentType" name="upload[0].contentType" value="#(uploadPicture.contentType??)"/>
+                        <button type="button" class="layui-btn" id="pictureBtn" lay-verify="uploadpicture" lay-verType="tips">上传图片</button>
+                        <div class="layui-upload-list">
+                            <img class="layui-upload-img" #if(user.picture??) src="/upload/download/#(user.picture??)" #end  id="pictureImg" style="width:92px;height: 92px;margin : 0 10px 10px 0">
+                            <p id="pictureTip"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-col-xs6">
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;文件
+                </label>
+                <div class="layui-input-block">
+                    <div class="layui-upload">
+                        <input type="hidden" id="file" name="user.file" value="#(user.file??)"/>
+                        <input type="hidden" id="file_uploadid" name="upload[1].uploadid" value="#(user.file??)"/>
+                        <input type="hidden" id="file_fileName" name="upload[1].fileName" value="#(uploadFile.fileName??)"/>
+                        <input type="hidden" id="file_originalFileName" name="upload[1].originalFileName" value="#(uploadFile.originalFileName??)"/>
+                        <input type="hidden" id="file_businessType" name="upload[1].businessType" value="#(uploadFile.businessType??)"/>
+                        <input type="hidden" id="file_businessField" name="upload[1].businessField" value="#(uploadFile.businessField??)"/>
+                        <input type="hidden" id="file_contentType" name="upload[1].contentType" value="#(uploadFile.contentType??)"/>
+                        <button type="button" class="layui-btn" id="fileBtn" lay-verify="uploadfile" lay-verType="tips">上传文件</button>
+                        <div class="layui-upload-list">
+                            <p id="fileTip"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="layui-row">
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">
-                <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;地址
+                地址
             </label>
             <div class="layui-input-block">
-                <textarea id="address" name="user.address" placeholder="" lay-verify="required|addressString255" lay-verType="tips" class="layui-textarea">#(user.address??)</textarea>
+                <textarea id="address" name="user.address" placeholder="" lay-verify="addressString255" lay-verType="tips" class="layui-textarea">#(user.address??)</textarea>
             </div>
         </div>
     </div>
@@ -94,29 +156,6 @@
             </label>
             <div class="layui-input-block" id="summary-tip">
                 <textarea  class="layui-textarea layui-hide" name="user.summary" placeholder="必填项不能为空" lay-verify="summaryRegexp" lay-verType="tips" id="summary_editor" lay-tip="summary-tip">#(user.summary??)</textarea>
-            </div>
-        </div>
-    </div>
-    <div class="layui-row">
-        <div class="layui-col-xs6">
-            <div class="layui-form-item">
-                <label class="layui-form-label">
-                    头像
-                </label>
-                <div class="layui-input-block">
-                    <div class="layui-upload">
-                        <input type="hidden" id="picture" name="picture"/>
-                        <input type="hidden" id="fileName" name="fileName"/>
-                        <input type="hidden" id="originalFileName" name="originalFileName"/>
-                        <input type="hidden" id="businessType" name="businessType"/>
-                        <input type="hidden" id="contentType" name="contentType"/>
-                        <button type="button" class="layui-btn" id="pictureBtn">上传图片</button>
-                        <div class="layui-upload-list">
-                            <img class="layui-upload-img" id="pictureImg" style="width:92px;height: 92px;margin : 0 10px 10px 0">
-                            <p id="pictureTip"></p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

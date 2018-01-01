@@ -21,10 +21,13 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
 
         //创建一个编辑器
         var summaryEditor = layedit.build('summary_editor');
+
         //普通图片上传
-        var uploadInst = upload.render({
+        var pictureuploadInst = upload.render({
             elem: '#pictureBtn'
-            ,url: '/user/upload'
+            ,accept: 'images'
+            ,url: '/upload/upload?businessType=user&businessField=picture'
+            ,size : 2048//上传大小2m
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
@@ -32,38 +35,69 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
                 });
             }
             ,done: function(res){
-                //如果上传失败
-                if(res.success > 0){
+                //如果上传成功
+                if(res.success){
                     var obj = JSON.parse(res.msg);
-                    $("#pictureBtn").closest(".layui-upload").find("#fileName").val(obj.fileName || "");
-                    $("#pictureBtn").closest(".layui-upload").find("#originalFileName").val(obj.originalFileName || "");
-                    $("#pictureBtn").closest(".layui-upload").find("#businessType").val(obj.businessType || "");
-                    $("#pictureBtn").closest(".layui-upload").find("#contentType").val(obj.contentType || "");
+                    $("#pictureBtn").closest(".layui-upload").find("#picture").val("");//修改页面重新上传文件
+                    $("#pictureBtn").closest(".layui-upload").find("#picture_fileName").val(obj.fileName || "");
+                    $("#pictureBtn").closest(".layui-upload").find("#picture_originalFileName").val(obj.originalFileName || "");
+                    $("#pictureBtn").closest(".layui-upload").find("#picture_businessType").val(obj.businessType || "");
+                    $("#pictureBtn").closest(".layui-upload").find("#picture_businessField").val(obj.businessField || "");
+                    $("#pictureBtn").closest(".layui-upload").find("#picture_contentType").val(obj.contentType || "");
                 }else{
                     return layer.msg('上传失败');
                 }
-                console.log(res);
-                //上传成功
             }
             ,error: function(){
                     //演示失败状态，并实现重传
                     var demoText = $('#pictureTip');
                     demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
                     demoText.find('.demo-reload').on('click', function(){
-                    uploadInst.upload();
+                    pictureuploadInst.upload();
+                });
+            }
+        });
+        //普通图片上传
+        var fileuploadInst = upload.render({
+            elem: '#fileBtn'
+            ,accept: 'file'
+            ,url: '/upload/upload?businessType=user&businessField=file'
+            ,size : 2048//上传大小2m
+            ,done: function(res){
+                //如果上传成功
+                if(res.success){
+                    var obj = JSON.parse(res.msg);
+                    $("#fileBtn").closest(".layui-upload").find("#file").val("");//修改页面重新上传文件
+                    $("#fileBtn").closest(".layui-upload").find("#file_fileName").val(obj.fileName || "");
+                    $("#fileBtn").closest(".layui-upload").find("#file_originalFileName").val(obj.originalFileName || "");
+                    $("#fileBtn").closest(".layui-upload").find("#file_businessType").val(obj.businessType || "");
+                    $("#fileBtn").closest(".layui-upload").find("#file_businessField").val(obj.businessField || "");
+                    $("#fileBtn").closest(".layui-upload").find("#file_contentType").val(obj.contentType || "");
+                    var demoText = $('#fileTip');
+                    demoText.html('<span>上传成功</span>'+obj.originalFileName);
+                }else{
+                    return layer.msg('上传失败');
+                }
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#fileTip');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    fileuploadInst.upload();
                 });
             }
         });
 
+
+
     //自定义验证规则
     form.verify({
             usernameRegexp : function(value){
-                var reg = new RegExp('^[\\S]{3}$');
-                if(!reg.test(value)){
-                    return '用户名不正确';
-                }
+                if(value == "") return false;
             },
             ageInt3 : function(value){
+                if(value == "") return false;
                 var regObj = getIntRegByLength(3);
                 if(!!regObj.reg){
                     var reg = new RegExp(regObj.reg);
@@ -75,16 +109,26 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
                 }
             },
             phoneRegexp : function(value){
-                var reg = new RegExp('^13\\d{9}$');
-                if(!reg.test(value)){
-                    return '手机号格式错误';
+                if(value == "") return false;
+            },
+            sexRadio : function(){
+                if(!$("#sex-radio-hidden").val()){
+                    return '请选择性别';
                 }
             },
 
-                addressString255 : function(value){
-                     if(value.length > 1000){
-                        return '内容不能超过1000个字符';
+                uploadpicture : function(){
+                    if($("#picture").closest(".layui-upload").find("#fileName").val() == ""){
+                        return "请上传图片";
                     }
+                },
+                uploadfile : function(){
+                    if($("#file").closest(".layui-upload").find("#fileName").val() == ""){
+                        return "请上传图片";
+                    }
+                },
+
+                addressString255 : function(value){
                 },
                 summaryRegexp : function(value){
                     layedit.sync(summaryEditor);
@@ -115,6 +159,9 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
     $("#idcard").blur(function(){
         layuiBlurCheck($(this),verify);
     });
+    form.on('radio(filter-radio-sex)', function(data){
+        $("#sex-radio-hidden").val(data.value);
+    });
 
     $("#address").blur(function(){
         layuiBlurCheck($(this),verify,1);
@@ -140,6 +187,8 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
                             layer.tips(msgList[i].value, $("#"+msgList[i].key+"-tip"), {tips: 1,time:3000,tipsMore :true});
                         }else if(businessType === 'date'){
                             layer.tips(msgList[i].value, $("#"+msgList[i].key+"_date"), {tips: 1,time:3000,tipsMore :true});
+                        }else if(businessType === 'picture'){
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"Btn"), {tips: 2,time:3000,tipsMore :true});
                         }else{
                             layer.tips(msgList[i].value, $("#"+msgList[i].key), {tips: 1,time:3000,tipsMore :true});
                         }

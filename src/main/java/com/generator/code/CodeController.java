@@ -88,6 +88,8 @@ public class CodeController extends Controller {
 				columnMeta.layVerifyValue = name + "Regexp";
 			}else if("edit".equals(layVerify)){
 				columnMeta.layVerifyValue = name + "Edit";
+			}else if("radio".equals(layVerify)){
+				columnMeta.layVerifyValue = name + "Radio";
 			}else{
 				columnMeta.layVerifyValue = columnMeta.layVerify;
 			}

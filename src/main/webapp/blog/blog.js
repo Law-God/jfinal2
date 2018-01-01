@@ -1,10 +1,16 @@
-layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
+layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
     var form = layui.form
     ,layer = layui.layer
     ,layedit = layui.layedit
     ,laydate = layui.laydate
-    ,AjaxUtil = layui.AjaxUtil;;
+    ,AjaxUtil = layui.AjaxUtil
+    ,upload = layui.upload;
     var $= layui.jquery;
+
+        //创建一个编辑器
+        var contentEditor = layedit.build('content_editor');
+
+
 
 
     //自定义验证规则
@@ -15,6 +21,15 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
                 }
             },
 
+
+                contentRegexp : function(value){
+                    layedit.sync(contentEditor);
+                    var content = layedit.getContent(contentEditor);
+                    if(content.length <= 0){
+                        //return '';
+                        return '必填项不能为空';
+                    }
+                },
     });
 
     var  verify = form.config.verify;
@@ -22,9 +37,9 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
         layuiBlurCheck($(this),verify);
     });
 
-    $("#content").blur(function(){
-        layuiBlurCheck($(this),verify,1);
-    })
+    $("iframe[textarea='content_editor']").contents().find("body").blur(function(){
+        layuiBlurCheck($("#content_editor"),verify,1,$("#content-tip"));
+    });
 
     form.on('submit(form-blog)', function (data) {
         var url = $('#form-blog').attr('action');
@@ -36,11 +51,15 @@ layui.use(['form', 'layedit', 'laydate','AjaxUtil'], function(){
                 var msgList = response.msgList;
                 for(var i= 0,len=msgList.length;i<len;i++){
                     if(!!msgList[i].value){
-                        var sqlType =  msgList[i].sqlType;
-                        if(sqlType === 'char'){
+                        var businessType =  msgList[i].businessType;
+                        if(businessType === 'text'){
                             layer.tips(msgList[i].value, $("#"+msgList[i].key), {tips: 1,time:3000,tipsMore :true});
-                        }else if(sqlType === 'longtext'){
+                        }else if(businessType === 'edit'){
                             layer.tips(msgList[i].value, $("#"+msgList[i].key+"-tip"), {tips: 1,time:3000,tipsMore :true});
+                        }else if(businessType === 'date'){
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"_date"), {tips: 1,time:3000,tipsMore :true});
+                        }else if(businessType === 'picture'){
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"Btn"), {tips: 2,time:3000,tipsMore :true});
                         }else{
                             layer.tips(msgList[i].value, $("#"+msgList[i].key), {tips: 1,time:3000,tipsMore :true});
                         }

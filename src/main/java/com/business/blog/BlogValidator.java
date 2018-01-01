@@ -15,9 +15,8 @@ import com.common.ReturnMsg;
 public class BlogValidator extends Validator {
 
     protected void validate(Controller controller) {
-        validateString(1,"blog.title", 1,100,"titleMsg", "标题");
+        validateString(0,"blog.title", 1,100,"titleMsg", "标题长度0~100个字符");
 
-        validateText(0,"blog.content", 0,"contentMsg", "内容");
     }
 
     protected void handleError(Controller controller) {
@@ -30,17 +29,18 @@ public class BlogValidator extends Validator {
         if(contentMsg != null){
             flag = true;
             m.put("key","content");
-            m.put("sqlType","text");
+            m.put("businessType","edit");
             m.put("value",contentMsg);
             errorMsg.add(m);
         }
         m = new HashMap();
 
+
         Object titleMsg = controller.getAttr("titleMsg");
             if(titleMsg != null){
                 flag = true;
                 m.put("key","title");
-                m.put("sqlType","string");
+                m.put("businessType","string");
                 m.put("value",titleMsg);
                 errorMsg.add(m);
             }
