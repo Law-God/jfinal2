@@ -11,6 +11,7 @@ import com.index.IndexInterceptor;
 import com.jfinal.config.*;
 import com.jfinal.core.JFinal;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
+import com.jfinal.kit.PathKit;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
@@ -87,6 +88,10 @@ public class JfinalGlobalConfig extends JFinalConfig {
 		// 所有映射在 MappingKit 中自动化搞定
 		_MappingKit.mapping(arp);
 		me.add(arp);
+
+		//配置sql模块
+		arp.setBaseSqlTemplatePath(PathKit.getRootClassPath()+"/sql");
+		arp.addSqlTemplate("all.sql");
 	}
 	
 	public static DruidPlugin createDruidPlugin() {

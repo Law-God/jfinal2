@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>首页</title>
     #include("/common/_res.html")
+    <link rel="stylesheet" href="/effects/fire_text/css/style.css">
+    <script src="/js/jquery-1.4.4.min.js"></script>
 </head>
 
 <body>
 
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo"><i>Phantom</i></div>
+        <div class="layui-logo"><i id="fire">Phantom</i></div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="/">首页</a></li>
@@ -45,12 +47,14 @@
         <!-- 内容主体区域 -->
         <div class="layui-carousel" id="banner">
             <div carousel-item="">
-                #for(pic : session.pictureList)
-                <div><img src="/upload/download/#(pic.pictureId)"></div>
+                #for(columns : bannerList)
+                <div><img src="/upload/download/#(columns.pictureId)"></div>
                 #end
             </div>
         </div>
     </div>
+
+
 
     <div class="layui-footer" style="width:100%;left:0;text-align:center;background-color: #23262E;color:rgba(255,255,255,.7)">
         <!-- 底部固定区域 -->
@@ -64,19 +68,11 @@
                 ,form = layui.form
                 ,util = layui.util;
 
-
-        //改变下时间间隔、动画类型、高度
-        carousel.render({
-            elem: '#test2'
-            ,interval: 1800
-            ,anim: 'fade'
-            ,height: '120px'
-        });
-
         //图片轮播
         carousel.render({
             elem: '#banner'
             //,width: ''
+            ,anim: 'fade'
             ,height: '768px'
             ,interval: 3000
         });
@@ -95,7 +91,9 @@
                 }
             }
         });
+
     });
 </script>
+
 </body>
 </html>
