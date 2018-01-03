@@ -42,7 +42,7 @@ public class _JFinalDemoGenerator {
 		// 添加不需要生成的表名
 		//generator.addExcludedTable(new String[]{});
 		//添加只需要生成的表名;会清空不需要生成的表名
-		generator.addInludedTable(new String[]{"log"});
+		generator.addInludedTable(new String[]{"test"});
 		// 设置是否在 Model 中生成 dao 对象
 		generator.setGenerateDaoInModel(true);
 		// 设置是否生成链式 setter 方法

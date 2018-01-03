@@ -1,0 +1,137 @@
+#@layout()
+#define main()
+<div class="layui-tab">
+	<ul class="layui-tab-title">
+		<li class="layui-this">列表</li>
+	</ul>
+	<div class="layui-tab-content">
+		<div>
+            <button id="test-add" class="layui-btn layui-btn-sm" title="新增"><i class="layui-icon">&#xe608;&nbsp;新增</i></button>
+            <button id="test-delete" class="layui-btn layui-btn-sm" title="删除"><i class="layui-icon">&#xe640;&nbsp;删除</i></button>
+        </div>
+		<div class="layui-tab-item layui-show">
+			<table class="layui-hide" id="table-test" lay-filter="test-tool"></table>
+		</div>
+	</div>
+</div>
+
+<script>
+	layui.use(['table','AjaxUtil'], function(){
+		var table = layui.table;
+        var $ = layui.jquery;
+        var AjaxUtil = layui.AjaxUtil;
+        var pageCurr = 1;//页面当前页
+        //监听工具条
+        table.on('tool(test-tool)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'detail'){
+                //layer.msg('ID：'+ data.id2 + ' 的查看操作');
+            } else if(obj.event === 'del'){
+                var url = '/test/delete/' + data.testId;
+                del(url);
+            } else if(obj.event === 'edit'){
+                var layeruseredit = layer.open({
+                    title : "修改",
+                    id: 'layer_test_edit', //设定一个id，防止重复弹出
+                    type: 2,
+                    content: '/test/edit/' + data.testId,
+                    area: ['70%', '90%'],
+                    maxmin: true,
+                    end: function () {
+                        //location.reload();
+                    }
+                });
+                //layer.full(layeruseredit);
+            }
+        });
+		table.render({
+			elem: '#table-test'
+			,url:'/test/list'
+			,cellMinWidth: 60
+			,cols: [[
+                    {type:'checkbox', fixed: 'left'},
+                    {field : "LAY_TABLE_INDEX",title: '序号',width:60},
+                    {field:'book', title: ''
+},
+                    {field:'password', title: '密码'
+},
+                    {field:'', title: '操作',minWidth:110,toolbar: '#test-bar',fixed:'right'},
+			]]
+            ,even: true //开启隔行背景
+			,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                //,curr: 5 //设定初始在第 5 页
+                ,groups: 1 //只显示 1 个连续页码
+                ,first: false //不显示首页
+                ,last: false //不显示尾页
+            },
+            done: function(res, curr, count){
+                //如果是异步请求数据方式，res即为你接口返回的信息。
+                //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                pageCurr = curr;
+                if(count < 1){//隐藏分页栏
+                    $(".layui-table-page").css("display","none");
+                }
+            }
+		});
+        $("#test-add").click(function(){
+            var layertestadd = layer.open({
+                title : "新增",
+                type: 2,
+                content: '/test/add',
+                area: ['70%', '90%'],
+                maxmin: true,
+                end: function () {
+                    //location.reload();
+                }
+            });
+            //layer.full(layertestadd);
+        });
+
+        $("#test-delete").click(function(){
+            var checkStatus = table.checkStatus('table-test')
+            var data = checkStatus.data;
+            if(data == null || data.length < 1){
+                layer.alert('请选择要删除的数据', {icon: 5});
+                return;
+            }
+            var ids = [];
+            for(var i= 0,len=data.length;i<len;i++){
+                var obj = data[i];
+                ids.push(obj.testId);
+            }
+            var url = '/test/delete/' + ids.join(',');
+            del(url);
+        });
+        function del(url){
+            layer.confirm('您确认删除数据吗？', {
+                btn: ['确定','取消'] //按钮
+            }, function(){
+                AjaxUtil.ajax({url : url,dataType : 'json',
+                    success : function(response,status){
+                        layer.closeAll('dialog');
+                        if(response.success){
+                            //parent.layer.closeAll();
+                            table.reload('table-test', {
+                                page: {
+                                    curr: pageCurr || 1 //重新从第 1 页开始
+                                }
+                            });
+                        }else{
+                            layer.alert(response.msg, {icon: 5});
+                        }
+                    },error : function(XHR,status,e){
+                        layer.alert('系统出错，请联系管理员。', {icon: 5});
+                    }});
+            });
+        }
+	});
+
+</script>
+
+<script type="text/html" id="test-bar">
+	<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+#end

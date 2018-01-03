@@ -1,0 +1,33 @@
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="book" name="test.book" value="#(test.book??)" placeholder="" lay-verify="bookString100" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        密码
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="password" name="test.password" value="#(test.password??)" placeholder="请输入6位字母数字组合" lay-verify="passwordRegexp" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="form-test">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </div>

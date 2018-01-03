@@ -37,6 +37,7 @@
                         #if(columnMeta.sqlType == 'string')
                         <option value="string" #if(columnMeta.businessType == 'string') selected #end>文本框</option>
                         <option value="text" #if(columnMeta.businessType == 'text') selected #end>文本域</option>
+                        <option value="password" #if(columnMeta.businessType == 'password') selected #end>密码框</option>
                         <option value="picture" #if(columnMeta.businessType == 'picture') selected #end>图片</option>
                         <option value="file" #if(columnMeta.businessType == 'file') selected #end>文件</option>
                         #elseif(columnMeta.sqlType == 'int')

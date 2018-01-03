@@ -47,7 +47,7 @@ layui.use(['form', 'AjaxUtil'], function(){
         _$layui_row.find(".show-name, .required").css("display","");
 
         //控件是否显示默认文字
-        if(val == 'string' || val == 'text' || val == 'int' || val == 'double' || val == 'date'){
+        if(val == 'string' || val == 'password' || val == 'text' || val == 'int' || val == 'double' || val == 'date'){
             _$layui_row.find(".text-tip").css("display","");
         }
 
@@ -67,7 +67,7 @@ layui.use(['form', 'AjaxUtil'], function(){
         var _$layui_row = _$select.closest(".layui-row");
         _$layui_row.find("[class*='lay-verify']").css("display","none");
         _$select.closest(".layui-col-xs").css("display","");
-        if(val == 'string'){
+        if(val == 'string' || val == 'password'){
             _$layui_row.find(".lay-verify-size,lay-verify-regexp,.lay-verify-error-tip").css("display","");
         }else if(val == 'phone' || val == 'email' || val == 'url' || val == 'identity' || val == 'date'){
             _$layui_row.find(".lay-verify-error-tip").css("display","");

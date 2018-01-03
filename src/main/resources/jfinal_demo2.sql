@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
+Source Server         : localhost
 Source Server Version : 50623
 Source Host           : localhost:3306
 Source Database       : jfinal_demo2
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50623
 File Encoding         : 65001
 
-Date: 2018-01-03 17:56:52
+Date: 2018-01-03 23:09:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -96,6 +96,21 @@ INSERT INTO `picture` VALUES ('1', '图片1', '45');
 INSERT INTO `picture` VALUES ('2', '图片2', '46');
 INSERT INTO `picture` VALUES ('3', '图片3', '47');
 INSERT INTO `picture` VALUES ('4', '图片4', '48');
+
+-- ----------------------------
+-- Table structure for `test`
+-- ----------------------------
+DROP TABLE IF EXISTS `test`;
+CREATE TABLE `test` (
+  `testId` bigint(20) NOT NULL AUTO_INCREMENT,
+  `book` varchar(100) DEFAULT NULL,
+  `password` varchar(36) DEFAULT NULL,
+  PRIMARY KEY (`testId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of test
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `upload`

@@ -51,6 +51,17 @@
                     </div>
                  </div>
             </div>
+            <#elseif column2.businessType == 'password'>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <#if column2.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column2.remarks}
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="password" id="${column2.name}" name="${tableName}.${column2.name}" value="#(${tableName}.${column2.name}??)" placeholder="${column2.defaultValue}" lay-verify="${ (column2.isNullable == '0')?string('required|','')}${column2.layVerifyValue!""}" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
             <#else>
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
