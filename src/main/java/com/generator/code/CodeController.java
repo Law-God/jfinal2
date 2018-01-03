@@ -12,6 +12,8 @@ import com.jfinal.plugin.activerecord.generator.ColumnMeta;
 import com.jfinal.plugin.activerecord.generator.TableMeta;
 import org.springframework.beans.BeanUtils;
 
+import java.util.List;
+
 /**
  * 
  * Controller
@@ -48,11 +50,32 @@ public class CodeController extends Controller {
 	public void edit() {
 		String name = getPara("name");
 		TableMeta target = DigesterTool.readXml(name);
+		//如果表有新增字段，保留原先配置
 		TableMeta source = DigesterTool.readXml(name+"_view");
-		if(source != null){
-			BeanUtils.copyProperties(source,target);
+		if(isParaBlank("type") && source != null){
+			List<ColumnMeta> targetColumns = target.columnMetas;
+			List<ColumnMeta> sourceColumns = source.columnMetas;
+			for(ColumnMeta columnMeta : targetColumns){
+				String targetColumnMetaName = columnMeta.getName();
+				boolean flag = true;
+				for(ColumnMeta sourceColumnMeta : sourceColumns){
+					String sourceColumnmetaName = sourceColumnMeta.getName();
+					if(targetColumnMetaName.equals(sourceColumnmetaName)){
+						flag = false;
+						break;
+					}
+				}
+				if(flag){
+					sourceColumns.add(columnMeta);
+				}
+			}
+			/*if(source != null){
+				BeanUtils.copyProperties(source,target);
+			}*/
+			setAttr("tableMeta",source);
+		}else{
+			setAttr("tableMeta",target);
 		}
-		setAttr("tableMeta",target);
 	}
 	
 	/**

@@ -2,12 +2,9 @@
 #define main()
 <div class="layui-tab">
 	<ul class="layui-tab-title">
-		<li class="layui-this">列表</li>
+		<li class="layui-this">所有表</li>
 	</ul>
 	<div class="layui-tab-content">
-		<div>
-            <button id="code-add" class="layui-btn layui-btn-sm" title="新增"><i class="layui-icon">&#xe608;&nbsp;新增</i></button>
-		</div>
 		<div class="layui-tab-item layui-show">
 			<table class="layui-hide" id="table-code" lay-filter="code-tool"></table>
 		</div>
@@ -35,6 +32,19 @@
                     id: 'layer_code_edit', //设定一个id，防止重复弹出
                     type: 2,
                     content: '/code/edit?name=' + data.name,
+                    area: ['70%', '90%'],
+                    maxmin: true,
+                    end: function () {
+                        //location.reload();
+                    }
+                });
+                //layer.full(layeruseredit);
+            }else if(obj.event === 'new'){
+                var layeruseredit = layer.open({
+                    title : "代码生成",
+                    id: 'layer_code_new', //设定一个id，防止重复弹出
+                    type: 2,
+                    content: '/code/edit?name=' + data.name+"&type=reset",
                     area: ['70%', '90%'],
                     maxmin: true,
                     end: function () {
@@ -89,6 +99,7 @@
 
 <script type="text/html" id="code-bar">
 	<a class="layui-btn layui-btn-xs" lay-event="edit">代码配置</a>
+    <a class="layui-btn layui-btn-xs" lay-event="new">重新配置</a>
 </script>
 
 <script type="text/html" id="seq-laytpl">

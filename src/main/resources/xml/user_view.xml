@@ -251,7 +251,7 @@
     <isNullable>1</isNullable>
     <isPrimaryKey>false</isPrimaryKey>
     <defaultValue></defaultValue>
-    <remarks>性别</remarks>
+    <remarks></remarks>
     <sqlType>char</sqlType>
     <size>1</size>
     <scale>0</scale>
@@ -260,7 +260,7 @@
     <businessType>radio</businessType>
     <regexp></regexp>
     <tip></tip>
-    <other>0:男;1:女</other>
+    <other></other>
     <otherList>[]</otherList>
   </columnMeta>
 </tableMeta>

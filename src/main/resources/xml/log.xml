@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<tableMeta name="blog" primaryKey="id">
-  <!--表blog-->
+<tableMeta name="log" primaryKey="id">
+  <!--表log-->
 
   <columnMeta>
     <name>id</name>
-    <javaType>java.lang.Integer</javaType>
+    <javaType>java.lang.Long</javaType>
     <attrName>id</attrName>
     <type></type>
     <isNullable>0</isNullable>
@@ -13,7 +13,7 @@
     <defaultValue></defaultValue>
     <remarks></remarks>
     <sqlType>int</sqlType>
-    <size>11</size>
+    <size>20</size>
     <scale>0</scale>
     <layVerify></layVerify>
     <layVerifyValue></layVerifyValue>
@@ -24,9 +24,29 @@
     <otherList>[]</otherList>
   </columnMeta>
   <columnMeta>
-    <name>title</name>
+    <name>userid</name>
+    <javaType>java.lang.Long</javaType>
+    <attrName>userid</attrName>
+    <type></type>
+    <isNullable>1</isNullable>
+    <isPrimaryKey>false</isPrimaryKey>
+    <defaultValue></defaultValue>
+    <remarks></remarks>
+    <sqlType>int</sqlType>
+    <size>20</size>
+    <scale>0</scale>
+    <layVerify></layVerify>
+    <layVerifyValue></layVerifyValue>
+    <businessType></businessType>
+    <regexp></regexp>
+    <tip></tip>
+    <other></other>
+    <otherList>[]</otherList>
+  </columnMeta>
+  <columnMeta>
+    <name>url</name>
     <javaType>java.lang.String</javaType>
-    <attrName>title</attrName>
+    <attrName>url</attrName>
     <type></type>
     <isNullable>1</isNullable>
     <isPrimaryKey>false</isPrimaryKey>
@@ -44,16 +64,36 @@
     <otherList>[]</otherList>
   </columnMeta>
   <columnMeta>
-    <name>content</name>
-    <javaType>java.lang.String</javaType>
-    <attrName>content</attrName>
+    <name>createTime</name>
+    <javaType>java.util.Date</javaType>
+    <attrName>createTime</attrName>
     <type></type>
-    <isNullable>0</isNullable>
+    <isNullable>1</isNullable>
+    <isPrimaryKey>false</isPrimaryKey>
+    <defaultValue></defaultValue>
+    <remarks></remarks>
+    <sqlType>date</sqlType>
+    <size>19</size>
+    <scale>0</scale>
+    <layVerify></layVerify>
+    <layVerifyValue></layVerifyValue>
+    <businessType></businessType>
+    <regexp></regexp>
+    <tip></tip>
+    <other></other>
+    <otherList>[]</otherList>
+  </columnMeta>
+  <columnMeta>
+    <name>errorStack</name>
+    <javaType>java.lang.String</javaType>
+    <attrName>errorStack</attrName>
+    <type></type>
+    <isNullable>1</isNullable>
     <isPrimaryKey>false</isPrimaryKey>
     <defaultValue></defaultValue>
     <remarks></remarks>
     <sqlType>text</sqlType>
-    <size>5592405</size>
+    <size>715827882</size>
     <scale>0</scale>
     <layVerify></layVerify>
     <layVerifyValue></layVerifyValue>

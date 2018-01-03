@@ -162,7 +162,12 @@ public class Generator {
 	public void addExcludedTable(String... excludedTables) {
 		metaBuilder.addExcludedTable(excludedTables);
 	}
-	
+	/**
+	 * 添加不需要处理的数据表
+	 */
+	public void addInludedTable(String... includedTables) {
+		metaBuilder.addIncludedTable(includedTables);
+	}
 	/**
 	 * 设置是否在 Model 中生成 dao 对象，默认生成
 	 */

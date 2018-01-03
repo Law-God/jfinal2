@@ -91,7 +91,9 @@ public class TableMeta {
                     }
                     columnMeta.setOtherList(list);
                     commonColumns.add(column);
-                } else {
+                } else if("none".equals(columnMeta.businessType)){
+                    //不展示字段
+                }else {
                     commonColumns.add(column);
                 }
 

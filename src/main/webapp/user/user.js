@@ -113,7 +113,7 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
             },
             sexRadio : function(){
                 if(!$("#sex-radio-hidden").val()){
-                    return '请选择性别';
+                    return '请选择';
                 }
             },
 
@@ -172,7 +172,7 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
 
     form.on('submit(form-user)', function (data) {
         var url = $('#form-user').attr('action');
-        AjaxUtil.ajax({url : url,dataType : 'json',data:data.field,success : function(response,status){
+        AjaxUtil.ajax({url : url,type:'POST',dataType : 'json',data:data.field,success : function(response,status){
             if(response.success){
                 //parent.layer.closeAll();
                 parent.location.href = '/user';

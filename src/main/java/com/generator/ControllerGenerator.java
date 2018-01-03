@@ -25,71 +25,128 @@ public class ControllerGenerator {
     }
 
     public void generate(TableMeta tableMeta) {
-        writeToFile(tableMeta);
+        String className = tableMeta.name.substring(0, 1).toUpperCase() + tableMeta.name.substring(1);
+        String tableName = tableMeta.name;
+        File dir = new File(CONTROLLER_BASE_PATH + tableName);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        Map param = new HashMap();
+        param.put("package",controllerPackageName+"."+ tableName);//包名
+        param.put("modelPackageName",this.modelPackageName);
+        param.put("tableName",tableName);
+        param.put("className",className);
+        param.put("columns",tableMeta.getColumns());
+        writeControllerToFile(param);
+        writeInterceptorToFile(param);
+        writeServiceToFile(param);
+        writeValidatorToFile(param);
     }
 
     public void generate(List<TableMeta> tableMetas) {
         for(TableMeta tableMeta : tableMetas){
-            writeToFile(tableMeta);
+           generate(tableMeta);
         }
     }
 
-    /**
-     * _MappingKit.java 覆盖写入
-     */
-    protected void writeToFile(TableMeta tableMeta) {
+    protected void writeControllerToFile(Map m){
+        String controller = CONTROLLER_BASE_PATH + m.get("tableName") + File.separator + m.get("className") + "Controller.java";
+        File controllerFile = new File(controller);
         Writer fw = null;
         try {
-            String className = tableMeta.name.substring(0, 1).toUpperCase() + tableMeta.name.substring(1);
-            String tableName = tableMeta.name;
-
-            File dir = new File(CONTROLLER_BASE_PATH + tableName);
-            if (!dir.exists()) {
-                dir.mkdirs();
-            }
-
-            String controller = CONTROLLER_BASE_PATH + tableName + File.separator + className + "Controller.java";
-            File controllerFile = new File(controller);
-
-            Map param = new HashMap();
-            param.put("package",controllerPackageName+"."+ tableName);//包名
-            param.put("modelPackageName",this.modelPackageName);
-            param.put("tableName",tableName);
-            param.put("className",className);
-            param.put("columns",tableMeta.getColumns());
             fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(controllerFile), "UTF-8"));
-            fw.write(FreeMarkerTool.fillTemplateContent("controller.flt",param));
+            fw.write(FreeMarkerTool.fillTemplateContent("controller.flt",m));
             fw.flush();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if(fw != null){
+                try {
+                    fw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
-            String interceptor = CONTROLLER_BASE_PATH + tableName + File.separator + className + "Interceptor.java";
-            File interceptorFile = new File(interceptor);
+    }
+
+    protected void writeInterceptorToFile(Map m){
+        String interceptor = CONTROLLER_BASE_PATH + m.get("tableName") + File.separator + m.get("className") + "Interceptor.java";
+        File interceptorFile = new File(interceptor);
+        Writer fw = null;
+        try {
             fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(interceptorFile), "UTF-8"));
-            fw.write(FreeMarkerTool.fillTemplateContent("interceptor.flt",param));
+            fw.write(FreeMarkerTool.fillTemplateContent("interceptor.flt",m));
             fw.flush();
-
-            String service = CONTROLLER_BASE_PATH + tableName + File.separator + className + "Service.java";
-            File serviceFile = new File(service);
-            fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(serviceFile), "UTF-8"));
-            fw.write(FreeMarkerTool.fillTemplateContent("service.flt",param));
-            fw.flush();
-
-            param.put("columns",tableMeta.getColumns());
-            String validator = CONTROLLER_BASE_PATH + tableName + File.separator + className + "Validator.java";
-            File validatorFile = new File(validator);
-            fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(validatorFile), "UTF-8"));
-            fw.write(FreeMarkerTool.fillTemplateContent("validator.flt",param));
-            fw.flush();
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        finally {
-            if (fw != null) {
-                try {fw.close();} catch (IOException e) {
-                    LogKit.error(e.getMessage(), e);}
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            if(fw != null){
+                try {
+                    fw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
+    protected void writeServiceToFile(Map m){
+        String service = CONTROLLER_BASE_PATH + m.get("tableName") + File.separator + m.get("className") + "Service.java";
+        File serviceFile = new File(service);
+        Writer fw = null;
+        try {
+            fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(serviceFile), "UTF-8"));
+            fw.write(FreeMarkerTool.fillTemplateContent("service.flt",m));
+            fw.flush();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            if(fw != null){
+                try {
+                    fw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
+    protected void writeValidatorToFile(Map m){
+        String validator = CONTROLLER_BASE_PATH + m.get("tableName") + File.separator + m.get("className") + "Validator.java";
+        File validatorFile = new File(validator);
+        Writer fw = null;
+        try {
+            fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(validatorFile), "UTF-8"));
+            fw.write(FreeMarkerTool.fillTemplateContent("validator.flt",m));
+            fw.flush();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            if(fw != null){
+                try {
+                    fw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }

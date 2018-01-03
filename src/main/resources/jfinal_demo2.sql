@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
+Source Server         : localhost_3306
 Source Server Version : 50623
 Source Host           : localhost:3306
 Source Database       : jfinal_demo2
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50623
 File Encoding         : 65001
 
-Date: 2018-01-01 21:11:28
+Date: 2018-01-03 17:56:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -59,6 +59,24 @@ INSERT INTO `item` VALUES ('1', 'item', '0', '菜单管理', '/item', '2018-01-0
 INSERT INTO `item` VALUES ('2', 'user', '0', '用户管理', '/user', '2018-01-01 00:00:00', '1', '0');
 INSERT INTO `item` VALUES ('3', 'code', '0', '代码配置', '/code', '2018-01-01 00:00:00', '1', '0');
 INSERT INTO `item` VALUES ('4', 'pic', '0', '首页图片', '/picture', '2018-01-01 00:00:00', '1', '0');
+
+-- ----------------------------
+-- Table structure for `log`
+-- ----------------------------
+DROP TABLE IF EXISTS `log`;
+CREATE TABLE `log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `userid` bigint(20) DEFAULT NULL,
+  `url` varchar(200) DEFAULT NULL,
+  `createTime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `errorStack` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of log
+-- ----------------------------
+INSERT INTO `log` VALUES ('1', '1', '/', '2018-01-03 00:00:00', null);
 
 -- ----------------------------
 -- Table structure for `picture`

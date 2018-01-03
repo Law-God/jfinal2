@@ -78,12 +78,10 @@
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
                     <label class="layui-form-label">
-                        性别
+                        
                     </label>
                     <div class="layui-input-block" id="sex"  lay-verify="sexRadio" lay-verType="tips" lay-tip="sex">
                         <input type="hidden" id="sex-radio-hidden" value="#(user.sex??)" />
-                            <input type="radio" name="user.sex" value="0" title="男" #(user.sex?? == '0' ? 'checked="checked"' : '') lay-filter="filter-radio-sex" />
-                            <input type="radio" name="user.sex" value="1" title="女" #(user.sex?? == '1' ? 'checked="checked"' : '') lay-filter="filter-radio-sex" />
                     </div>
                  </div>
             </div>

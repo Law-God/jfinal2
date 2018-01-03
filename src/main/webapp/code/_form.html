@@ -27,7 +27,38 @@
     <input type="hidden" name="isPrimaryKey" value="#(columnMeta.isPrimaryKey??)" class="column"/>
     <blockquote class="layui-elem-quote">#(columnMeta.name??)</blockquote>
 
-<div class="layui-col-xs3">
+<div class="layui-col-xs3 layui-col-xs">
+    <div class="layui-form-item">
+        <div class="grid-demo grid-demo-bg1">
+            <div class="grid-demo">
+                <label class="layui-form-label">业务类型</label>
+                <div class="layui-input-block">
+                    <select name="businessType" lay-filter="select-business-type" class="column">
+                        #if(columnMeta.sqlType == 'string')
+                        <option value="string" #if(columnMeta.businessType == 'string') selected #end>文本框</option>
+                        <option value="text" #if(columnMeta.businessType == 'text') selected #end>文本域</option>
+                        <option value="picture" #if(columnMeta.businessType == 'picture') selected #end>图片</option>
+                        <option value="file" #if(columnMeta.businessType == 'file') selected #end>文件</option>
+                        #elseif(columnMeta.sqlType == 'int')
+                        <option value="int" #if(columnMeta.businessType == 'int') selected #end>整数型</option>
+                        #elseif(columnMeta.sqlType == 'double')
+                        <option value="double" #if(columnMeta.businessType == 'double') selected #end>浮点型</option>
+                        #elseif(columnMeta.sqlType == 'date')
+                        <option value="date" #if(columnMeta.businessType == 'date') selected #end>日期型</option>
+                        #elseif(columnMeta.sqlType == 'text')
+                        <option value="edit" #if(columnMeta.businessType == 'edit') selected #end>编辑器</option>
+                        #elseif(columnMeta.sqlType == 'char')
+                        <option value="radio" #if(columnMeta.businessType == 'radio') selected #end>单选按钮</option>
+                        #end
+                        <option value="none">不展示</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="layui-col-xs3 layui-col-xs show-name">
     <div class="layui-form-item">
         <label class="layui-form-label">显示名称</label>
         <div class="layui-input-block">
@@ -36,7 +67,7 @@
     </div>
 </div>
 
-<div class="layui-col-xs3">
+<div class="layui-col-xs3 layui-col-xs required">
     <div class="layui-form-item">
         <label class="layui-form-label">是否必填</label>
         <div class="layui-input-block">
@@ -45,37 +76,16 @@
     </div>
 </div>
 
-<div class="layui-col-xs3">
+<div class="layui-col-xs6 layui-col-xs text-tip">
     <div class="layui-form-item">
-        <div class="grid-demo grid-demo-bg1">
-            <div class="grid-demo">
-                <label class="layui-form-label">业务类型</label>
-                <div class="layui-input-block">
-                    <select name="businessType" class="column">
-                    #if(columnMeta.sqlType == 'string')
-                        <option value="string" #if(columnMeta.businessType == 'string') selected #end>文本框</option>
-                        <option value="text" #if(columnMeta.businessType == 'text') selected #end>文本域</option>
-                        <option value="picture" #if(columnMeta.businessType == 'picture') selected #end>图片</option>
-                        <option value="file" #if(columnMeta.businessType == 'file') selected #end>文件</option>
-                    #elseif(columnMeta.sqlType == 'int')
-                        <option value="int" #if(columnMeta.businessType == 'int') selected #end>整数型</option>
-                    #elseif(columnMeta.sqlType == 'double')
-                        <option value="double" #if(columnMeta.businessType == 'double') selected #end>浮点型</option>
-                    #elseif(columnMeta.sqlType == 'date')
-                        <option value="date" #if(columnMeta.businessType == 'date') selected #end>日期型</option>
-                    #elseif(columnMeta.sqlType == 'text')
-                        <option value="edit" #if(columnMeta.businessType == 'edit') selected #end>编辑器</option>
-                    #elseif(columnMeta.sqlType == 'char')
-                        <option value="radio" #if(columnMeta.businessType == 'radio') selected #end>单选按钮</option>
-                    #end
-                    </select>
-                </div>
-            </div>
+        <label class="layui-form-label">文本框提示</label>
+        <div class="layui-input-block">
+            <input type="text" id="defaultValue" name="defaultValue" value="#(columnMeta.defaultValue??)" autocomplete="off" class="layui-input column">
         </div>
     </div>
 </div>
 
-<div class="layui-col-xs3">
+<div class="layui-col-xs3 layui-col-xs lay-verify">
     <div class="layui-form-item">
         <div class="grid-demo grid-demo-bg1">
             <div class="grid-demo">
@@ -106,16 +116,16 @@
     </div>
 </div>
 
-<div class="layui-col-xs3 size">
+<div class="layui-col-xs3 layui-col-xs lay-verify-size">
     <div class="layui-form-item">
-        <label class="layui-form-label">长度</label>
+        <label class="layui-form-label">最大长度</label>
         <div class="layui-input-block">
             <input type="text" name="size"  value="#(columnMeta.size??)"  autocomplete="off" class="layui-input column">
         </div>
     </div>
 </div>
 
-<div class="layui-col-xs3 scale">
+<div class="layui-col-xs3 layui-col-xs  lay-verify-scale">
     <div class="layui-form-item">
         <label class="layui-form-label">精度</label>
         <div class="layui-input-block">
@@ -124,7 +134,7 @@
     </div>
 </div>
 
-<div class="layui-col-xs6 regexp">
+<div class="layui-col-xs6 layui-col-xs lay-verify-regexp">
     <div class="layui-form-item">
         <label class="layui-form-label">正则表达式</label>
         <div class="layui-input-block">
@@ -133,25 +143,16 @@
     </div>
 </div>
 
-<div class="layui-col-xs6">
+<div class="layui-col-xs6 layui-col-xs lay-verify-error-tip">
     <div class="layui-form-item">
-        <label class="layui-form-label">文本框提示</label>
-        <div class="layui-input-block">
-            <input type="text" id="defaultValue" name="defaultValue" value="#(columnMeta.defaultValue??)" autocomplete="off" class="layui-input column">
-        </div>
-    </div>
-</div>
-
-<div class="layui-col-xs6">
-    <div class="layui-form-item">
-        <label class="layui-form-label">不匹配提示</label>
+        <label class="layui-form-label">失败提示</label>
         <div class="layui-input-block">
             <input type="text" id="tip" name="tip" value="#(columnMeta.tip??)" autocomplete="off" class="layui-input column">
         </div>
     </div>
 </div>
 
-<div class="layui-col-xs6">
+<div class="layui-col-xs6 layui-col-xs lay-verify-radio-value">
     <div class="layui-form-item">
         <label class="layui-form-label">单选按钮值</label>
         <div class="layui-input-block">
@@ -159,8 +160,6 @@
         </div>
     </div>
 </div>
-
-
 
 </div>
 #end

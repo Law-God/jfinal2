@@ -2,6 +2,7 @@ package com.common;
 
 import com.business.blog.BlogController;
 import com.business.item.ItemController;
+import com.business.log.LogController;
 import com.business.picture.PictureController;
 import com.business.user.UserController;
 import com.generator.code.CodeController;
@@ -16,8 +17,6 @@ import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.template.Engine;
-import com.model.Upload;
-import com.model._MappingKit;
 
 /**
  * 本 demo 仅表达最为粗浅的 jfinal 用法，更为有价值的实用的企业级用法
@@ -68,6 +67,7 @@ public class JfinalGlobalConfig extends JFinalConfig {
 		me.add("/user", UserController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
 		me.add("/item", ItemController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
 		me.add("/picture", PictureController.class);
+		me.add("/log", LogController.class);
 	}
 	
 	public void configEngine(Engine me) {

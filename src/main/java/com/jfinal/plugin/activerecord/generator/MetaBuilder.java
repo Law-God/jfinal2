@@ -34,31 +34,31 @@ import com.jfinal.plugin.activerecord.dialect.OracleDialect;
  * MetaBuilder
  */
 public class MetaBuilder {
-	
+
 	protected DataSource dataSource;
 	protected Dialect dialect = new MysqlDialect();
 	protected Set<String> excludedTables = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
-	
+	protected Set<String> includedTables = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
 	protected Connection conn = null;
 	protected DatabaseMetaData dbMeta = null;
-	
+
 	protected String[] removedTableNamePrefixes = null;
-	
+
 	protected TypeMapping typeMapping = new TypeMapping();
-	
+
 	public MetaBuilder(DataSource dataSource) {
 		if (dataSource == null) {
 			throw new IllegalArgumentException("dataSource can not be null.");
 		}
 		this.dataSource = dataSource;
 	}
-	
+
 	public void setDialect(Dialect dialect) {
 		if (dialect != null) {
 			this.dialect = dialect;
 		}
 	}
-	
+
 	public void addExcludedTable(String... excludedTables) {
 		if (excludedTables != null) {
 			for (String table : excludedTables) {
@@ -66,7 +66,16 @@ public class MetaBuilder {
 			}
 		}
 	}
-	
+
+	public void addIncludedTable(String[] includedTables) {
+		this.excludedTables = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);//不需要生成的表格置空
+		if (includedTables != null) {
+			for (String table : includedTables) {
+				this.includedTables.add(table);
+			}
+		}
+	}
+
 	/**
 	 * 设置需要被移除的表名前缀，仅用于生成 modelName 与  baseModelName
 	 * 例如表名  "osc_account"，移除前缀 "osc_" 后变为 "account"
@@ -74,19 +83,19 @@ public class MetaBuilder {
 	public void setRemovedTableNamePrefixes(String... removedTableNamePrefixes) {
 		this.removedTableNamePrefixes = removedTableNamePrefixes;
 	}
-	
+
 	public void setTypeMapping(TypeMapping typeMapping) {
 		if (typeMapping != null) {
 			this.typeMapping = typeMapping;
 		}
 	}
-	
+
 	public List<TableMeta> build() {
 		System.out.println("Build TableMeta ...");
 		try {
 			conn = dataSource.getConnection();
 			dbMeta = conn.getMetaData();
-			
+
 			List<TableMeta> ret = new ArrayList<TableMeta>();
 			buildTableNames(ret);
 			for (TableMeta tableMeta : ret) {
@@ -105,7 +114,7 @@ public class MetaBuilder {
 			}
 		}
 	}
-	
+
 	/**
 	 * 通过继承并覆盖此方法，跳过一些不希望处理的 table，定制更加灵活的 table 过滤规则
 	 * @return 返回 true 时将跳过当前 tableName 的处理
@@ -113,7 +122,7 @@ public class MetaBuilder {
 	protected boolean isSkipTable(String tableName) {
 		return false;
 	}
-	
+
 	/**
 	 * 构造 modelName，mysql 的 tableName 建议使用小写字母，多单词表名使用下划线分隔，不建议使用驼峰命名
 	 * oracle 之下的 tableName 建议使用下划线分隔多单词名，无论 mysql还是 oralce，tableName 都不建议使用驼峰命名
@@ -128,22 +137,22 @@ public class MetaBuilder {
 				}
 			}
 		}
-		
+
 		// 将 oralce 大写的 tableName 转成小写，再生成 modelName
 		if (dialect instanceof OracleDialect) {
 			tableName = tableName.toLowerCase();
 		}
-		
+
 		return StrKit.firstCharToUpperCase(StrKit.toCamelCase(tableName));
 	}
-	
+
 	/**
 	 * 使用 modelName 构建 baseModelName
 	 */
 	protected String buildBaseModelName(String modelName) {
 		return "Base" + modelName;
 	}
-	
+
 	/**
 	 * 不同数据库 dbMeta.getTables(...) 的 schemaPattern 参数意义不同
 	 * 1：oracle 数据库这个参数代表 dbMeta.getUserName()
@@ -157,7 +166,7 @@ public class MetaBuilder {
 		// return dbMeta.getTables(conn.getCatalog(), schemaPattern, null, new String[]{"TABLE", "VIEW"});
 		return dbMeta.getTables(conn.getCatalog(), schemaPattern, null, new String[]{"TABLE"});	// 不支持 view 生成
 	}
-	
+
 	protected void buildTableNames(List<TableMeta> ret) throws SQLException {
 		ResultSet rs = getTablesResultSet();
 		while (rs.next()) {
@@ -166,26 +175,32 @@ public class MetaBuilder {
 				System.out.println("Skip table :" + tableName);
 				continue ;
 			}
+
+			if(includedTables.size() != 0 && !includedTables.contains(tableName)){
+				System.out.println("Skip table :" + tableName);
+				continue;
+			}
+
 			if (isSkipTable(tableName)) {
 				System.out.println("Skip table :" + tableName);
 				continue ;
 			}
-			
+
 			TableMeta tableMeta = new TableMeta();
 			tableMeta.databaseName = conn.getCatalog();//设置数据库名
 			tableMeta.name = tableName;
 			tableMeta.remarks = rs.getString("REMARKS");
-			
+
 			tableMeta.modelName = buildModelName(tableName);
 			tableMeta.baseModelName = buildBaseModelName(tableMeta.modelName);
 			ret.add(tableMeta);
 		}
 		rs.close();
 	}
-	
+
 	protected void buildPrimaryKey(TableMeta tableMeta) throws SQLException {
 		ResultSet rs = dbMeta.getPrimaryKeys(conn.getCatalog(), null, tableMeta.name);
-		
+
 		String primaryKey = "";
 		int index = 0;
 		while (rs.next()) {
@@ -200,17 +215,17 @@ public class MetaBuilder {
 		tableMeta.primaryKey = primaryKey;
 		rs.close();
 	}
-	
+
 	/**
 	 * 文档参考：
 	 * http://dev.mysql.com/doc/connector-j/en/connector-j-reference-type-conversions.html
-	 * 
+	 *
 	 * JDBC 与时间有关类型转换规则，mysql 类型到 java 类型如下对应关系：
 	 * DATE				java.sql.Date
 	 * DATETIME			java.sql.Timestamp
 	 * TIMESTAMP[(M)]	java.sql.Timestamp
 	 * TIME				java.sql.Time
-	 * 
+	 *
 	 * 对数据库的 DATE、DATETIME、TIMESTAMP、TIME 四种类型注入 new java.util.Date()对象保存到库以后可以达到“秒精度”
 	 * 为了便捷性，getter、setter 方法中对上述四种字段类型采用 java.util.Date，可通过定制 TypeMapping 改变此映射规则
 	 */
@@ -343,6 +358,7 @@ public class MetaBuilder {
 		}
 		return StrKit.toCamelCase(colName);
 	}
+
 }
 
 

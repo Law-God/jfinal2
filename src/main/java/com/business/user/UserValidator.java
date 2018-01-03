@@ -22,7 +22,7 @@ public class UserValidator extends Validator {
         validateEmail(1,"user.email", "emailMsg", "邮箱格式错误");
         validateUrl(1,"user.url", "urlMsg", "链接格式错误");
         validateIdentity(1,"user.idcard", "idcardMsg", "身份证号码错误");
-        validateRequireString(1,"upload.fileName","sexMsg", "性别");
+        validateRequireString(1,"upload.fileName","sexMsg", "");
     //validateRequireString(0,"upload.fileName","pictureMsg", "头像");
 
         validateText(1,"user.address", 0,"addressMsg", "地址");

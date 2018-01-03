@@ -1,0 +1,55 @@
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        操作人
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="userid" name="log.userid" value="#(log.userid??)" placeholder="" lay-verify="useridInt20" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        访问url
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="url" name="log.url" value="#(log.url??)" placeholder="" lay-verify="urlString200" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="layui-row">
+                <div class="layui-col-xs6">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            访问时间
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="createTime_date" name="log.createTime" value="#if(log.createTime??)#date(log.createTime,'yyyy-MM-dd')#end"  lay-verify="date" placeholder="" readonly lay-verType="tips" readonly autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+
+    <div class="layui-row">
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">
+                错误信息
+            </label>
+            <div class="layui-input-block" id="errorStack-tip">
+                <textarea  class="layui-textarea layui-hide" name="log.errorStack" placeholder="" lay-verify="errorStackRegexp" lay-verType="tips" id="errorStack_editor" lay-tip="errorStack-tip">#(log.errorStack??)</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="form-log">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </div>
