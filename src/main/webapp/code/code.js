@@ -21,11 +21,13 @@ layui.use(['form', 'AjaxUtil'], function(){
     $(function(){
         $("select[lay-filter='select-business-type']").each(function(){
             var val = $(this).val();
+            console.log("business-type:" + val);
             businessTypeController($(this),val);
         })
 
         $("select[lay-filter='selectLayVerify']").each(function(){
             var val = $(this).val();
+            console.log("lay-verify:" + val);
             layVerifyController($(this),val);
         })
 
@@ -44,15 +46,15 @@ layui.use(['form', 'AjaxUtil'], function(){
         if(val == "none") return;
 
         //基本显示控件
-        _$layui_row.find(".show-name, .required").css("display","");
+        _$layui_row.find(".show-name, .required, .error-tip").css("display","");
 
         //控件是否显示默认文字
         if(val == 'string' || val == 'password' || val == 'text' || val == 'int' || val == 'double' || val == 'date'){
             _$layui_row.find(".text-tip").css("display","");
         }
 
-        //控件是否显示校验规则,除了图片、文件、单选外显示校验规则
-        if(!(val == 'picture' || val == 'file' || val == 'radio')){
+        //控件是否显示校验规则,除了文本域、编辑器、图片、文件、单选外显示校验规则
+        if(!(val == 'edit' || val == 'text' || val == 'picture' || val == 'file' || val == 'radio')){
             _$layui_row.find(".lay-verify").css("display","");
         }
     }
@@ -67,18 +69,19 @@ layui.use(['form', 'AjaxUtil'], function(){
         var _$layui_row = _$select.closest(".layui-row");
         _$layui_row.find("[class*='lay-verify']").css("display","none");
         _$select.closest(".layui-col-xs").css("display","");
+
         if(val == 'string' || val == 'password'){
-            _$layui_row.find(".lay-verify-size,lay-verify-regexp,.lay-verify-error-tip").css("display","");
-        }else if(val == 'phone' || val == 'email' || val == 'url' || val == 'identity' || val == 'date'){
-            _$layui_row.find(".lay-verify-error-tip").css("display","");
+            _$layui_row.find(".lay-verify-size,lay-verify-regexp").css("display","");
+        }else if(val == 'text' || val == 'phone' || val == 'email' || val == 'url' || val == 'identity' || val == 'date'){
+            //_$layui_row.find(".lay-verify-error-tip").css("display","");
         }else if(val == 'int'){
-            _$layui_row.find(".lay-verify-size, .lay-verify-error-tip").css("display","");
+            _$layui_row.find(".lay-verify-size").css("display","");
         }else if(val == 'double'){
-            _$layui_row.find(".lay-verify-size,.lay-verify-scale, .lay-verify-error-tip").css("display","");
+            _$layui_row.find(".lay-verify-size,.lay-verify-scale").css("display","");
         }else if(val == 'radio') {
-            _$layui_row.find("lay-verify-radio-value, .lay-verify-error-tip").css("display","");
+            _$layui_row.find(".lay-verify-radio-value").css("display","");
         }else if(val == 'regexp'){
-            _$layui_row.find(".lay-verify-regexp,.lay-verify-error-tip").css("display","");
+            _$layui_row.find(".lay-verify-regexp").css("display","");
         }
     }
 

@@ -58,6 +58,7 @@
                         <#if column2.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column2.remarks}
                     </label>
                     <div class="layui-input-block">
+                        <input type="password" name="${tableName}.${column2.name}" style="display:none;width:0;height:0">
                         <input type="password" id="${column2.name}" name="${tableName}.${column2.name}" value="#(${tableName}.${column2.name}??)" placeholder="${column2.defaultValue}" lay-verify="${ (column2.isNullable == '0')?string('required|','')}${column2.layVerifyValue!""}" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -91,12 +92,13 @@
                 <div class="layui-input-block">
                     <div class="layui-upload">
                         <input type="hidden" id="${column.name}" name="${tableName}.${column.name}" value="#(${tableName}.${column.name}??)"/>
-                        <input type="hidden" id="${column.name}_uploadid" name="upload[0].uploadid" value="#(${tableName}.${column.name}??)"/>
-                        <input type="hidden" id="${column.name}_fileName" name="upload[0].fileName" value="#(uploadPicture.fileName??)"/>
-                        <input type="hidden" id="${column.name}_originalFileName" name="upload[0].originalFileName" value="#(uploadPicture.originalFileName??)"/>
-                        <input type="hidden" id="${column.name}_businessType" name="upload[0].businessType" value="#(uploadPicture.businessType??)"/>
-                        <input type="hidden" id="${column.name}_businessField" name="upload[0].businessField" value="#(uploadPicture.businessField??)"/>
-                        <input type="hidden" id="${column.name}_contentType" name="upload[0].contentType" value="#(uploadPicture.contentType??)"/>
+                        <input type="hidden" id="${column.name}Validator" name="${tableName}${column.name}Validator" value="#(test.password??)"/>
+                        <input type="hidden" id="${column.name}_uploadid" name="upload[${column_index}].uploadid" value="#(${tableName}.${column.name}??)"/>
+                        <input type="hidden" id="${column.name}_fileName" name="upload[${column_index}].fileName" value="#(uploadPicture.fileName??)"/>
+                        <input type="hidden" id="${column.name}_originalFileName" name="upload[${column_index}].originalFileName" value="#(uploadPicture.originalFileName??)"/>
+                        <input type="hidden" id="${column.name}_businessType" name="upload[${column_index}].businessType" value="#(uploadPicture.businessType??)"/>
+                        <input type="hidden" id="${column.name}_businessField" name="upload[${column_index}].businessField" value="#(uploadPicture.businessField??)"/>
+                        <input type="hidden" id="${column.name}_contentType" name="upload[${column_index}].contentType" value="#(uploadPicture.contentType??)"/>
                         <button type="button" class="layui-btn" id="${column.name}Btn" lay-verify="${ (column.isNullable == '0')?string('upload${column.name}','')}" lay-verType="tips">上传图片</button>
                         <div class="layui-upload-list">
                             <img class="layui-upload-img" #if(${tableName}.${column.name}??) src="/upload/download/#(${tableName}.${column.name}??)" #end  id="${column.name}Img" style="width:92px;height: 92px;margin : 0 10px 10px 0">
@@ -117,12 +119,13 @@
                 <div class="layui-input-block">
                     <div class="layui-upload">
                         <input type="hidden" id="${column.name}" name="${tableName}.${column.name}" value="#(${tableName}.${column.name}??)"/>
-                        <input type="hidden" id="${column.name}_uploadid" name="upload[1].uploadid" value="#(${tableName}.${column.name}??)"/>
-                        <input type="hidden" id="${column.name}_fileName" name="upload[1].fileName" value="#(uploadFile.fileName??)"/>
-                        <input type="hidden" id="${column.name}_originalFileName" name="upload[1].originalFileName" value="#(uploadFile.originalFileName??)"/>
-                        <input type="hidden" id="${column.name}_businessType" name="upload[1].businessType" value="#(uploadFile.businessType??)"/>
-                        <input type="hidden" id="${column.name}_businessField" name="upload[1].businessField" value="#(uploadFile.businessField??)"/>
-                        <input type="hidden" id="${column.name}_contentType" name="upload[1].contentType" value="#(uploadFile.contentType??)"/>
+                        <input type="hidden" id="${column.name}Validator" name="${tableName}${column.name}Validator" value="#(test.password??)"/>
+                        <input type="hidden" id="${column.name}_uploadid" name="upload[${column_index}].uploadid" value="#(${tableName}.${column.name}??)"/>
+                        <input type="hidden" id="${column.name}_fileName" name="upload[${column_index}].fileName" value="#(uploadFile.fileName??)"/>
+                        <input type="hidden" id="${column.name}_originalFileName" name="upload[${column_index}].originalFileName" value="#(uploadFile.originalFileName??)"/>
+                        <input type="hidden" id="${column.name}_businessType" name="upload[${column_index}].businessType" value="#(uploadFile.businessType??)"/>
+                        <input type="hidden" id="${column.name}_businessField" name="upload[${column_index}].businessField" value="#(uploadFile.businessField??)"/>
+                        <input type="hidden" id="${column.name}_contentType" name="upload[${column_index}].contentType" value="#(uploadFile.contentType??)"/>
                         <button type="button" class="layui-btn" id="${column.name}Btn" lay-verify="${ (column.isNullable == '0')?string('upload${column.name}','')}" lay-verType="tips">上传文件</button>
                         <div class="layui-upload-list">
                             <p id="${column.name}Tip"></p>
@@ -143,7 +146,7 @@
                 <#if column.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column.remarks}
             </label>
             <div class="layui-input-block">
-                <textarea id="${column.name}" name="${tableName}.${column.name}" placeholder="${column.tip}" lay-verify="${ (column.isNullable == '0')?string('required|','')}${column.layVerifyValue!""}" lay-verType="tips" class="layui-textarea">#(${tableName}.${column.name}??)</textarea>
+                <textarea id="${column.name}" name="${tableName}.${column.name}" placeholder="${column.defaultValue}" lay-verify="${ (column.isNullable == '0')?string('required|','')}${column.layVerifyValue!""}" lay-verType="tips" class="layui-textarea">#(${tableName}.${column.name}??)</textarea>
             </div>
         </div>
     </div>
@@ -154,7 +157,7 @@
                 <#if column.isNullable == "0"><i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;</#if>${column.remarks}
             </label>
             <div class="layui-input-block" id="${column.name}-tip">
-                <textarea  class="layui-textarea layui-hide" name="${tableName}.${column.name}" placeholder="${column.tip}" lay-verify="${column.layVerifyValue!""}" lay-verType="tips" id="${column.name}_editor" lay-tip="${column.name}-tip">#(${tableName}.${column.name}??)</textarea>
+                <textarea  class="layui-textarea layui-hide" name="${tableName}.${column.name}" placeholder="${column.defaultValue}" lay-verify="${column.layVerifyValue!""}" lay-verType="tips" id="${column.name}_editor" lay-tip="${column.name}-tip">#(${tableName}.${column.name}??)</textarea>
             </div>
         </div>
     </div>

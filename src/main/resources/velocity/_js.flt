@@ -1,11 +1,14 @@
-layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
+layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil','MD5'], function(){
     var form = layui.form
     ,layer = layui.layer
     ,layedit = layui.layedit
     ,laydate = layui.laydate
     ,AjaxUtil = layui.AjaxUtil
-    ,upload = layui.upload;
+    ,upload = layui.upload
+    ,MD5 = layui.MD5;
+
     var $= layui.jquery;
+
 <#list columns.commonColumns as column>
     <#if column.businessType == "date">
         //日期
@@ -49,6 +52,7 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
                 if(res.success){
                     var obj = JSON.parse(res.msg);
                     $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}").val("");//修改页面重新上传文件
+                    $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}Validator").val(obj.fileName || "");
                     $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}_fileName").val(obj.fileName || "");
                     $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}_originalFileName").val(obj.originalFileName || "");
                     $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}_businessType").val(obj.businessType || "");
@@ -79,12 +83,13 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
                 if(res.success){
                     var obj = JSON.parse(res.msg);
                     $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}").val("");//修改页面重新上传文件
+                    $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}Validator").val(obj.fileName || "");
                     $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}_fileName").val(obj.fileName || "");
                     $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}_originalFileName").val(obj.originalFileName || "");
                     $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}_businessType").val(obj.businessType || "");
                     $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}_businessField").val(obj.businessField || "");
                     $("#${column.name}Btn").closest(".layui-upload").find("#${column.name}_contentType").val(obj.contentType || "");
-                    var demoText = $('#fileTip');
+                    var demoText = $('#${column.name}Tip');
                     demoText.html('<span>上传成功</span>'+obj.originalFileName);
                 }else{
                     return layer.msg('上传失败');
@@ -102,18 +107,19 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
     </#if>
 </#list>
 
-
-
     //自定义验证规则
     form.verify({
     <#list columns.commonColumns as column>
         <#if column.layVerify == "string">
             ${column.layVerifyValue} : function(value){
+                <#if column.isNullable == '1'>
+                if(value == "") return false;
+                </#if>
                 if(value.length > ${(column.size)?floor}){
                     <#if column.tip != "">
-                        return '${column.tip}';
+                    return '${column.tip}';
                     <#else >
-                        return '不能超过${(column.size)?floor}个字符';
+                    return '不能超过${(column.size)?floor}个字符';
                     </#if>
                 }
             },
@@ -156,6 +162,9 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
                 }
             },
         <#elseif column.layVerify == "radio">
+            <#if column.isNullable == '1'>
+            if($("#${column.name}-radio-hidden").val() == "") return false;
+            </#if>
             ${column.layVerifyValue} : function(){
                 if(!$("#${column.name}-radio-hidden").val()){
                     <#if column.tip != "">
@@ -169,7 +178,8 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
             ${column.layVerifyValue} : function(value){
             <#if column.isNullable == "1">
                 if(value == "") return false;
-            <#elseif column.layVerify == 'regexp' && column.regexp != ''>
+            </#if>
+            <#if column.layVerify == 'regexp' && column.regexp != ''>
                 var reg = new RegExp('${column.regexp?js_string}');
                 if(!reg.test(value)){
                     return '${column.tip}';
@@ -181,56 +191,32 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
 
     <#list columns.fileColumns as column>
         <#if column.isNullable == "0">
-                upload${column.name} : function(){
-                    if($("#${column.name}").closest(".layui-upload").find("#fileName").val() == ""){
-                        <#if column.tip != ''>
-                         return '${column.tip}';
-                        <#else >
-                        return "请上传图片";
-                        </#if>
-                    }
-                },
+            upload${column.name} : function(){
+                if($("#${column.name}").closest(".layui-upload").find("#${column.name}_fileName").val() == ""){
+                    <#if column.tip != ''>
+                    return '${column.tip}';
+                    <#else >
+                    return "请上传图片";
+                    </#if>
+                }
+            },
         </#if>
     </#list>
 
     <#list columns.bigColumns as column>
-        <#if column.isNullable == "0">
-            <#if column.businessType == "text">
-                ${column.layVerifyValue} : function(value){
-                     if(value.length > 1000){
-                        return '内容不能超过1000个字符';
-                    }
-                },
-            </#if>
-            <#if column.businessType == "edit">
-                ${column.layVerifyValue} : function(value){
-                    layedit.sync(${column.name}Editor);
-                    var content = layedit.getContent(${column.name}Editor);
-                    <#if column.layVerify == 'regexp' && column.regexp != ''>
-                    var reg = new RegExp('${column.regexp?js_string}');
-                    if(!reg.test(value)){
-                        return '${column.tip}';
-                    }
-                    <#else>
-                    if(content.length <= 0){
-                        //return '${column.defaultValue}';
-                        return '必填项不能为空';
-                    }
+        <#if column.isNullable == "0" && column.businessType == "edit">
+            ${column.layVerifyValue} : function(value){
+                layedit.sync(${column.name}Editor);
+                var content = layedit.getContent(${column.name}Editor);
+
+                if(content.length <= 0){
+                    <#if column.tip != ''>
+                    return '${column.tip}';
+                    <#else >
+                    return '必填项不能为空';
                     </#if>
-                },
-            </#if>
-        <#else>
-            <#if column.businessType == "text">
-                ${column.layVerifyValue} : function(value){
-                    <#if column.layVerify == 'regexp' && column.regexp != ''>
-                    var reg = new RegExp(${column.regexp?js_string});
-                    if(!reg.test(value)){
-                        return ${column.tip};
-                    }
-                    <#else>
-                    </#if>
-                },
-            </#if>
+                }
+            },
         </#if>
     </#list>
     });
@@ -263,6 +249,14 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
 
     form.on('submit(form-${tableName})', function (data) {
         var url = $('#form-${tableName}').attr('action');
+    <#list columns.commonColumns as column>
+    <#if column.businessType == 'password'>
+        var ${column.name}Val = $("#${column.name}").val();
+        if(!!${column.name}Val){
+            data.field['${tableName}.${column.name}'] = MD5.hex_md5(${column.name}Val);
+        }
+    </#if>
+    </#list>
         AjaxUtil.ajax({url : url,type:'POST',dataType : 'json',data:data.field,success : function(response,status){
             if(response.success){
                 //parent.layer.closeAll();
@@ -277,11 +271,11 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
                         }else if(businessType === 'edit'){
                             layer.tips(msgList[i].value, $("#"+msgList[i].key+"-tip"), {tips: 1,time:3000,tipsMore :true});
                         }else if(businessType === 'date'){
-                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"_date"), {tips: 1,time:3000,tipsMore :true});
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"_date"), {time:3000,tipsMore :true});
                         }else if(businessType === 'picture'){
-                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"Btn"), {tips: 2,time:3000,tipsMore :true});
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"Btn"), {time:3000,tipsMore :true});
                         }else{
-                            layer.tips(msgList[i].value, $("#"+msgList[i].key), {tips: 1,time:3000,tipsMore :true});
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key), {time:3000,tipsMore :true});
                         }
                     }
                 }

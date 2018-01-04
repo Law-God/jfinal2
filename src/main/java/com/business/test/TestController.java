@@ -41,7 +41,14 @@ public class TestController extends Controller {
 	@Before(TestValidator.class)
 	public void save() {
 		try{
-        	getModel(Test.class).save();
+			Test model = getModel(Test.class);
+        	List<Upload> uploadList = ModelUtils.batchInjectModel(getRequest(),Upload.class,"upload");
+            for(Upload upload : uploadList){
+            	upload.save();
+            	String businessField = upload.getBusinessField();
+            	model.set(businessField.toString(),upload.getUploadid());
+            }
+            model.save();
 
 
 		}catch (Exception e){
@@ -54,7 +61,12 @@ public class TestController extends Controller {
 	
 	public void edit() {
 		Test test = service.findById(getParaToInt());
-        	setAttr("test", service.findById(getParaToInt()));
+			String uploadfileId = test.get("file");
+			if(!StringUtils.isEmpty(uploadfileId)){
+				Upload uploadfile = uploadService.findById(new Integer(uploadfileId ));
+				setAttr("uploadFile", uploadfile);
+			}
+        setAttr("test", test);
 	}
 	
 	/**
@@ -64,7 +76,13 @@ public class TestController extends Controller {
 	@Before(TestValidator.class)
 	public void update() {
 		try{
-            getModel(Test.class).update();
+				Test test = getModel(Test.class);
+				if(StringUtils.isEmpty(test.get("file"))){
+					Upload upload = getModel(Upload.class);
+					upload.save();
+					test.set("file",upload.getUploadid());
+				}
+				test.update();
 		}catch (Exception e){
 			e.printStackTrace();
 			renderJson(new ReturnMsg(false,"系统出错，请联系管理员"));

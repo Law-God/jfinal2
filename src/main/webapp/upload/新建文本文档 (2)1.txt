@@ -1,0 +1,57 @@
+﻿import React,{Component,PropTypes} from "react";
+import ReactDOM from "react-dom";
+
+class App extends Component{
+	//初始化时执行一次
+	static defaultProps = {
+		//...
+
+	}
+
+	//初始化时执行一次
+	static propTypes = {
+		//...
+	}
+
+	structor(props){
+		//....
+
+		this.state = {
+			//...
+		}
+	}
+
+	//render方法前执行
+	componentWillMount(){
+		//...
+	}
+
+	//render方法后执行
+	componentDidMount(){
+		//....
+	}
+
+	componentUnmount(){
+
+	}
+
+	componentWillReceiveProps(nextProps){
+		//this.setState({});
+	}
+
+	shouldComponentUpdate(nextProps,nextState){
+		//return true
+	}
+
+	componentWillUpdate(nextProps,nextState){
+
+	}
+
+	componentDidUpdate(prevProps,prevState){
+
+	}
+
+	render(){
+		return();
+	}
+}

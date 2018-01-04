@@ -2,13 +2,17 @@ jdbcUrl = jdbc:mysql://localhost:3306/jfinal_demo2?useUnicode=true&characterEnco
 user = root
 password = admin
 devMode = true
+initialSize=100
+minIdle=1000
+maxActive=10
+type_key=mysql
 
-xmlpath = j:\\phantom\\jfinal2\\src\\main\\resources\\xml\\
+xmlpath = d:\\phantom\\jfinal2\\src\\main\\resources\\xml\\
 
-webpath = j:\\phantom\\jfinal2\\src\\main\\webapp\\
+webpath = d:\\phantom\\jfinal2\\src\\main\\webapp\\
 
-controllerpath = j:\\phantom\\jfinal2\\src\\main\\java\\com\\business\\
+controllerpath = d:\\phantom\\jfinal2\\src\\main\\java\\com\\business\\
 
-freemarkerpath = j:\\phantom\\jfinal2\\src\\main\\resources\\velocity\\
+freemarkerpath = d:\\phantom\\jfinal2\\src\\main\\resources\\velocity\\
 
-baseUploadPath = j:\\phantom\\jfinal2\\src\\main\\webapp\\upload\\
+baseUploadPath = d:\\phantom\\jfinal2\\src\\main\\webapp\\upload\\

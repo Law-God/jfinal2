@@ -51,10 +51,9 @@
 			,cols: [[
                     {type:'checkbox', fixed: 'left'},
                     {field : "LAY_TABLE_INDEX",title: '序号',width:60},
-                    {field:'book', title: ''
-},
-                    {field:'password', title: '密码'
-},
+                    {field:'createTime', title: ''
+                        ,formatter : formatDate
+                    },
                     {field:'', title: '操作',minWidth:110,toolbar: '#test-bar',fixed:'right'},
 			]]
             ,even: true //开启隔行背景

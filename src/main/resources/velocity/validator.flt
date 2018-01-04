@@ -16,37 +16,46 @@ public class ${className}Validator extends Validator {
 
     protected void validate(Controller controller) {
 <#list  columns.commonColumns  as  column>
-    <#if column.layVerify == 'string' >
-        validateString(${column.isNullable},"${tableName}.${column.name}", 1,${column.size},"${column.name}Msg", "${column.tip}");
-    <#elseif column.layVerify == 'int' >
-        validateInteger(${column.isNullable},"${tableName}.${column.name}", ${column.size},"${column.name}Msg", "${column.tip}");
-    <#elseif column.layVerify == 'double' >
-        validateDouble(${column.isNullable},"${tableName}.${column.name}", 1,${column.size},"${column.name}Msg", "${column.tip}");
-    <#elseif column.layVerify ==  "phone">
-        validatePhone(${column.isNullable},"${tableName}.${column.name}","${column.name}Msg", "${column.tip}");
-    <#elseif column.layVerify ==  "email">
-        validateEmail(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}");
-    <#elseif column.layVerify ==  "url">
-        validateUrl(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}");
-    <#elseif column.layVerify ==  "identity">
-        validateIdentity(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}");
-    <#elseif column.layVerify ==  "date">
+    <#if column.businessType == 'text'  || column.businessType == 'radio' || column.businessType == 'password'>
+        validateRequireString(${column.isNullable},"${tableName}.${column.name}","${column.name}Msg", "${column.remarks}");
+    <#elseif column.businessType == 'date'>
         validateDate(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}");
-    <#elseif column.layVerify ==  "regexp">
+    <#elseif column.businessType == 'int'>
+        <#if column.layVerify == 'regexp'>
         validateRegexp(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}","${column.regexp?j_string}");
-    <#elseif column.layVerify ==  "radio">
-        validateRequireString(${column.isNullable},"upload.fileName","${column.name}Msg", "${column.remarks}");
+        <#else>
+        validateInteger(${column.isNullable},"${tableName}.${column.name}", ${column.size},"${column.name}Msg", "${column.tip}");
+        </#if>
+    <#elseif column.businessType == 'double'>
+        <#if column.layVerify == 'regexp'>
+        validateRegexp(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}","${column.regexp?j_string}");
+        <#else>
+        validateDouble(${column.isNullable},"${tableName}.${column.name}", 1,${column.size},"${column.name}Msg", "${column.tip}");
+        </#if>
+    <#elseif column.businessType == 'string'>
+        <#if column.layVerify == 'phone'>
+        validatePhone(${column.isNullable},"${tableName}.${column.name}","${column.name}Msg", "${column.tip}");
+        <#elseif column.layVerify == 'email'>
+        validateEmail(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}");
+        <#elseif column.layVerify == 'url'>
+        validateUrl(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}");
+        <#elseif column.layVerify == 'identity'>
+        validateIdentity(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}");
+       <#elseif column.layVerify == 'string'>
+        validateString(${column.isNullable},"${tableName}.${column.name}", 1,${column.size},"${column.name}Msg", "${column.tip}");
+        <#elseif column.layVerify == 'regexp'>
+        validateRegexp(${column.isNullable},"${tableName}.${column.name}", "${column.name}Msg", "${column.tip}","${column.regexp?j_string}");
+        </#if>
     </#if>
 </#list>
 <#list  columns.fileColumns  as  column>
-    <#if column.businessType == 'picture' >
-    //validateRequireString(${column.isNullable},"upload.fileName","${column.name}Msg", "${column.remarks}");
+    <#if column.businessType == 'picture' || column.businessType == 'file'>
+    validateRequireString(${column.isNullable},"${tableName}${column.name}Validator","${column.name}Msg", "${column.tip}");
     </#if>
 </#list>
-
 <#list  columns.bigColumns  as  column>
     <#if column.businessType == 'text' >
-        validateText(${column.isNullable},"${tableName}.${column.name}", 0,"${column.name}Msg", "${column.remarks}");
+        validateText(${column.isNullable},"${tableName}.${column.name}", 0,"${column.name}Msg", "${column.tip}");
     </#if>
 </#list>
     }

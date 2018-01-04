@@ -41,7 +41,7 @@ public class ColumnMeta{
 	 id		   | int(11) | NO	| PRI | NULL	| remarks here	
 	*/
 	public String type;				// 字段类型(附带字段长度与小数点)，例如：decimal(11,2)
-	public String isNullable;		// 是否允许空值
+	public String isNullable;		// 是否允许空值 0 必填  1 非必填
 	public String isPrimaryKey;		// 是否主键
 	public String defaultValue;		// 默认值
 	public String remarks;			// 字段备注

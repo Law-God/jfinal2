@@ -23,6 +23,7 @@ public class _MappingKit {
 		arp.addMapping("upload", "uploadid", Upload.class);
 		arp.addMapping("user", "id", User.class);
 		arp.addMapping("log", "id", Log.class);
+		arp.addMapping("test", "testId", Test.class);
 	}
 }
 

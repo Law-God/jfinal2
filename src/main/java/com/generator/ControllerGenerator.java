@@ -35,6 +35,7 @@ public class ControllerGenerator {
         param.put("package",controllerPackageName+"."+ tableName);//包名
         param.put("modelPackageName",this.modelPackageName);
         param.put("tableName",tableName);
+        param.put("tableMeta",tableMeta);
         param.put("className",className);
         param.put("columns",tableMeta.getColumns());
         writeControllerToFile(param);

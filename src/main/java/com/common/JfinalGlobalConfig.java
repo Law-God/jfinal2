@@ -1,9 +1,12 @@
 package com.common;
 
+import com.alibaba.druid.filter.stat.StatFilter;
+import com.alibaba.druid.wall.WallFilter;
 import com.business.blog.BlogController;
 import com.business.item.ItemController;
 import com.business.log.LogController;
 import com.business.picture.PictureController;
+import com.business.test.TestController;
 import com.business.user.UserController;
 import com.generator.code.CodeController;
 import com.generator.upload.UploadController;
@@ -16,7 +19,12 @@ import com.jfinal.kit.PathKit;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
+import com.jfinal.plugin.druid.DruidStatViewHandler;
+import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.template.Engine;
+import com.model.User;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 本 demo 仅表达最为粗浅的 jfinal 用法，更为有价值的实用的企业级用法
@@ -68,6 +76,7 @@ public class JfinalGlobalConfig extends JFinalConfig {
 		me.add("/item", ItemController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
 		me.add("/picture", PictureController.class);
 		me.add("/log", LogController.class);
+		me.add("/test", TestController.class);
 	}
 	
 	public void configEngine(Engine me) {
@@ -81,8 +90,14 @@ public class JfinalGlobalConfig extends JFinalConfig {
 	public void configPlugin(Plugins me) {
 		// 配置 druid 数据库连接池插件
 		DruidPlugin druidPlugin = new DruidPlugin(PropKit.get("jdbcUrl"), PropKit.get("user"), PropKit.get("password").trim());
+
+		/**配置druid监控**/
+		druidPlugin.addFilter(new StatFilter());
+		WallFilter wall=new WallFilter();
+		wall.setDbType("mysql");
+		druidPlugin.addFilter(wall);
 		me.add(druidPlugin);
-		
+
 		// 配置ActiveRecord插件
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(druidPlugin);
 		// 所有映射在 MappingKit 中自动化搞定
@@ -92,6 +107,9 @@ public class JfinalGlobalConfig extends JFinalConfig {
 		//配置sql模块
 		arp.setBaseSqlTemplatePath(PathKit.getRootClassPath()+"/sql");
 		arp.addSqlTemplate("all.sql");
+
+
+
 	}
 	
 	public static DruidPlugin createDruidPlugin() {
@@ -110,6 +128,18 @@ public class JfinalGlobalConfig extends JFinalConfig {
 	 * 配置处理器
 	 */
 	public void configHandler(Handlers me) {
-		
+		DruidStatViewHandler dvh=new DruidStatViewHandler("/druid",new IDruidStatViewAuth(){
+			public boolean isPermitted(HttpServletRequest request) {
+				// 这里只是简单的判断访问者是否登录，还可以做更加细致的权限控制
+				/*User user=(User) request.getSession().getAttribute("user");
+				if(user==null){
+					return false;
+				}
+					return "admin".equals(user.getStr("uname"));
+				}*/
+				return true;
+			}
+		});
+		me.add(dvh);
 	}
 }

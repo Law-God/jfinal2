@@ -79,7 +79,7 @@ public class ${className}Controller extends Controller {
 		</#list>
         setAttr("${tableName}", ${tableName});
 	<#else>
-        	setAttr("${tableName}", service.findById(getParaToInt()));
+        	setAttr("${tableName}", ${tableName});
 	</#if>
 	}
 	

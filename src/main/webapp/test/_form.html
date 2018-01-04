@@ -2,25 +2,51 @@
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
                     <label class="layui-form-label">
-                        
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;密码
                     </label>
                     <div class="layui-input-block">
-                        <input type="text" id="book" name="test.book" value="#(test.book??)" placeholder="" lay-verify="bookString100" lay-verType="tips" autocomplete="off" class="layui-input">
+                        <input type="password" name="test.picture" style="display:none;width:0;height:0">
+                        <input type="password" id="picture" name="test.picture" value="#(test.picture??)" placeholder="" lay-verify="required|pictureString100" lay-verType="tips" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
-            <div class="layui-col-xs6">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">
-                        密码
-                    </label>
-                    <div class="layui-input-block">
-                        <input type="text" id="password" name="test.password" value="#(test.password??)" placeholder="请输入6位字母数字组合" lay-verify="passwordRegexp" lay-verType="tips" autocomplete="off" class="layui-input">
+                <div class="layui-col-xs6">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="createTime_date" name="test.createTime" value="#if(test.createTime??)#date(test.createTime,'yyyy-MM-dd')#end"  lay-verify="required|date" placeholder="" readonly lay-verType="tips" readonly autocomplete="off" class="layui-input">
+                        </div>
                     </div>
                 </div>
-            </div>
     </div>
 
+    <div class="layui-row">
+        <div class="layui-col-xs6">
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;文件
+                </label>
+                <div class="layui-input-block">
+                    <div class="layui-upload">
+                        <input type="hidden" id="file" name="test.file" value="#(test.file??)"/>
+                        <input type="hidden" id="fileValidator" name="testfileValidator" value="#(test.password??)"/>
+                        <input type="hidden" id="file_uploadid" name="upload[0].uploadid" value="#(test.file??)"/>
+                        <input type="hidden" id="file_fileName" name="upload[0].fileName" value="#(uploadFile.fileName??)"/>
+                        <input type="hidden" id="file_originalFileName" name="upload[0].originalFileName" value="#(uploadFile.originalFileName??)"/>
+                        <input type="hidden" id="file_businessType" name="upload[0].businessType" value="#(uploadFile.businessType??)"/>
+                        <input type="hidden" id="file_businessField" name="upload[0].businessField" value="#(uploadFile.businessField??)"/>
+                        <input type="hidden" id="file_contentType" name="upload[0].contentType" value="#(uploadFile.contentType??)"/>
+                        <button type="button" class="layui-btn" id="fileBtn" lay-verify="uploadfile" lay-verType="tips">上传文件</button>
+                        <div class="layui-upload-list">
+                            <p id="fileTip"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="layui-row">

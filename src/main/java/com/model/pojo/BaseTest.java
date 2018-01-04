@@ -18,22 +18,31 @@ public abstract class BaseTest<M extends BaseTest<M>> extends Model<M> implement
 		return getLong("testId");
 	}
 
-	public M setBook(java.lang.String book) {
-		set("book", book);
+	public M setPicture(java.lang.String picture) {
+		set("picture", picture);
 		return (M)this;
 	}
 
-	public java.lang.String getBook() {
-		return getStr("book");
+	public java.lang.String getPicture() {
+		return getStr("picture");
 	}
 
-	public M setPassword(java.lang.String password) {
-		set("password", password);
+	public M setFile(java.lang.String file) {
+		set("file", file);
 		return (M)this;
 	}
 
-	public java.lang.String getPassword() {
-		return getStr("password");
+	public java.lang.String getFile() {
+		return getStr("file");
+	}
+
+	public M setCreateTime(java.util.Date createTime) {
+		set("createTime", createTime);
+		return (M)this;
+	}
+
+	public java.util.Date getCreateTime() {
+		return get("createTime");
 	}
 
 }

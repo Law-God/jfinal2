@@ -52,8 +52,9 @@
                     {type:'checkbox', fixed: 'left'},
                     {field : "LAY_TABLE_INDEX",title: '序号',width:60},
                 <#list  columns.commonColumns  as  column>
+                <#if column.businessType != 'password'>
                     {field:'${column.name}', title: '${column.remarks}'
-                    <#if column.layVerify == 'char' >
+                    <#if column.layVerify == 'radio' >
                         ,formatter : format${column.name}
                     <#elseif column.layVerify == 'int'>
                         ,formatter : formatInt
@@ -61,7 +62,9 @@
                         ,formatter : formatDouble
                     <#elseif column.layVerify == 'date'>
                         ,formatter : formatDate
-                    </#if>},
+                    </#if>
+                    },
+                </#if>
                 </#list>
                 <#list  columns.bigColumns  as  column>
                     <#if column.sqlType == 'edit'>
@@ -143,12 +146,20 @@
 	});
 
 <#list  columns.commonColumns  as  column>
-<#if column.sqlType == 'char' >
+<#if column.layVerify == 'radio' >
         function format${column.name}(value) {
-            if(value == '0')
-                return '男';
-            else
-                return '女';
+            <#list column.otherList as radio>
+                <#if radio_index == 0 >
+                    if(value == ${radio.key}){
+                        return '${radio.value}';
+                    }
+                <#else>
+                    else if(value == ${radio.key}){
+                        return '${radio.value}';
+                    }
+                </#if>
+
+            </#list>
         }
 </#if>
 </#list>

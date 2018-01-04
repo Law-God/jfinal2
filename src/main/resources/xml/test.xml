@@ -24,9 +24,9 @@
     <otherList>[]</otherList>
   </columnMeta>
   <columnMeta>
-    <name>book</name>
+    <name>picture</name>
     <javaType>java.lang.String</javaType>
-    <attrName>book</attrName>
+    <attrName>picture</attrName>
     <type></type>
     <isNullable>1</isNullable>
     <isPrimaryKey>false</isPrimaryKey>
@@ -44,16 +44,36 @@
     <otherList>[]</otherList>
   </columnMeta>
   <columnMeta>
-    <name>password</name>
+    <name>file</name>
     <javaType>java.lang.String</javaType>
-    <attrName>password</attrName>
+    <attrName>file</attrName>
     <type></type>
     <isNullable>1</isNullable>
     <isPrimaryKey>false</isPrimaryKey>
     <defaultValue></defaultValue>
     <remarks></remarks>
     <sqlType>string</sqlType>
-    <size>36</size>
+    <size>100</size>
+    <scale>0</scale>
+    <layVerify></layVerify>
+    <layVerifyValue></layVerifyValue>
+    <businessType></businessType>
+    <regexp></regexp>
+    <tip></tip>
+    <other></other>
+    <otherList>[]</otherList>
+  </columnMeta>
+  <columnMeta>
+    <name>createTime</name>
+    <javaType>java.util.Date</javaType>
+    <attrName>createTime</attrName>
+    <type></type>
+    <isNullable>0</isNullable>
+    <isPrimaryKey>false</isPrimaryKey>
+    <defaultValue></defaultValue>
+    <remarks></remarks>
+    <sqlType>date</sqlType>
+    <size>19</size>
     <scale>0</scale>
     <layVerify></layVerify>
     <layVerifyValue></layVerifyValue>
