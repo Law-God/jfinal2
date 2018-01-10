@@ -26,9 +26,9 @@ import com.jfinal.plugin.IPlugin;
 import it.sauronsoftware.cron4j.Task;
 
 /**
- * Cron4jPlugin 封装 cron4j，使用 cron 表达式调试 Task 执行
+ * Cron4jPlugin 封装 cron4j，使用 task 表达式调试 Task 执行
  *
- * cron 表达式由五部分组成：分 时 天 月 周
+ * task 表达式由五部分组成：分 时 天 月 周
  * 分 ：从 0 到 59
  * 时 ：从 0 到 23
  * 天 ：从 1 到 31，字母 L 可以表示月的最后一天
@@ -47,19 +47,19 @@ import it.sauronsoftware.cron4j.Task;
  *
  * 配置文件：
  * cron4j=task1, task2
- * task1.cron=* * * * *
+ * task1.task=* * * * *
  * task1.class=com.xxx.TaskAaa
  * task1.daemon=true
  * task1.enable=true
  *
- * task2.cron=* * * * *
+ * task2.task=* * * * *
  * task2.class=com.xxx.TaskBbb
  * task2.daemon=true
  * task2.enable=false
  *
  * cron4j 是所有配置的入口，用来配置有哪些 task 需要被调度，多个任务名称可用逗号分隔，例如上例中的 task1、task2
  * 后面的配置项均以 task1、task2 为前缀进行配置，具体意义如下
- * task1.cron 表示 task1 使用 cron 表达式调试任务
+ * task1.task 表示 task1 使用 task 表达式调试任务
  * task1.class 表示 执行任务的类文件
  * task1.daemon 表示调试线程是否设置为守护线程，默认值为 true，守护线程会在 tomcat 关闭时自动关闭
  * task1.enable 表示该任务是否有效，默认值为 true，为 false 时该任务无效，不会被调用
@@ -149,9 +149,9 @@ public class Cron4jPlugin implements IPlugin {
 			}
 			taskName = taskName.trim();
 
-			String taskCron = configProp.get(taskName + ".cron");
+			String taskCron = configProp.get(taskName + ".task");
 			if (StrKit.isBlank(taskCron)) {
-				throw new IllegalArgumentException(taskName + ".cron" + " not found.");
+				throw new IllegalArgumentException(taskName + ".task" + " not found.");
 			}
 			taskCron = taskCron.trim();
 
@@ -238,7 +238,7 @@ public class Cron4jPlugin implements IPlugin {
 
 		TaskInfo(String cron, Object task, boolean daemon, boolean enable) {
 			if (StrKit.isBlank(cron)) {
-				throw new IllegalArgumentException("cron 不能为空.");
+				throw new IllegalArgumentException("task 不能为空.");
 			}
 			if (task == null) {
 				throw new IllegalArgumentException("task 不能为 null.");

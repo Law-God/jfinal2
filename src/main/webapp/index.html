@@ -1,187 +1,312 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="no-js">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>首页</title>
-    #include("/common/_res.html")
-    <link rel="stylesheet" href="/effects/fire_text/css/style.css">
-</head>
-
-<body>
-<div class="layui-layout layui-layout-admin">
-<div class="layui-header header header-demo">
-    <div class="layui-main">
-        <a class="logo" href="/">
-            <img src="//res.layui.com/images/layui/logo.png" alt="layui">
-        </a>
-        <div class="layui-form component">
-            <select lay-search="" lay-filter="component">
-                <option value="">搜索组件或模块</option>
-                <option value="element/layout.html">grid 栅格布局</option>
-                <option value="element/layout.html#admin">admin 后台布局</option>
-                <option value="element/color.html">color 颜色</option>
-                <option value="element/icon.html">iconfont 字体图标</option>
-                <option value="element/anim.html">animation 动画</option>
-                <option value="element/button.html">button 按钮</option>
-                <option value="element/form.html">form 表单组</option>
-                <option value="element/form.html#input">input 输入框</option>
-                <option value="element/form.html#select">select 下拉选择框</option>
-                <option value="element/form.html#checkbox">checkbox 复选框</option>
-                <option value="element/form.html#switch">switch 开关</option>
-                <option value="element/form.html#radio">radio 单选框</option>
-                <option value="element/form.html#textarea">textarea 文本域</option>
-                <option value="element/nav.html">nav 导航菜单</option>
-                <option value="element/nav.html#breadcrumb">breadcrumb 面包屑</option>
-                <option value="element/tab.html">tabs 选项卡</option>
-                <option value="element/progress.html">progress 进度条</option>
-                <option value="element/collapse.html">collapse 折叠面板/手风琴</option>
-                <option value="element/table.html">table 表格元素</option>
-                <option value="element/badge.html">badge 徽章</option>
-                <option value="element/timeline.html">timeline 时间线</option>
-                <option value="element/auxiliar.html#blockquote">blockquote 引用块</option>
-                <option value="element/auxiliar.html#fieldset">fieldset 字段集</option>
-                <option value="element/auxiliar.html#hr">hr 分割线</option>
-
-                <option value="modules/layer.html">layer 弹出层/弹窗综合</option>
-                <option value="modules/laydate.html">laydate 日期时间选择器</option>
-                <option value="modules/layim.html">layim 即时通讯/聊天</option>
-                <option value="modules/laypage.html">laypage 分页</option>
-                <option value="modules/laytpl.html">laytpl 模板引擎</option>
-                <option value="modules/form.html">form 表单模块</option>
-                <option value="modules/table.html">table 数据表格</option>
-                <option value="modules/upload.html">upload 文件/图片上传</option>
-                <option value="modules/element.html">element 常用元素操作</option>
-                <option value="modules/carousel.html">carousel 轮播/跑马灯</option>
-                <option value="modules/layedit.html">layedit 富文本编辑器</option>
-                <option value="modules/tree.html">tree 树形菜单</option>
-                <option value="modules/flow.html">flow 信息流/图片懒加载</option>
-                <option value="modules/util.html">util 工具集</option>
-                <option value="modules/code.html">code 代码修饰</option>
-            </select><div class="layui-form-select"><div class="layui-select-title"><input type="text" placeholder="搜索组件或模块" value="" class="layui-input"><i class="layui-edge"></i></div><dl class="layui-anim layui-anim-upbit"><dd lay-value="" class="layui-select-tips">搜索组件或模块</dd><dd lay-value="element/layout.html" class="">grid 栅格布局</dd><dd lay-value="element/layout.html#admin" class="">admin 后台布局</dd><dd lay-value="element/color.html" class="">color 颜色</dd><dd lay-value="element/icon.html" class="">iconfont 字体图标</dd><dd lay-value="element/anim.html" class="">animation 动画</dd><dd lay-value="element/button.html" class="">button 按钮</dd><dd lay-value="element/form.html" class="">form 表单组</dd><dd lay-value="element/form.html#input" class="">input 输入框</dd><dd lay-value="element/form.html#select" class="">select 下拉选择框</dd><dd lay-value="element/form.html#checkbox" class="">checkbox 复选框</dd><dd lay-value="element/form.html#switch" class="">switch 开关</dd><dd lay-value="element/form.html#radio" class="">radio 单选框</dd><dd lay-value="element/form.html#textarea" class="">textarea 文本域</dd><dd lay-value="element/nav.html" class="">nav 导航菜单</dd><dd lay-value="element/nav.html#breadcrumb" class="">breadcrumb 面包屑</dd><dd lay-value="element/tab.html" class="">tabs 选项卡</dd><dd lay-value="element/progress.html" class="">progress 进度条</dd><dd lay-value="element/collapse.html" class="">collapse 折叠面板/手风琴</dd><dd lay-value="element/table.html" class="">table 表格元素</dd><dd lay-value="element/badge.html" class="">badge 徽章</dd><dd lay-value="element/timeline.html" class="">timeline 时间线</dd><dd lay-value="element/auxiliar.html#blockquote" class="">blockquote 引用块</dd><dd lay-value="element/auxiliar.html#fieldset" class="">fieldset 字段集</dd><dd lay-value="element/auxiliar.html#hr" class="">hr 分割线</dd><dd lay-value="modules/layer.html" class="">layer 弹出层/弹窗综合</dd><dd lay-value="modules/laydate.html" class="">laydate 日期时间选择器</dd><dd lay-value="modules/layim.html" class="">layim 即时通讯/聊天</dd><dd lay-value="modules/laypage.html" class="">laypage 分页</dd><dd lay-value="modules/laytpl.html" class="">laytpl 模板引擎</dd><dd lay-value="modules/form.html" class="">form 表单模块</dd><dd lay-value="modules/table.html" class="">table 数据表格</dd><dd lay-value="modules/upload.html" class="">upload 文件/图片上传</dd><dd lay-value="modules/element.html" class="">element 常用元素操作</dd><dd lay-value="modules/carousel.html" class="">carousel 轮播/跑马灯</dd><dd lay-value="modules/layedit.html" class="">layedit 富文本编辑器</dd><dd lay-value="modules/tree.html" class="">tree 树形菜单</dd><dd lay-value="modules/flow.html" class="">flow 信息流/图片懒加载</dd><dd lay-value="modules/util.html" class="">util 工具集</dd><dd lay-value="modules/code.html" class="">code 代码修饰</dd></dl></div>
-        </div>
-        <ul class="layui-nav">
-            <li class="layui-nav-item ">
-                <a href="/doc/">文档<!-- <span class="layui-badge-dot"></span> --></a>
-            </li>
-            <li class="layui-nav-item layui-this">
-                <a href="/demo/">示例<!--  --></a>
-            </li>
-
-            <li class="layui-nav-item layui-hide-xs">
-                <a href="http://fly.layui.com/" target="_blank">社区</a>
-            </li>
-
-
-            <li class="layui-nav-item">
-                <!--<span class="layui-badge-dot" style="margin: -4px 3px 0;"></span>-->
-                <a href="javascript:;">周边<span class="layui-nav-more"></span></a>
-                <dl class="layui-nav-child layui-anim layui-anim-upbit">
-                    <dd class="layui-hide-sm layui-show-xs"><a href="http://fly.layui.com/" target="_blank">社区交流</a><hr></dd>
-                    <dd><a href="http://layim.layui.com/" target="_blank">即时聊天</a></dd>
-                    <dd><a href="/template/fly/" target="_blank">社区模板<span class="layui-badge-dot"></span></a></dd>
-                    <hr>
-                    <dd><a href="/alone.html" target="_blank">独立组件</a></dd>
-                    <dd><a href="http://fly.layui.com/jie/9842/" target="_blank">Axure组件</a></dd>
-                </dl>
-            </li>
-
-
-            <!--<li class="layui-nav-item layui-hide-xs">
-              <a href="/admin/" target="_blank">后台<span class="layui-badge-dot"></span></a>
-            </li>-->
-
-            <li class="layui-nav-item layui-hide-xs">
-                <a href="/v1/" target="_blank">1.x</a>
-            </li>
-            <span class="layui-nav-bar" style="left: 122.5px; top: 55px; width: 0px; opacity: 0;"></span></ul>
-    </div>
-</div>
-</div>
-
-<!--<div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
-        <div class="layui-logo"><i id="fire">Phantom</i></div>
-        &lt;!&ndash; 头部区域（可配合layui已有的水平导航） &ndash;&gt;
-        <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="/">首页</a></li>
-            &lt;!&ndash;<li class="layui-nav-item"><a href="">商品管理</a></li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">其它系统</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">邮件管理</a></dd>
-                    <dd><a href="">消息管理</a></dd>
-                    <dd><a href="">授权管理</a></dd>
-                </dl>
-            </li>&ndash;&gt;
-        </ul>
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-                &lt;!&ndash;<a href="javascript:;">
-                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    贤心
-                </a>&ndash;&gt;
-                <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item"><a href="">登录</a></li>
-        </ul>
-    </div>
-
-    <div class="" style="text-align:center;padding:2px;">
-        &lt;!&ndash; 内容主体区域 &ndash;&gt;
-        <div class="layui-carousel" id="banner">
-            <div carousel-item="">
-                #for(columns : bannerList)
-                <div><img src="/upload/download/#(columns.pictureId)"></div>
-                #end
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="layui-footer" style="width:100%;left:0;text-align:center;background-color: #23262E;color:rgba(255,255,255,.7)">
-        &lt;!&ndash; 底部固定区域 &ndash;&gt;
-        © 2018-01-01 Phantom
-    </div>
-</div>-->
-
-<script>
-    layui.use(['carousel', 'form','util'], function(){
-        var carousel = layui.carousel
-                ,form = layui.form
-                ,util = layui.util;
-
-        //图片轮播
-        carousel.render({
-            elem: '#banner'
-            //,width: ''
-            ,anim: 'fade'
-            ,height: '768px'
-            ,interval: 3000
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>无蕴品牌官方网站</title>
+    <meta name="keywords" content="无蕴">
+    <meta name="description" content="无蕴">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="/assets/css/amazeui.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/app.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/assets/js/jquery191.min.js"></script>
+    <script type="text/javascript" src="/assets/js/amazeui.min.js"></script>
+    <script type="text/javascript" src="/assets/js/apps.js"></script>
+    <script>
+        $(function() {
+            $('.panelss').css({'height': $(window).height()});
+            section: '.panelss'
         });
 
-        //固定块
-        util.fixbar({
-            bar1: false
-            //,bar2: true
-            ,css: {right: 50, bottom: 100}
-            ,bgcolor: '#393D49'
-            ,click: function(type){
-                if(type === 'bar1'){
-                    layer.msg('icon是可以随便换的')
-                } else if(type === 'bar2') {
-                    layer.msg('两个bar都可以设定是否开启')
+        $(function() {
+            $('.panezs').css({'height': $(window).height()});
+            section: '.panezs'
+        });
+
+        $(window).resize(function (){
+            //location.reload()
+            $('.panelss').css({'height': $(window).height()});
+            section: '.panelss'
+        });
+    </script>
+    <script>
+
+        jQuery(function($) {
+
+            // setup slidizle
+            $('[data-slidizle]').slidizle({
+                beforeChange : function(api) {
+                    console.log('previous', api.getPreviousSlide().index());
+                    console.log('current', api.getCurrentSlide().index());
+                    console.log('next', api.getNextSlide().index());
+                    console.log('previous active', api.getPreviousActiveSlide().index());
                 }
-            }
+            });
+
         });
 
-    });
-</script>
+    </script>
+</head>
+<body>
+<div class="mx1490hdp panelss" style="margin-top:-60px">
+    <section class="sample slider--animated panelss" id="intro" data-slidizle-timeout="6000" data-slidizle data-slidizle-loop="true">     <ul class="slider-content" data-slidizle-content>
+        <li class="slider-item bg1" style="background:url('/upload/20160330033309925.jpg') no-repeat 50% 0px fixed;background-size:auto 100%"> </li>
+        <li class="slider-item bg1" style="background:url('/upload/20160330040338471.jpg') no-repeat 50% 0px fixed;background-size:auto 100%"> </li>
+        <li class="slider-item bg1" style="background:url('/upload/20160330040644262.jpg') no-repeat 50% 0px fixed;background-size:auto 100%"> </li>
+        <li class="slider-item bg1" style="background:url('/upload/20160330040540920.jpg') no-repeat 50% 0px fixed;background-size:auto 100%"> </li>
+        <li class="slider-item bg1" style="background:url('/upload/20160413051231604.jpg') no-repeat 50% 0px fixed;background-size:auto 100%"> </li>
+        <li class="slider-item bg1" style="background:url('/upload/20160330040856335.jpg') no-repeat 50% 0px fixed;background-size:auto 100%"> </li>
+    </ul>
+        <ul class="slider-navigation" id="second" data-slidizle-navigation>
+        </ul>
+    </section>
+</div>
+<!--手机-->
+<div class="mx1490 panelsszz" style="margin-top:-50px">
+    <div class="am-slider am-slider-default" data-am-flexslider="{playAfterPaused: 8000}">
+        <ul class="am-slides">
+            <li class="panezs" style="background:url('/upload/20160330040856335.jpg') 50% 0 no-repeat;background-size: auto 100%"> </li>
+            <li class="panezs" style="background:url('/upload/20160413051231604.jpg') 50% 0 no-repeat;background-size: auto 100%"> </li>
+            <li class="panezs" style="background:url('/upload/20160330040644262.jpg') 50% 0 no-repeat;background-size: auto 100%"> </li>
+            <li class="panezs" style="background:url('/upload/20160330040540920.jpg') 50% 0 no-repeat;background-size: auto 100%"> </li>
+            <li class="panezs" style="background:url('/upload/20160330040338471.jpg') 50% 0 no-repeat;background-size: auto 100%"> </li>
+            <li class="panezs" style="background:url('/upload/20160330033309925.jpg') 50% 0 no-repeat;background-size: auto 100%"> </li>
+        </ul>
+    </div>
+</div>
+<div data-am-sticky="{animation: 'slide-top'}" class="asszs">
+    <div style="max-width:1605px;">
+        <h1 class="am-topbar-brand" style="display:none"> <a href="/"><img src="/assets/i/logo.jpg"></a> </h1>
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only" data-am-collapse="{target: '#collapse-head'}">导航</button>
+        <div class="am-collapse am-topbar-collapse" id="collapse-head">
+            <ul class="am-nav am-nav-pills am-topbar-nav w45">
+                <li><a href="/index.php?list=1" >发现</a></li>
+                <li><a href="/index.php?list=2" >初心</a></li>
+                <li><a href="/index.php?list=3">籽戏</a></li>
+                <li><a href="/index.php?list=11">茗香</a></li>
+                <li><a href="/index.php?list=5">物藏</a></li>
+                <li><a href="/index.php?list=18" >歡喜</a></li>
+            </ul>
+            <ul class="am-nav am-nav-pills am-topbar-nav w46" style="text-align:right">
+                <li style=" background:url(/assets/i/s1_06.png) no-repeat right center"><a href="#">简体</a></li>
+                <li style=" background:url(/assets/i/s1_06.png) no-repeat right center"><a href="#">繁体</a></li>
+                <li style=" background:url(/assets/i/s1_06.png) no-repeat right center"><a href="#">EN</a></li>
+                <li><a style="cursor: pointer; margin-right:11px" data-am-modal="{target: '#my-actions'}"><i class="am-icon-search"></i></a></li>
+            </ul>
+            <ul class="dlogo am-topbar-left" style="width:10%" data-am-scrollspy="{animation:'slide-bottom', delay: 0 , repeat: false}">
+                <a href="/"></a><img src="/assets/i/logo.jpg"></a>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="am-g mx1490 tudh">
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay:0 , repeat: false}">
+            <li>
+                <div class="main_img"><a href="/index.php?list=20"><img src="/assets/i/tubiao.jpg"></a>
+                    <div class="shows"><a href="/index.php?list=20">籽戏<br>
+                        之<br>
+                        春华系列</a></div>
+                </div>
+            </li>
+        </ul>
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay:100 , repeat: false}">
+            <li>
+                <div class="main_img"><img src="/assets/i/cp/a3-01.jpg"></div>
+            </li>
+            <li class="f2"><a href="/index.php?list=3">籽戏</a>
+                <div class="f3"><a href="/index.php?list=20">春华系列</a></div>
+            </li>
+        </ul>
+    </div>
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay: 200 , repeat: false}">
+            <li>
+                <div class="main_img"><img src="/assets/i/cp/a3-02.jpg"> </div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=3">籽戏</a>
+                <div class="f3"><a href="/index.php?list=20">春华系列</a></div>
+            </li>
+        </ul>
+    </div>
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay: 300 , repeat: false}">
+            <li>
+                <div class="main_img"><img src="/assets/i/cp/a3-03.jpg"></div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=3">籽戏</a>
+                <div class="f3"><a href="/index.php?list=20">春华系列</a></div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="am-g mx1490 tudh" style="margin-top:5px">
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay:0 , repeat: false}">
+            <li>
+                <div class="main_img"><a href="/index.php?list=21"><img src="/assets/i/tubiao.jpg"></a>
+                    <div class="shows"><a href="/index.php?list=21">籽戏<br>
+                        之<br>
+                        夏赏系列</a></div>
+                </div>
+            </li>
+        </ul>
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay:100 , repeat: false}">
+            <li>
+                <div class="main_img"><img src="/assets/i/cp/a3-04.jpg"> </div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=3">籽戏</a>
+                <div class="f3"><a href="/index.php?list=21">夏赏系列</a></div>
+            </li>
+        </ul>
+    </div>
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay: 200 , repeat: false}">
+            <li>
+                <div class="main_img"><img src="/assets/i/cp/a3-05.jpg"> </div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=3">籽戏</a>
+                <div class="f3"><a href="/index.php?list=21">夏赏系列</a></div>
+            </li>
+        </ul>
+    </div>
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay: 300 , repeat: false}">
+            <li>
+                <div class="main_img"><img src="/assets/i/cp/a3-06.jpg"> </div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=3">籽戏</a>
+                <div class="f3"><a href="/index.php?list=21">夏赏系列</a></div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="am-g mx1490 tudh" style="margin-top:5px">
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay:0 , repeat: false}">
+            <li>
+                <div class="main_img"><a href="/index.php?list=11"><img src="/assets/i/tubiaoa.jpg"></a>
+                    <div class="shows"><a href="/index.php?list=11">物藏<br>
+                        之<br>
+                        茗香系列</a></div>
+                </div>
+            </li>
+        </ul>
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay:100 , repeat: false}">
+            <li>
+                <div class="main_img"><img src="/assets/i/cp/a3-07.jpg"> </div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=5">物藏</a>
+                <div class="f3"><a href="/index.php?list=11">茗香系列</a></div>
+            </li>
+        </ul>
+    </div>
+    <div class="am-u-sm-8 tp" >
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay: 300 , repeat: false}" style="padding:1.5%">
+            <li>
+                <div class="main_img"><img src="/assets/i/cp/a3-09.jpg"> </div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=5">物藏</a>
+                <div class="f3"><a href="/index.php?list=11">茗香系列</a></div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="am-g mx1490 tudh" style="margin-top:5px">
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay:0 , repeat: false}">
+            <li>
+                <div class="main_img"><a href="/index.php?list=12"><img src="/assets/i/tubiao.jpg"></a>
+                    <div class="shows"><a href="/index.php?list=12">物藏<br>
+                        之<br>
+                        雨雅系列</a></div>
+                </div>
+            </li>
+        </ul>
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay:100 , repeat: false}">
+            <li>
+                <div class="main_img"><img src="/assets/i/cp/a3-10.jpg"></div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=5">物藏</a>
+                <div class="f3"><a href="/index.php?list=12">雨雅系列</a></div>
+            </li>
+        </ul>
+    </div>
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay: 200 , repeat: false}">
+            <li>
+                <div class="main_img"><a href="/index.php?list=1"><img src="/assets/i/cp/a3-11.jpg"></a> </div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=5">物藏</a>
+                <div class="f3"><a href="/index.php?list=12">雨雅系列</a></div>
+            </li>
+        </ul>
+    </div>
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay: 300 , repeat: false}">
+            <li>
+                <div class="main_img"><img src="/assets/i/cp/a3-12.jpg"></div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=5">物藏</a>
+                <div class="f3"><a href="/index.php?list=12">雨雅系列</a></div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="am-g mx1490 tudh3">
+    <div class="tp">
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+    </div>
+    <div class="am-u-sm-4 tp">
+        <ul>
+            <h2><a href="/index.php?list=11">茗香</a></h2>
+            <li><a href="/index.php?list=11"><img src="/assets/i/cp/a.jpg" alt="首页幻灯片2"/></a></li>
+        </ul>
+    </div>
+    <div class="am-u-sm-4 tp">
+        <ul>
+            <h2><a href="/index.php?list=2">初心</a></h2>
+            <li><a href="/index.php?list=2"><img src="/assets/i/cp/b.jpg" alt="首页幻灯片2"/></a></li>
+        </ul>
+    </div>
+    <div class="am-u-sm-4 tp">
+        <ul>
+            <h2><a href="/index.php?list=18">歡喜</a></h2>
+            <li><a href="/index.php?list=18"><img src="/assets/i/cp/c.jpg" alt="首页幻灯片2"/></a></li>
+        </ul>
+    </div>
+</div>
+<div class="am-g foods">
+    <div class="logoss am-cf">
+        <dl>
+            <dt><img src="/assets/i/s04_03_01.jpg"></dt>
+            <dd class="am-fl">
+                <figure data-am-widget="figure" class="am am-figure"   data-am-figure="{  pureview: 'true' }"><img src="/assets/i/s04_03_02.jpg" data-rel="/assets/i/cp/d1-01.jpg"></figure>
+            </dd>
+            <dd class="am-fr"><a href="http://weibo.com/oncewy" target="_blank"><img src="/assets/i/s04_03_03.jpg"></a></dd>
+        </dl>
+    </div>
 
+    <div class="bq">豫ICP备20160012002 -- 个人信息 -- 使用条款</div>
+</div>
+
+<div class="am-modal-actions  am-g sou" id="my-actions">
+    <form class="am-form-inline" role="form" action="http://www.oncewy.com/index.php" method="get" target="_blank">
+        <input type="hidden" name="m" value="search" />
+        <input type="hidden" name="c" value="index" />
+        <input type="hidden" name="a" value="init" />
+        <input type="hidden" name="typeid" value="" id="typeid" />
+        <input type="hidden" name="siteid" value="1" id="siteid" />
+        <div class="am-u-sm-7" style="padding-right:0px">
+            <input type="text" class="am-form-field" name="q" id="q" placeholder="请输入关键词点击搜索" />
+        </div>
+        <div class="am-u-sm-3" style="padding:0px">
+            <button type="submit" class="am-btn am-btn-default" style="width: 100%;">搜索</button>
+        </div>
+        <div class="am-u-sm-2" style="padding:0px">
+            <button type="submit" class="am-btn am-btn-default" style="background:none; border:none; color:#C1C1C1" data-am-modal-close><i class="am-icon-times"></i></button>
+        </div>
+    </form>
+</div>
 </body>
 </html>

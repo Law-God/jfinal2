@@ -16,3 +16,5 @@ controllerpath = d:\\phantom\\jfinal2\\src\\main\\java\\com\\business\\
 freemarkerpath = d:\\phantom\\jfinal2\\src\\main\\resources\\velocity\\
 
 baseUploadPath = d:\\phantom\\jfinal2\\src\\main\\webapp\\upload\\
+
+solrUrl = http://localhost:8080/solr/db

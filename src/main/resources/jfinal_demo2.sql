@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
+Source Server         : localhost_3306
 Source Server Version : 50623
 Source Host           : localhost:3306
 Source Database       : jfinal_demo2
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50623
 File Encoding         : 65001
 
-Date: 2018-01-03 23:09:29
+Date: 2018-01-10 17:45:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -103,14 +103,18 @@ INSERT INTO `picture` VALUES ('4', '图片4', '48');
 DROP TABLE IF EXISTS `test`;
 CREATE TABLE `test` (
   `testId` bigint(20) NOT NULL AUTO_INCREMENT,
-  `book` varchar(100) DEFAULT NULL,
-  `password` varchar(36) DEFAULT NULL,
+  `picture` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `file` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `username` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`testId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of test
 -- ----------------------------
+INSERT INTO `test` VALUES ('29', '1', '2', '2018-01-10 12:39:32', '张三3');
+INSERT INTO `test` VALUES ('30', '827ccb0eea8a706c4c34a16891f84e7b', '62', '2018-01-10 12:39:38', '张三4');
 
 -- ----------------------------
 -- Table structure for `upload`
@@ -124,7 +128,7 @@ CREATE TABLE `upload` (
   `contentType` varchar(100) DEFAULT NULL,
   `businessField` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`uploadid`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of upload
@@ -169,6 +173,20 @@ INSERT INTO `upload` VALUES ('45', 'picture', '桌布20171005-天虎令.jpg', '�
 INSERT INTO `upload` VALUES ('46', 'picture', '桌布20170804-江山快手.jpg', '桌布20170804-江山快手.jpg', 'image/jpeg', 'picture');
 INSERT INTO `upload` VALUES ('47', 'picture', '桌布20170602-九千勝.jpg', '桌布20170602-九千勝.jpg', 'image/jpeg', 'picture');
 INSERT INTO `upload` VALUES ('48', 'picture', '桌布20171014-赤龍影.jpg', '桌布20171014-赤龍影.jpg', 'image/jpeg', 'picture');
+INSERT INTO `upload` VALUES ('49', 'test', '5.png', '57.png', 'image/png', 'password');
+INSERT INTO `upload` VALUES ('50', 'test', '5.png', '58.png', 'image/png', 'password');
+INSERT INTO `upload` VALUES ('51', '', null, null, null, null);
+INSERT INTO `upload` VALUES ('52', '', null, null, null, null);
+INSERT INTO `upload` VALUES ('53', '', null, null, null, null);
+INSERT INTO `upload` VALUES ('54', 'test', '5.png', '510.png', 'image/png', 'password');
+INSERT INTO `upload` VALUES ('55', 'test', '5.png', '511.png', 'image/png', 'password');
+INSERT INTO `upload` VALUES ('56', 'test', '5.png', '512.png', 'image/png', 'picture');
+INSERT INTO `upload` VALUES ('57', 'test', '新建文本文档 (2).txt', '新建文本文档 (2)2.txt', 'text/plain', 'file');
+INSERT INTO `upload` VALUES ('58', 'test', '5.png', '513.png', 'image/png', 'picture');
+INSERT INTO `upload` VALUES ('59', 'test', '新建文本文档 (2).txt', '新建文本文档 (2)3.txt', 'text/plain', 'file');
+INSERT INTO `upload` VALUES ('60', 'test', '5.png', '514.png', 'image/png', 'picture');
+INSERT INTO `upload` VALUES ('61', 'test', '5.png', '515.png', 'image/png', 'file');
+INSERT INTO `upload` VALUES ('62', 'test', '5 - 副本.jpg', '5 - 副本9.jpg', 'image/jpeg', 'file');
 
 -- ----------------------------
 -- Table structure for `user`

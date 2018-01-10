@@ -1,0 +1,6 @@
+cron4j=task1
+
+task1.task=* * * * *
+task1.class=com.task.Task1
+task1.daemon=true
+task1.enable=true

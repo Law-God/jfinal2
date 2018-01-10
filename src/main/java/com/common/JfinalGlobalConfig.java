@@ -18,11 +18,13 @@ import com.jfinal.ext.interceptor.SessionInViewInterceptor;
 import com.jfinal.kit.PathKit;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+import com.jfinal.plugin.cron4j.Cron4jPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.template.Engine;
 import com.model.User;
+import com.task.Task1;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -108,8 +110,11 @@ public class JfinalGlobalConfig extends JFinalConfig {
 		arp.setBaseSqlTemplatePath(PathKit.getRootClassPath()+"/sql");
 		arp.addSqlTemplate("all.sql");
 
-
-
+		//定时任务
+		//Cron4jPlugin cp = new Cron4jPlugin();
+		//cp.addTask("* * * * *",new Task1());
+		Cron4jPlugin cp = new Cron4jPlugin(PropKit.use("cronConfig.txt"),"cron4j");
+		me.add(cp);
 	}
 	
 	public static DruidPlugin createDruidPlugin() {

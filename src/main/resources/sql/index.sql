@@ -4,3 +4,7 @@
 #sql("bannerList")
   select * from picture order by id desc
 #end
+
+#sql("userList")
+  select * from user order by id desc
+#end
