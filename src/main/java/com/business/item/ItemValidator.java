@@ -20,9 +20,8 @@ public class ItemValidator extends Validator {
         validateString(0,"item.itemName", 1,100,"itemNameMsg", "");
         validateString(0,"item.itemUrl", 1,100,"itemUrlMsg", "");
         validateDate(0,"item.createDate", "createDateMsg", "");
-        validateRequireString(1,"upload.fileName","enableMsg", "是否可用");
+        validateRequireString(1,"item.enable","enableMsg", "是否可用");
         validateString(0,"item.itemSub", 1,6,"itemSubMsg", "");
-
     }
 
     protected void handleError(Controller controller) {

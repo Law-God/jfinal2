@@ -1,64 +1,62 @@
-layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
+layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil','MD5'], function(){
     var form = layui.form
     ,layer = layui.layer
     ,layedit = layui.layedit
     ,laydate = layui.laydate
     ,AjaxUtil = layui.AjaxUtil
-    ,upload = layui.upload;
+    ,upload = layui.upload
+    ,MD5 = layui.MD5;
+
     var $= layui.jquery;
 
 
+
         //普通图片上传
-        var pictureuploadInst = upload.render({
-            elem: '#pictureBtn'
+        var pictureIduploadInst = upload.render({
+            elem: '#pictureIdBtn'
             ,accept: 'images'
-            ,url: '/upload/upload?businessType=picture&businessField=picture'
+            ,url: '/upload/upload?businessType=picture&businessField=pictureId'
             ,size : 2048//上传大小2m
             ,before: function(obj){
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
-                    $('#pictureImg').attr('src', result); //图片链接（base64）
+                    $('#pictureIdImg').attr('src', result); //图片链接（base64）
                 });
             }
             ,done: function(res){
                 //如果上传成功
                 if(res.success){
                     var obj = JSON.parse(res.msg);
-                    $("#pictureBtn").closest(".layui-upload").find("#picture").val("");//修改页面重新上传文件
-                    $("#pictureBtn").closest(".layui-upload").find("#picture_fileName").val(obj.fileName || "");
-                    $("#pictureBtn").closest(".layui-upload").find("#picture_originalFileName").val(obj.originalFileName || "");
-                    $("#pictureBtn").closest(".layui-upload").find("#picture_businessType").val(obj.businessType || "");
-                    $("#pictureBtn").closest(".layui-upload").find("#picture_businessField").val(obj.businessField || "");
-                    $("#pictureBtn").closest(".layui-upload").find("#picture_contentType").val(obj.contentType || "");
+                    $("#pictureIdBtn").closest(".layui-upload").find("#pictureId").val("");//修改页面重新上传文件
+                    $("#pictureIdBtn").closest(".layui-upload").find("#pictureIdValidator").val(obj.fileName || "");
+                    $("#pictureIdBtn").closest(".layui-upload").find("#pictureId_fileName").val(obj.fileName || "");
+                    $("#pictureIdBtn").closest(".layui-upload").find("#pictureId_originalFileName").val(obj.originalFileName || "");
+                    $("#pictureIdBtn").closest(".layui-upload").find("#pictureId_businessType").val(obj.businessType || "");
+                    $("#pictureIdBtn").closest(".layui-upload").find("#pictureId_businessField").val(obj.businessField || "");
+                    $("#pictureIdBtn").closest(".layui-upload").find("#pictureId_contentType").val(obj.contentType || "");
                 }else{
                     return layer.msg('上传失败');
                 }
             }
             ,error: function(){
                     //演示失败状态，并实现重传
-                    var demoText = $('#pictureTip');
+                    var demoText = $('#pictureIdTip');
                     demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
                     demoText.find('.demo-reload').on('click', function(){
-                    pictureuploadInst.upload();
+                    pictureIduploadInst.upload();
                 });
             }
         });
 
-
-
     //自定义验证规则
     form.verify({
             titleString100 : function(value){
+                if(value == "") return false;
                 if(value.length > 100){
-                        return '不能超过100个字符';
+                    return '不能超过100个字符';
                 }
             },
 
-                uploadpicture : function(){
-                    if($("#picture").closest(".layui-upload").find("#fileName").val() == ""){
-                        return "请上传图片";
-                    }
-                },
 
     });
 
@@ -84,11 +82,11 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
                         }else if(businessType === 'edit'){
                             layer.tips(msgList[i].value, $("#"+msgList[i].key+"-tip"), {tips: 1,time:3000,tipsMore :true});
                         }else if(businessType === 'date'){
-                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"_date"), {tips: 1,time:3000,tipsMore :true});
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"_date"), {time:3000,tipsMore :true});
                         }else if(businessType === 'picture'){
-                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"Btn"), {tips: 2,time:3000,tipsMore :true});
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"Btn"), {time:3000,tipsMore :true});
                         }else{
-                            layer.tips(msgList[i].value, $("#"+msgList[i].key), {tips: 1,time:3000,tipsMore :true});
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key), {time:3000,tipsMore :true});
                         }
                     }
                 }

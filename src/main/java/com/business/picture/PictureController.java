@@ -61,10 +61,10 @@ public class PictureController extends Controller {
 	
 	public void edit() {
 		Picture picture = service.findById(getParaToInt());
-			String uploadpictureId = picture.get("picture");
-			if(!StringUtils.isEmpty(uploadpictureId)){
-				Upload uploadpicture = uploadService.findById(new Integer(uploadpictureId ));
-				setAttr("uploadPicture", uploadpicture);
+			String uploadpictureIdId = picture.get("pictureId");
+			if(!StringUtils.isEmpty(uploadpictureIdId)){
+				Upload uploadpictureId = uploadService.findById(new Integer(uploadpictureIdId ));
+				setAttr("uploadPicture", uploadpictureId);
 			}
         setAttr("picture", picture);
 	}
@@ -77,10 +77,10 @@ public class PictureController extends Controller {
 	public void update() {
 		try{
 				Picture picture = getModel(Picture.class);
-				if(StringUtils.isEmpty(picture.get("picture"))){
+				if(StringUtils.isEmpty(picture.get("pictureId"))){
 					Upload upload = getModel(Upload.class);
 					upload.save();
-					picture.set("picture",upload.getUploadid());
+					picture.set("pictureId",upload.getUploadid());
 				}
 				picture.update();
 		}catch (Exception e){

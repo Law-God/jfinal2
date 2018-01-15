@@ -52,20 +52,21 @@
                     {type:'checkbox', fixed: 'left'},
                     {field : "LAY_TABLE_INDEX",title: '序号',width:60},
                     {field:'itemCode', title: '菜单编码'
-},
+                    },
                     {field:'itemSup', title: '菜单编码值'
-},
+                    },
                     {field:'itemName', title: '菜单名'
-},
+                    },
                     {field:'itemUrl', title: '菜单访问路径'
-},
+                    },
                     {field:'createDate', title: '创建时间'
                         ,formatter : formatDate
                     },
                     {field:'enable', title: '是否可用'
-},
+                        ,formatter : formatenable
+                    },
                     {field:'itemSub', title: '菜单代码当前值'
-},
+                    },
                     {field:'', title: '操作',minWidth:110,toolbar: '#item-bar',fixed:'right'},
 			]]
             ,even: true //开启隔行背景
@@ -139,10 +140,14 @@
 	});
 
         function formatenable(value) {
-            if(value == '0')
-                return '男';
-            else
-                return '女';
+                    if(value == 0){
+                        return '不可用';
+                    }
+
+                    else if(value == 1){
+                        return '可用';
+                    }
+
         }
 </script>
 

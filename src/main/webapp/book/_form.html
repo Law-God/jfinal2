@@ -1,0 +1,55 @@
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;书名
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="bookname" name="book.bookname" value="#(book.bookname??)" placeholder="请输入书名" lay-verify="required|booknameString100" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        描述
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="descript" name="book.descript" value="#(book.descript??)" placeholder="对这本书籍概要描述" lay-verify="descriptString1000" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;作者
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="auth" name="book.auth" value="#(book.auth??)" placeholder="" lay-verify="required|authString100" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+    <div class="layui-row">
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">
+                内容
+            </label>
+            <div class="layui-input-block" id="content-tip">
+                <textarea  class="layui-textarea layui-hide" name="book.content" placeholder="" lay-verify="contentRegexp" lay-verType="tips" id="content_editor" lay-tip="content-tip">#(book.content??)</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="form-book">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </div>

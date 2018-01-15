@@ -24,6 +24,7 @@ public class _MappingKit {
 		arp.addMapping("user", "id", User.class);
 		arp.addMapping("log", "id", Log.class);
 		arp.addMapping("test", "testId", Test.class);
+		arp.addMapping("book", "id", Book.class);
 	}
 }
 

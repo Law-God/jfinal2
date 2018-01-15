@@ -3,6 +3,7 @@ package com.common;
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.business.blog.BlogController;
+import com.business.book.BookController;
 import com.business.item.ItemController;
 import com.business.log.LogController;
 import com.business.picture.PictureController;
@@ -23,8 +24,9 @@ import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
 import com.jfinal.template.Engine;
-import com.model.User;
-import com.task.Task1;
+import com.login.LoginController;
+import com.route.AdminRoutes;
+import org.apache.zookeeper.Login;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -72,13 +74,8 @@ public class JfinalGlobalConfig extends JFinalConfig {
 	public void configRoute(Routes me) {
 		me.add("/", IndexController.class);	// 第三个参数为该Controller的视图存放路径
 		me.add("/upload", UploadController.class);	// 文件处理
-		me.add("/code", CodeController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
-		me.add("/blog", BlogController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
-		me.add("/user", UserController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
-		me.add("/item", ItemController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
-		me.add("/picture", PictureController.class);
-		me.add("/log", LogController.class);
-		me.add("/test", TestController.class);
+		me.add("/login", LoginController.class);
+		me.add(new AdminRoutes());
 	}
 	
 	public void configEngine(Engine me) {
@@ -110,10 +107,11 @@ public class JfinalGlobalConfig extends JFinalConfig {
 		arp.setBaseSqlTemplatePath(PathKit.getRootClassPath()+"/sql");
 		arp.addSqlTemplate("all.sql");
 
+
 		//定时任务
 		//Cron4jPlugin cp = new Cron4jPlugin();
-		//cp.addTask("* * * * *",new Task1());
-		Cron4jPlugin cp = new Cron4jPlugin(PropKit.use("cronConfig.txt"),"cron4j");
+		//cp.addTask("* * * * *",new SolrDataDeltaImportScheduler());
+		Cron4jPlugin cp = new Cron4jPlugin("cronConfig.txt");
 		me.add(cp);
 	}
 	

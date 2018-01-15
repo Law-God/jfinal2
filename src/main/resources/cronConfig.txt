@@ -1,6 +1,13 @@
-cron4j=task1
+cron4j=solrDeltaImportTask,solrFullImportTask
 
-task1.task=* * * * *
-task1.class=com.task.Task1
-task1.daemon=true
-task1.enable=true
+#solr增量索引 每5分钟
+solrDeltaImportTask.task=*/5 * * * *
+solrDeltaImportTask.class=com.task.SolrDataDeltaImportScheduler
+solrDeltaImportTask.daemon=true
+solrDeltaImportTask.enable=true
+
+#solr全量索引  每周五 凌晨3点
+solrFullImportTask.task=* 3 * * fri
+solrFullImportTask.class=com.task.SolrDataFullImportScheduler
+solrFullImportTask.daemon=true
+solrFullImportTask.enable=true

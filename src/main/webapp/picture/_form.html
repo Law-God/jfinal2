@@ -15,21 +15,22 @@
         <div class="layui-col-xs6">
             <div class="layui-form-item">
                 <label class="layui-form-label">
-                    <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;首页图片
+                    图片
                 </label>
                 <div class="layui-input-block">
                     <div class="layui-upload">
-                        <input type="hidden" id="picture" name="picture.picture" value="#(picture.picture??)"/>
-                        <input type="hidden" id="picture_uploadid" name="upload[0].uploadid" value="#(picture.picture??)"/>
-                        <input type="hidden" id="picture_fileName" name="upload[0].fileName" value="#(uploadPicture.fileName??)"/>
-                        <input type="hidden" id="picture_originalFileName" name="upload[0].originalFileName" value="#(uploadPicture.originalFileName??)"/>
-                        <input type="hidden" id="picture_businessType" name="upload[0].businessType" value="#(uploadPicture.businessType??)"/>
-                        <input type="hidden" id="picture_businessField" name="upload[0].businessField" value="#(uploadPicture.businessField??)"/>
-                        <input type="hidden" id="picture_contentType" name="upload[0].contentType" value="#(uploadPicture.contentType??)"/>
-                        <button type="button" class="layui-btn" id="pictureBtn" lay-verify="uploadpicture" lay-verType="tips">上传图片</button>
+                        <input type="hidden" id="pictureId" name="picture.pictureId" value="#(picture.pictureId??)"/>
+                        <input type="hidden" id="pictureIdValidator" name="picturepictureIdValidator" value="#(test.password??)"/>
+                        <input type="hidden" id="pictureId_uploadid" name="upload[0].uploadid" value="#(picture.pictureId??)"/>
+                        <input type="hidden" id="pictureId_fileName" name="upload[0].fileName" value="#(uploadPicture.fileName??)"/>
+                        <input type="hidden" id="pictureId_originalFileName" name="upload[0].originalFileName" value="#(uploadPicture.originalFileName??)"/>
+                        <input type="hidden" id="pictureId_businessType" name="upload[0].businessType" value="#(uploadPicture.businessType??)"/>
+                        <input type="hidden" id="pictureId_businessField" name="upload[0].businessField" value="#(uploadPicture.businessField??)"/>
+                        <input type="hidden" id="pictureId_contentType" name="upload[0].contentType" value="#(uploadPicture.contentType??)"/>
+                        <button type="button" class="layui-btn" id="pictureIdBtn" lay-verify="" lay-verType="tips">上传图片</button>
                         <div class="layui-upload-list">
-                            <img class="layui-upload-img" #if(picture.picture??) src="/upload/download/#(picture.picture??)" #end  id="pictureImg" style="width:92px;height: 92px;margin : 0 10px 10px 0">
-                            <p id="pictureTip"></p>
+                            <img class="layui-upload-img" #if(picture.pictureId??) src="/upload/download/#(picture.pictureId??)" #end  id="pictureIdImg" style="width:92px;height: 92px;margin : 0 10px 10px 0">
+                            <p id="pictureIdTip"></p>
                         </div>
                     </div>
                 </div>

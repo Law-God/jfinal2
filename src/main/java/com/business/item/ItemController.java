@@ -54,7 +54,7 @@ public class ItemController extends Controller {
 	
 	public void edit() {
 		Item item = service.findById(getParaToInt());
-        	setAttr("item", service.findById(getParaToInt()));
+        	setAttr("item", item);
 	}
 	
 	/**

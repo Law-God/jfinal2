@@ -11,7 +11,7 @@ public class ItemService {
 private static final Item dao = new Item().dao();
 
 	public Page<Item> paginate(int pageNumber, int pageSize) {
-    	return dao.paginate(pageNumber, pageSize, "select *", "from item order by itemid desc");
+    	return dao.paginate(pageNumber, pageSize, "select *", "from item order by itemId desc");
     }
 
     public Item findById(int id) {

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: io.suzaku:boopickle_2.12:1.2.6">
+    <CLASSES>
+      <root url="jar://D:/setup/maven/apache-maven-3.1.0/repository/io/suzaku/boopickle_2.12/1.2.6/boopickle_2.12-1.2.6.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/setup/maven/apache-maven-3.1.0/repository/io/suzaku/boopickle_2.12/1.2.6/boopickle_2.12-1.2.6-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/setup/maven/apache-maven-3.1.0/repository/io/suzaku/boopickle_2.12/1.2.6/boopickle_2.12-1.2.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

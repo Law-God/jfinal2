@@ -28,6 +28,12 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil','MD5'], function(){
 
 <#list columns.bigColumns as column>
     <#if column.businessType == "edit">
+        layedit.set({
+            uploadImage: {
+                url: '/upload/editUpload' //接口url
+                ,type: 'POST' //默认post
+            }
+        });
         //创建一个编辑器
         var ${column.name}Editor = layedit.build('${column.name}_editor');
     </#if>
@@ -162,10 +168,10 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil','MD5'], function(){
                 }
             },
         <#elseif column.layVerify == "radio">
-            <#if column.isNullable == '1'>
-            if($("#${column.name}-radio-hidden").val() == "") return false;
-            </#if>
             ${column.layVerifyValue} : function(){
+                <#if column.isNullable == '1'>
+                if($("#${column.name}-radio-hidden").val() == "") return false;
+                </#if>
                 if(!$("#${column.name}-radio-hidden").val()){
                     <#if column.tip != "">
                     return '${column.tip}';

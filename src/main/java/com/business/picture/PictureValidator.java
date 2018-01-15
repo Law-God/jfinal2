@@ -16,8 +16,7 @@ public class PictureValidator extends Validator {
 
     protected void validate(Controller controller) {
         validateString(1,"picture.title", 1,100,"titleMsg", "");
-    //validateRequireString(0,"upload.fileName","pictureMsg", "首页图片");
-
+    validateRequireString(1,"picturepictureIdValidator","pictureIdMsg", "");
     }
 
     protected void handleError(Controller controller) {
@@ -27,12 +26,12 @@ public class PictureValidator extends Validator {
         Map m = new HashMap();
 
 
-        Object pictureMsg = controller.getAttr("pictureMsg");
-        if(pictureMsg != null){
+        Object pictureIdMsg = controller.getAttr("pictureIdMsg");
+        if(pictureIdMsg != null){
             flag = true;
-            m.put("key","picture");
+            m.put("key","pictureId");
             m.put("businessType","picture");
-            m.put("value",pictureMsg);
+            m.put("value",pictureIdMsg);
             errorMsg.add(m);
         }
         m = new HashMap();

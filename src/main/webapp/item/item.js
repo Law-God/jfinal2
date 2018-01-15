@@ -1,11 +1,14 @@
-layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
+layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil','MD5'], function(){
     var form = layui.form
     ,layer = layui.layer
     ,layedit = layui.layedit
     ,laydate = layui.laydate
     ,AjaxUtil = layui.AjaxUtil
-    ,upload = layui.upload;
+    ,upload = layui.upload
+    ,MD5 = layui.MD5;
+
     var $= layui.jquery;
+
         //日期
         laydate.render({
             elem: '#createDate_date',
@@ -21,38 +24,37 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
 
 
 
-
-
     //自定义验证规则
     form.verify({
             itemCodeString6 : function(value){
                 if(value.length > 6){
-                        return '不能超过6个字符';
+                    return '不能超过6个字符';
                 }
             },
             itemSupString6 : function(value){
                 if(value.length > 6){
-                        return '不能超过6个字符';
+                    return '不能超过6个字符';
                 }
             },
             itemNameString100 : function(value){
                 if(value.length > 100){
-                        return '不能超过100个字符';
+                    return '不能超过100个字符';
                 }
             },
             itemUrlString100 : function(value){
                 if(value.length > 100){
-                        return '不能超过100个字符';
+                    return '不能超过100个字符';
                 }
             },
             enableRadio : function(){
+                if($("#enable-radio-hidden").val() == "") return false;
                 if(!$("#enable-radio-hidden").val()){
                     return '请选择是否可用';
                 }
             },
             itemSubString6 : function(value){
                 if(value.length > 6){
-                        return '不能超过6个字符';
+                    return '不能超过6个字符';
                 }
             },
 
@@ -96,11 +98,11 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
                         }else if(businessType === 'edit'){
                             layer.tips(msgList[i].value, $("#"+msgList[i].key+"-tip"), {tips: 1,time:3000,tipsMore :true});
                         }else if(businessType === 'date'){
-                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"_date"), {tips: 1,time:3000,tipsMore :true});
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"_date"), {time:3000,tipsMore :true});
                         }else if(businessType === 'picture'){
-                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"Btn"), {tips: 2,time:3000,tipsMore :true});
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key+"Btn"), {time:3000,tipsMore :true});
                         }else{
-                            layer.tips(msgList[i].value, $("#"+msgList[i].key), {tips: 1,time:3000,tipsMore :true});
+                            layer.tips(msgList[i].value, $("#"+msgList[i].key), {time:3000,tipsMore :true});
                         }
                     }
                 }

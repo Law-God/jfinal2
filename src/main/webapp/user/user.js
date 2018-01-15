@@ -20,6 +20,12 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
         });
 
         //创建一个编辑器
+        layedit.set({
+            uploadImage: {
+                url: '/upload/editUpload' //接口url
+                ,type: 'POST' //默认post
+            }
+        });
         var summaryEditor = layedit.build('summary_editor');
 
         //普通图片上传
@@ -133,7 +139,7 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil'], function(){
                 summaryRegexp : function(value){
                     layedit.sync(summaryEditor);
                     var content = layedit.getContent(summaryEditor);
-                    var reg = new RegExp('^[\\S]+$');
+                    var reg = new RegExp('[\\S]+');
                     if(!reg.test(value)){
                         return '必填项不能为空';
                     }
