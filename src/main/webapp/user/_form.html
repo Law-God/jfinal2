@@ -86,6 +86,19 @@
                  </div>
             </div>
     </div>
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;密码
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="password" name="user.password" style="display:none;width:0;height:0">
+                        <input type="password" id="password" name="user.password" value="#(user.password??)" placeholder="" lay-verify="required|passwordString32" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+    </div>
 
     <div class="layui-row">
         <div class="layui-col-xs6">
@@ -96,6 +109,7 @@
                 <div class="layui-input-block">
                     <div class="layui-upload">
                         <input type="hidden" id="picture" name="user.picture" value="#(user.picture??)"/>
+                        <input type="hidden" id="pictureValidator" name="userpictureValidator" value="#(test.password??)"/>
                         <input type="hidden" id="picture_uploadid" name="upload[0].uploadid" value="#(user.picture??)"/>
                         <input type="hidden" id="picture_fileName" name="upload[0].fileName" value="#(uploadPicture.fileName??)"/>
                         <input type="hidden" id="picture_originalFileName" name="upload[0].originalFileName" value="#(uploadPicture.originalFileName??)"/>
@@ -121,6 +135,7 @@
                 <div class="layui-input-block">
                     <div class="layui-upload">
                         <input type="hidden" id="file" name="user.file" value="#(user.file??)"/>
+                        <input type="hidden" id="fileValidator" name="userfileValidator" value="#(test.password??)"/>
                         <input type="hidden" id="file_uploadid" name="upload[1].uploadid" value="#(user.file??)"/>
                         <input type="hidden" id="file_fileName" name="upload[1].fileName" value="#(uploadFile.fileName??)"/>
                         <input type="hidden" id="file_originalFileName" name="upload[1].originalFileName" value="#(uploadFile.originalFileName??)"/>
@@ -143,7 +158,7 @@
                 地址
             </label>
             <div class="layui-input-block">
-                <textarea id="address" name="user.address" placeholder="" lay-verify="addressString255" lay-verType="tips" class="layui-textarea">#(user.address??)</textarea>
+                <textarea id="address" name="user.address" placeholder="请输入地址" lay-verify="addressString255" lay-verType="tips" class="layui-textarea">#(user.address??)</textarea>
             </div>
         </div>
     </div>
@@ -153,7 +168,7 @@
                 <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;简介
             </label>
             <div class="layui-input-block" id="summary-tip">
-                <textarea  class="layui-textarea layui-hide" name="user.summary" placeholder="必填项不能为空" lay-verify="summaryRegexp" lay-verType="tips" id="summary_editor" lay-tip="summary-tip">#(user.summary??)</textarea>
+                <textarea  class="layui-textarea layui-hide" name="user.summary" placeholder="请输入简介" lay-verify="summaryRegexp" lay-verType="tips" id="summary_editor" lay-tip="summary-tip">#(user.summary??)</textarea>
             </div>
         </div>
     </div>

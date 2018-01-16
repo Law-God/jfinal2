@@ -263,4 +263,24 @@
     <other></other>
     <otherList>[]</otherList>
   </columnMeta>
+  <columnMeta>
+    <name>password</name>
+    <javaType>java.lang.String</javaType>
+    <attrName>password</attrName>
+    <type></type>
+    <isNullable>0</isNullable>
+    <isPrimaryKey>false</isPrimaryKey>
+    <defaultValue></defaultValue>
+    <remarks>密码</remarks>
+    <sqlType>string</sqlType>
+    <size>32</size>
+    <scale>0</scale>
+    <layVerify>string</layVerify>
+    <layVerifyValue></layVerifyValue>
+    <businessType>password</businessType>
+    <regexp></regexp>
+    <tip></tip>
+    <other></other>
+    <otherList>[]</otherList>
+  </columnMeta>
 </tableMeta>

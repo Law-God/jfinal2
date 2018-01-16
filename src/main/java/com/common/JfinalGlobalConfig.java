@@ -23,6 +23,7 @@ import com.jfinal.plugin.cron4j.Cron4jPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.druid.DruidStatViewHandler;
 import com.jfinal.plugin.druid.IDruidStatViewAuth;
+import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.template.Engine;
 import com.login.LoginController;
 import com.route.AdminRoutes;
@@ -107,6 +108,9 @@ public class JfinalGlobalConfig extends JFinalConfig {
 		arp.setBaseSqlTemplatePath(PathKit.getRootClassPath()+"/sql");
 		arp.addSqlTemplate("all.sql");
 
+
+		//配置ehcache
+		me.add(new EhCachePlugin());
 
 		//定时任务
 		//Cron4jPlugin cp = new Cron4jPlugin();

@@ -52,23 +52,24 @@
                     {type:'checkbox', fixed: 'left'},
                     {field : "LAY_TABLE_INDEX",title: '序号',width:60},
                     {field:'username', title: '用户名'
-},
+                    },
                     {field:'age', title: '年龄'
                         ,formatter : formatInt
-},
+                    },
                     {field:'birthday', title: '生日'
                         ,formatter : formatDate
                     },
                     {field:'phone', title: '手机号'
-},
+                    },
                     {field:'email', title: '邮箱'
-},
+                    },
                     {field:'url', title: '链接'
-},
+                    },
                     {field:'idcard', title: '身份证'
-},
+                    },
                     {field:'sex', title: ''
-},
+                        ,formatter : formatsex
+                    },
                         {field:'address', title: '地址'},
                         {field:'summary', title: '简介'},
                     {field:'', title: '操作',minWidth:110,toolbar: '#user-bar',fixed:'right'},
@@ -144,10 +145,6 @@
 	});
 
         function formatsex(value) {
-            if(value == '0')
-                return '男';
-            else
-                return '女';
         }
 </script>
 

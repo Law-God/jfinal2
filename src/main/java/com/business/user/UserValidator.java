@@ -22,10 +22,11 @@ public class UserValidator extends Validator {
         validateEmail(1,"user.email", "emailMsg", "邮箱格式错误");
         validateUrl(1,"user.url", "urlMsg", "链接格式错误");
         validateIdentity(1,"user.idcard", "idcardMsg", "身份证号码错误");
-        validateRequireString(1,"upload.fileName","sexMsg", "");
-    //validateRequireString(0,"upload.fileName","pictureMsg", "头像");
-
-        validateText(1,"user.address", 0,"addressMsg", "地址");
+        validateRequireString(1,"user.sex","sexMsg", "");
+        validateRequireString(0,"user.password","passwordMsg", "密码");
+    validateRequireString(0,"userpictureValidator","pictureMsg", "");
+    validateRequireString(0,"userfileValidator","fileMsg", "");
+        validateText(1,"user.address", 0,"addressMsg", "");
     }
 
     protected void handleError(Controller controller) {
@@ -141,6 +142,15 @@ public class UserValidator extends Validator {
                 m.put("key","sex");
                 m.put("businessType","radio");
                 m.put("value",sexMsg);
+                errorMsg.add(m);
+            }
+        m = new HashMap();
+        Object passwordMsg = controller.getAttr("passwordMsg");
+            if(passwordMsg != null){
+                flag = true;
+                m.put("key","password");
+                m.put("businessType","password");
+                m.put("value",passwordMsg);
                 errorMsg.add(m);
             }
         m = new HashMap();

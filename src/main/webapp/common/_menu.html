@@ -1,0 +1,17 @@
+<!-- 左侧菜单 -->
+<div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+        <input type="hidden" id="url" value="#(session.url)">
+        <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" style="margin-right: 10px;">
+            <li class="layui-nav-item layui-nav-itemed">
+                <a href="javascript:;">菜单</a>
+                <dl class="layui-nav-child">
+                    #for(item : session.itemList)
+                    <dd><a href="#(item.itemUrl)">#(item.itemName)</a></dd>
+                    #end
+                </dl>
+            </li>
+        </ul>
+    </div>
+</div>

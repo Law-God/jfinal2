@@ -9,4 +9,12 @@ layui.use('element', function(){
     var currUrl = $("#url").val();
     $("a[href='"+currUrl+"']").parent().addClass("layui-this");
 
+    $("#logout").click(function(){
+        layer.confirm('您确认注销？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+           window.location.href= "/login/logout";
+        });
+    })
+
 });
