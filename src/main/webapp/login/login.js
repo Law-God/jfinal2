@@ -11,10 +11,12 @@ $(function(){
     $("#loginBtn").click(function(){
         var username = $("#username").val();
         var password = $("#password").val();
+        var remember = $("#remember:checked").val();
         if(!!username && !!password && $("div.handler").hasClass("handler_ok_bg")){
             var data = {};
             data.username = username;
             data.password = hex_md5(password);
+            data.remember = remember;
             $.ajax({url : "/login/submit",type:'POST',dataType : 'json',data:data,success : function(response,status){
                 if(response.success){
                     window.location.href=response.msg;

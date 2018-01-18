@@ -6,3 +6,7 @@
 #namespace("user")
   #include("user.sql");
 #end
+
+#namespace("usertokens")
+  #include("usertokens.sql");
+#end
