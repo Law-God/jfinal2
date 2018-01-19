@@ -1910,3 +1910,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
     right: 0;
   }
 }
+
+.auto-login{
+  display: none;
+}

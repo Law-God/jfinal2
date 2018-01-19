@@ -21,26 +21,21 @@
             <div class="tpl-login-content">
                 <div class="tpl-login-logo"></div>
                 <form class="am-form tpl-form-line-form">
+                    <input type="hidden" name="code" id="code" value="#(session.code??)" />
                     <div class="am-form-group">
-<!--
-                        <input type="text" class="tpl-form-input" name="username" placeholder="请输入账号" style="display: none;width:0;height:0;">
--->
                         <input type="text" class="tpl-form-input" autocomplete="off" name="username" id="username" placeholder="请输入账号">
                     </div>
-                    <div class="am-form-group">
+                    <div class="am-form-group login">
                         <input type="password" id="password"  autocomplete="off" style="display:none;width:0;height:0" />
                         <input type="password"  class="tpl-form-input" placeholder="请输入密码" onblur="showValue('password',this.value);" />
                     </div>
                     <div class="am-form-group tpl-login-remember-me">
-                        <input id="remember" name="remember" value="1" type="checkbox">
-                        <label for="remember">
-                            30天自动登录
-                        </label>
-                        <label style="float: right">
-                            <a class="am-link-muted">忘记密码?</a>
-                        </label>
+                        <input id="remember" name="remember" value="1" type="checkbox" class="login">
+                        <label for="remember" class="login"> 30天自动登录</label>
+                        <label style="float: right" class="login"><a class="am-link-muted">忘记密码?</a></label>
+                        <label style="float: right" class="auto-login"><a onclick="loginHidden(false)" class="am-link-muted">切换账号</a></label>
                     </div>
-                    <div class="am-form-group">
+                    <div class="am-form-group login">
                         <div id="drag">
                             <div class="drag_bg"></div>
                             <div class="drag_text slidetounlock" onselectstart="return false;" unselectable="on">
@@ -50,15 +45,29 @@
                         </div>
                     </div>
                     <div class="am-form-group">
-                        <button type="button" id="loginBtn" class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn am-disabled">登录</button>
-
+                        <button type="button" id="loginBtn" class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn am-disabled" auto="false">登录</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
+    <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">Amaze UI</div>
+            <div class="am-modal-bd">
+                Hello world！
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn">确定</span>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="/assets/css/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.cookie.js"></script>
+<script src="/assets/js/amazeui.min.js"></script>
+<script src="/assets/js/amazeui.dialog.min.js"></script>
 <script src="/assets/js/theme.js"></script>
 <script src="/plugin/drag/drag.js"></script>
 <script src="/js/md5.js"></script>

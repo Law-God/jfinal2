@@ -130,4 +130,3 @@ function formatDate(value){
     var m = date.getMonth() + 1;
     return y + '-' + m +'-' + d1;
 }
-

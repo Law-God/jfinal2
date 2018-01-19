@@ -1,5 +1,6 @@
 package com.route;
 
+import com.common.util.CookieUtil;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.kit.StrKit;
@@ -19,7 +20,7 @@ public class AdminAuthInterceptor implements Interceptor {
     public void intercept(Invocation inv) {
         //未登录用户自动登录
         if(inv.getController().getSession(false) == null || inv.getController().getSession().getAttribute("user") == null){
-            checkAutoLogin(inv);
+            CookieUtil.checkAutoLogin(inv.getController().getRequest());
         }
 
         //inv.getController().renderError(404,"/404.html");
@@ -35,35 +36,5 @@ public class AdminAuthInterceptor implements Interceptor {
 
     }
 
-    private void checkAutoLogin(Invocation inv){
-        Cookie loginAgentC = null;
-        Cookie loginTokenC = null;
 
-        javax.servlet.http.Cookie[] cookies = inv.getController().getRequest().getCookies();
-        if(cookies != null){
-            for(int i=0,len=cookies.length;i<len;i++){
-                String name = cookies[i].getName();
-                if("loginAgent".equals(name)){
-                    loginAgentC = cookies[i];
-                }else if("loginToken".equals(name)){
-                    loginTokenC = cookies[i];
-                }
-            }
-        }
-
-        if(loginAgentC != null && loginTokenC != null){
-            String loginAgent = loginAgentC.getValue();
-            String loginToken = loginTokenC.getValue();
-            String sql = Db.getSql("usertokens.selectUserTokenByAgentAndToken");
-            UserTokens userTokens = UserTokens.dao.findFirst(sql,loginAgent,loginToken);
-            if(!StrKit.isBlank(String.valueOf(userTokens.getUserId()))){
-                sql = Db.getSql("user.selectUserById");
-                User user = User.dao.findFirst(sql,String.valueOf(userTokens.getUserId()));
-                if(user != null){
-                    inv.getController().setSessionAttr("user",user);
-                }
-            }
-
-        }
-    }
 }
