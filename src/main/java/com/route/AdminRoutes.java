@@ -1,5 +1,7 @@
 package com.route;
 
+import com.business.article.ArticleController;
+import com.business.banner.BannerController;
 import com.business.blog.BlogController;
 import com.business.book.BookController;
 import com.business.item.ItemController;
@@ -9,6 +11,7 @@ import com.business.test.TestController;
 import com.business.user.UserController;
 import com.generator.code.CodeController;
 import com.jfinal.config.Routes;
+import com.model.Article;
 
 /**
  * 后台管理链接
@@ -27,5 +30,7 @@ public class AdminRoutes extends Routes{
         add("/log", LogController.class);
         add("/test", TestController.class);
         add("/book", BookController.class);
+        add("/banner", BannerController.class);
+        add("/article", ArticleController.class);
     }
 }

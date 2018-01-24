@@ -78,7 +78,7 @@ layui.use(['form', 'layedit', 'laydate','upload','AjaxUtil','MD5'], function(){
             }
         });
     <#elseif column.businessType == 'file'>
-        //普通图片上传
+        //普通文件上传
         var ${column.name}uploadInst = upload.render({
             elem: '#${column.name}Btn'
             ,accept: 'file'

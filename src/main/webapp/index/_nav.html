@@ -1,0 +1,39 @@
+<div data-am-sticky="{animation: 'slide-top'}" class="asszs">
+    <div style="max-width:1605px;">
+        <h1 class="am-topbar-brand" style="display:none"> <a href="/"><img src="/AmazeUI-2.7.2/assets/i/logo.png"></a> </h1>
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only" data-am-collapse="{target: '#collapse-head'}">导航</button>
+        <div class="am-collapse am-topbar-collapse" id="collapse-head">
+            <ul class="am-nav am-nav-pills am-topbar-nav w45">
+                <li><a href="/index" >首页</a></li>
+                <li><a href="/index/article" >文章</a></li>
+            </ul>
+            <ul class="am-nav am-nav-pills am-topbar-nav w46" style="text-align:right">
+                <li style=" background:url(/AmazeUI-2.7.2/assets/i/s1_06.png) no-repeat right center"><a href="#">注册</a></li>
+                <li style=" background:url(/AmazeUI-2.7.2/assets/i/s1_06.png) no-repeat right center"><a target="_blank" href="/login">登录</a></li>
+                <li><a style="cursor: pointer; margin-right:11px" data-am-modal="{target: '#my-actions'}"><i class="am-icon-search"></i></a></li>
+            </ul>
+            <ul class="dlogo am-topbar-left" style="width:10%" data-am-scrollspy="{animation:'slide-bottom', delay: 0 , repeat: false}">
+                <a href="/"></a><img src="/AmazeUI-2.7.2/assets/i/logo.png"></a>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="am-modal-actions  am-g sou" id="my-actions">
+    <form class="am-form-inline" role="form" action="http://www.oncewy.com/index.php" method="get" target="_blank">
+        <input type="hidden" name="m" value="search" />
+        <input type="hidden" name="c" value="index" />
+        <input type="hidden" name="a" value="init" />
+        <input type="hidden" name="typeid" value="" id="typeid" />
+        <input type="hidden" name="siteid" value="1" id="siteid" />
+        <div class="am-u-sm-7" style="padding-right:0px">
+            <input type="text" class="am-form-field" name="q" id="q" placeholder="请输入关键词点击搜索" />
+        </div>
+        <div class="am-u-sm-3" style="padding:0px">
+            <button type="submit" class="am-btn am-btn-default" style="width: 100%;">搜索</button>
+        </div>
+        <div class="am-u-sm-2" style="padding:0px">
+            <button type="submit" class="am-btn am-btn-default" style="background:none; border:none; color:#C1C1C1" data-am-modal-close><i class="am-icon-times"></i></button>
+        </div>
+    </form>
+</div>

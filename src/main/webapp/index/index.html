@@ -1,0 +1,272 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>魅影网站</title>
+    <meta name="keywords" content="魅影">
+    <meta name="description" content="魅影">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    #include('/index/_res.html')
+    <script type="text/javascript" src="/AmazeUI-2.7.2/assets/js/apps.js"></script>
+    <script>
+        $(function() {
+            $('.panelss').css({'height': $(window).height()});
+            section: '.panelss'
+        });
+
+        $(function() {
+            $('.panezs').css({'height': $(window).height()});
+            section: '.panezs'
+        });
+
+        $(window).resize(function (){
+            //location.reload()
+            $('.panelss').css({'height': $(window).height()});
+            section: '.panelss'
+        });
+    </script>
+    <script>
+
+        jQuery(function($) {
+
+            // setup slidizle
+            $('[data-slidizle]').slidizle({
+                beforeChange : function(api) {
+                    console.log('previous', api.getPreviousSlide().index());
+                    console.log('current', api.getCurrentSlide().index());
+                    console.log('next', api.getNextSlide().index());
+                    console.log('previous active', api.getPreviousActiveSlide().index());
+                }
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+
+<div class="mx1490hdp panelss" style="margin-top:-60px">
+    <section class="sample slider--animated panelss" id="intro" data-slidizle-timeout="6000" data-slidizle data-slidizle-loop="true">     <ul class="slider-content" data-slidizle-content>
+        #if(bannerList?? && bannerList.size() > 0)
+            #for(banner : bannerList)
+                <li class="slider-item bg1" style="background:url('/upload/download/#(banner.picId)') no-repeat 50% 0px fixed;background-size:auto 100%"> </li>
+            #end
+        #else
+            <li class="slider-item bg1" style="background:url('/upload/20160330033309925.jpg') no-repeat 50% 0px fixed;background-size:auto 100%"> </li>
+            <li class="slider-item bg1" style="background:url('/upload/20160330040338471.jpg') no-repeat 50% 0px fixed;background-size:auto 100%"> </li>
+            <li class="slider-item bg1" style="background:url('/upload/20160330040644262.jpg') no-repeat 50% 0px fixed;background-size:auto 100%"> </li>
+            <li class="slider-item bg1" style="background:url('/upload/20160330040540920.jpg') no-repeat 50% 0px fixed;background-size:auto 100%"> </li>
+            <li class="slider-item bg1" style="background:url('/upload/20160413051231604.jpg') no-repeat 50% 0px fixed;background-size:auto 100%"> </li>
+            <li class="slider-item bg1" style="background:url('/upload/20160330040856335.jpg') no-repeat 50% 0px fixed;background-size:auto 100%"> </li>
+        #end
+    </ul>
+        <ul class="slider-navigation" id="second" data-slidizle-navigation>
+        </ul>
+    </section>
+</div>
+<!--手机-->
+<div class="mx1490 panelsszz" style="margin-top:-50px">
+    <div class="am-slider am-slider-default" data-am-flexslider="{playAfterPaused: 8000}">
+        <ul class="am-slides">
+            #if(bannerList?? && bannerList.size() > 0)
+                #for(banner : bannerList)
+                    <li class="slider-item bg1" style="background:url('/upload/download/#(banner.id)') no-repeat 50% 0px fixed;background-size:auto 100%"> </li>
+                #end
+            #else
+                <li class="panezs" style="background:url('/upload/20160330040856335.jpg') 50% 0 no-repeat;background-size: auto 100%"> </li>
+                <li class="panezs" style="background:url('/upload/20160413051231604.jpg') 50% 0 no-repeat;background-size: auto 100%"> </li>
+                <li class="panezs" style="background:url('/upload/20160330040644262.jpg') 50% 0 no-repeat;background-size: auto 100%"> </li>
+                <li class="panezs" style="background:url('/upload/20160330040540920.jpg') 50% 0 no-repeat;background-size: auto 100%"> </li>
+                <li class="panezs" style="background:url('/upload/20160330040338471.jpg') 50% 0 no-repeat;background-size: auto 100%"> </li>
+                <li class="panezs" style="background:url('/upload/20160330033309925.jpg') 50% 0 no-repeat;background-size: auto 100%"> </li>
+            #end
+        </ul>
+    </div>
+</div>
+
+<!-- 导航栏 -->
+#include('_nav.html')
+
+<div class="am-g mx1490 tudh">
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay:0 , repeat: false}">
+            <li>
+                <div class="main_img"><a href="/index.php?list=20"><img src="/AmazeUI-2.7.2/assets/i/tubiao.jpg"></a>
+                    <div class="shows"><a href="/index.php?list=20">籽戏<br>
+                        之<br>
+                        春华系列</a></div>
+                </div>
+            </li>
+        </ul>
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay:100 , repeat: false}">
+            <li>
+                <div class="main_img"><img src="/AmazeUI-2.7.2/assets/i/cp/a3-01.jpg"></div>
+            </li>
+            <li class="f2"><a href="/index.php?list=3">籽戏</a>
+                <div class="f3"><a href="/index.php?list=20">春华系列</a></div>
+            </li>
+        </ul>
+    </div>
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay: 200 , repeat: false}">
+            <li>
+                <div class="main_img"><img src="/AmazeUI-2.7.2/assets/i/cp/a3-02.jpg"> </div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=3">籽戏</a>
+                <div class="f3"><a href="/index.php?list=20">春华系列</a></div>
+            </li>
+        </ul>
+    </div>
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay: 300 , repeat: false}">
+            <li>
+                <div class="main_img"><img src="/AmazeUI-2.7.2/assets/i/cp/a3-03.jpg"></div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=3">籽戏</a>
+                <div class="f3"><a href="/index.php?list=20">春华系列</a></div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="am-g mx1490 tudh" style="margin-top:5px">
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay:0 , repeat: false}">
+            <li>
+                <div class="main_img"><a href="/index.php?list=21"><img src="/AmazeUI-2.7.2/assets/i/tubiao.jpg"></a>
+                    <div class="shows"><a href="/index.php?list=21">籽戏<br>
+                        之<br>
+                        夏赏系列</a></div>
+                </div>
+            </li>
+        </ul>
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay:100 , repeat: false}">
+            <li>
+                <div class="main_img"><img src="/AmazeUI-2.7.2/assets/i/cp/a3-04.jpg"> </div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=3">籽戏</a>
+                <div class="f3"><a href="/index.php?list=21">夏赏系列</a></div>
+            </li>
+        </ul>
+    </div>
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay: 200 , repeat: false}">
+            <li>
+                <div class="main_img"><img src="/AmazeUI-2.7.2/assets/i/cp/a3-05.jpg"> </div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=3">籽戏</a>
+                <div class="f3"><a href="/index.php?list=21">夏赏系列</a></div>
+            </li>
+        </ul>
+    </div>
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay: 300 , repeat: false}">
+            <li>
+                <div class="main_img"><img src="/AmazeUI-2.7.2/assets/i/cp/a3-06.jpg"> </div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=3">籽戏</a>
+                <div class="f3"><a href="/index.php?list=21">夏赏系列</a></div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="am-g mx1490 tudh" style="margin-top:5px">
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay:0 , repeat: false}">
+            <li>
+                <div class="main_img"><a href="/index.php?list=11"><img src="/AmazeUI-2.7.2/assets/i/tubiaoa.jpg"></a>
+                    <div class="shows"><a href="/index.php?list=11">物藏<br>
+                        之<br>
+                        茗香系列</a></div>
+                </div>
+            </li>
+        </ul>
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay:100 , repeat: false}">
+            <li>
+                <div class="main_img"><img src="/AmazeUI-2.7.2/assets/i/cp/a3-07.jpg"> </div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=5">物藏</a>
+                <div class="f3"><a href="/index.php?list=11">茗香系列</a></div>
+            </li>
+        </ul>
+    </div>
+    <div class="am-u-sm-8 tp" >
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay: 300 , repeat: false}" style="padding:1.5%">
+            <li>
+                <div class="main_img"><img src="/AmazeUI-2.7.2/assets/i/cp/a3-09.jpg"> </div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=5">物藏</a>
+                <div class="f3"><a href="/index.php?list=11">茗香系列</a></div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="am-g mx1490 tudh" style="margin-top:5px">
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay:0 , repeat: false}">
+            <li>
+                <div class="main_img"><a href="/index.php?list=12"><img src="/AmazeUI-2.7.2/assets/i/tubiao.jpg"></a>
+                    <div class="shows"><a href="/index.php?list=12">物藏<br>
+                        之<br>
+                        雨雅系列</a></div>
+                </div>
+            </li>
+        </ul>
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay:100 , repeat: false}">
+            <li>
+                <div class="main_img"><img src="/AmazeUI-2.7.2/assets/i/cp/a3-10.jpg"></div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=5">物藏</a>
+                <div class="f3"><a href="/index.php?list=12">雨雅系列</a></div>
+            </li>
+        </ul>
+    </div>
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay: 200 , repeat: false}">
+            <li>
+                <div class="main_img"><a href="/index.php?list=1"><img src="/AmazeUI-2.7.2/assets/i/cp/a3-11.jpg"></a> </div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=5">物藏</a>
+                <div class="f3"><a href="/index.php?list=12">雨雅系列</a></div>
+            </li>
+        </ul>
+    </div>
+    <div class="am-u-sm-4 tp">
+        <ul data-am-scrollspy="{animation:'slide-bottom', delay: 300 , repeat: false}">
+            <li>
+                <div class="main_img"><img src="/AmazeUI-2.7.2/assets/i/cp/a3-12.jpg"></div>
+            </li>
+            <li class="f2"> <a href="/index.php?list=5">物藏</a>
+                <div class="f3"><a href="/index.php?list=12">雨雅系列</a></div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="am-g mx1490 tudh3">
+    <div class="tp">
+        <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+    </div>
+    <div class="am-u-sm-4 tp">
+        <ul>
+            <h2><a href="/index.php?list=11">茗香</a></h2>
+            <li><a href="/index.php?list=11"><img src="/AmazeUI-2.7.2/assets/i/cp/a.jpg" alt="首页幻灯片2"/></a></li>
+        </ul>
+    </div>
+    <div class="am-u-sm-4 tp">
+        <ul>
+            <h2><a href="/index.php?list=2">初心</a></h2>
+            <li><a href="/index.php?list=2"><img src="/AmazeUI-2.7.2/assets/i/cp/b.jpg" alt="首页幻灯片2"/></a></li>
+        </ul>
+    </div>
+    <div class="am-u-sm-4 tp">
+        <ul>
+            <h2><a href="/index.php?list=18">歡喜</a></h2>
+            <li><a href="/index.php?list=18"><img src="/AmazeUI-2.7.2/assets/i/cp/c.jpg" alt="首页幻灯片2"/></a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- 底部 -->
+#include('/index/_foot.html')
+</body>
+</html>

@@ -1,0 +1,73 @@
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        图片描述
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="title" name="banner.title" value="#(banner.title??)" placeholder="" lay-verify="titleString100" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        排序字段
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="order" name="banner.order" value="#(banner.order??)" placeholder="" lay-verify="orderInt10" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;是否可用
+                    </label>
+                    <div class="layui-input-block" id="status"  lay-verify="statusRadio" lay-verType="tips" lay-tip="status">
+                        <input type="hidden" id="status-radio-hidden" value="#(banner.status??)" />
+                            <input type="radio" name="banner.status" value="0" title="不可用" #(banner.status?? == '0' ? 'checked="checked"' : '') lay-filter="filter-radio-status" />
+                            <input type="radio" name="banner.status" value="1" title="可用" #(banner.status?? == '1' ? 'checked="checked"' : '') lay-filter="filter-radio-status" />
+                    </div>
+                 </div>
+            </div>
+    </div>
+
+    <div class="layui-row">
+        <div class="layui-col-xs6">
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;首页banner
+                </label>
+                <div class="layui-input-block">
+                    <div class="layui-upload">
+                        <input type="hidden" id="picId" name="banner.picId" value="#(banner.picId??)"/>
+                        <input type="hidden" id="picIdValidator" name="bannerpicIdValidator" value="#(test.password??)"/>
+                        <input type="hidden" id="picId_uploadid" name="upload[0].uploadid" value="#(banner.picId??)"/>
+                        <input type="hidden" id="picId_fileName" name="upload[0].fileName" value="#(uploadPicture.fileName??)"/>
+                        <input type="hidden" id="picId_originalFileName" name="upload[0].originalFileName" value="#(uploadPicture.originalFileName??)"/>
+                        <input type="hidden" id="picId_businessType" name="upload[0].businessType" value="#(uploadPicture.businessType??)"/>
+                        <input type="hidden" id="picId_businessField" name="upload[0].businessField" value="#(uploadPicture.businessField??)"/>
+                        <input type="hidden" id="picId_contentType" name="upload[0].contentType" value="#(uploadPicture.contentType??)"/>
+                        <button type="button" class="layui-btn" id="picIdBtn" lay-verify="uploadpicId" lay-verType="tips">上传图片</button>
+                        <div class="layui-upload-list">
+                            <img class="layui-upload-img" #if(banner.picId??) src="/upload/download/#(banner.picId??)" #end  id="picIdImg" style="width:92px;height: 92px;margin : 0 10px 10px 0">
+                            <p id="picIdTip"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="form-banner">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </div>

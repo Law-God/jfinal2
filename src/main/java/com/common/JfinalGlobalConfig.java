@@ -13,6 +13,7 @@ import com.generator.code.CodeController;
 import com.generator.upload.UploadController;
 import com.index.IndexController;
 import com.index.IndexInterceptor;
+import com.index.article.ArticleController;
 import com.jfinal.config.*;
 import com.jfinal.core.JFinal;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
@@ -74,6 +75,7 @@ public class JfinalGlobalConfig extends JFinalConfig {
 	 */
 	public void configRoute(Routes me) {
 		me.add("/", IndexController.class);	// 第三个参数为该Controller的视图存放路径
+		me.add("/index/article", ArticleController.class);	// 第三个参数为该Controller的视图存放路径
 		me.add("/upload", UploadController.class);	// 文件处理
 		me.add("/login", LoginController.class);
 		me.add(new AdminRoutes());

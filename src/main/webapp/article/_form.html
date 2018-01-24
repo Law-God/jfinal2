@@ -1,0 +1,82 @@
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;文章标题
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="title" name="article.title" value="#(article.title??)" placeholder="请输入文章标题" lay-verify="required|titleString255" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        文章描述
+                    </label>
+                    <div class="layui-input-block">
+                        <input type="text" id="descript" name="article.descript" value="#(article.descript??)" placeholder="" lay-verify="descriptString255" lay-verType="tips" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="layui-row">
+            <div class="layui-col-xs6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon" style="color:red">&#xe600;</i>&nbsp;是否可用
+                    </label>
+                    <div class="layui-input-block" id="status"  lay-verify="statusRadio" lay-verType="tips" lay-tip="status">
+                        <input type="hidden" id="status-radio-hidden" value="#(article.status??)" />
+                            <input type="radio" name="article.status" value="0" title="可用" #(article.status?? == '0' ? 'checked="checked"' : '') lay-filter="filter-radio-status" />
+                            <input type="radio" name="article.status" value="1" title="不可用" #(article.status?? == '1' ? 'checked="checked"' : '') lay-filter="filter-radio-status" />
+                    </div>
+                 </div>
+            </div>
+    </div>
+
+    <div class="layui-row">
+        <div class="layui-col-xs6">
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    附件
+                </label>
+                <div class="layui-input-block">
+                    <div class="layui-upload">
+                        <input type="hidden" id="attachment" name="article.attachment" value="#(article.attachment??)"/>
+                        <input type="hidden" id="attachmentValidator" name="articleattachmentValidator" value="#(test.password??)"/>
+                        <input type="hidden" id="attachment_uploadid" name="upload[0].uploadid" value="#(article.attachment??)"/>
+                        <input type="hidden" id="attachment_fileName" name="upload[0].fileName" value="#(uploadFile.fileName??)"/>
+                        <input type="hidden" id="attachment_originalFileName" name="upload[0].originalFileName" value="#(uploadFile.originalFileName??)"/>
+                        <input type="hidden" id="attachment_businessType" name="upload[0].businessType" value="#(uploadFile.businessType??)"/>
+                        <input type="hidden" id="attachment_businessField" name="upload[0].businessField" value="#(uploadFile.businessField??)"/>
+                        <input type="hidden" id="attachment_contentType" name="upload[0].contentType" value="#(uploadFile.contentType??)"/>
+                        <button type="button" class="layui-btn" id="attachmentBtn" lay-verify="" lay-verType="tips">上传文件</button>
+                        <div class="layui-upload-list">
+                            <p id="attachmentTip"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-row">
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">
+                文章内容
+            </label>
+            <div class="layui-input-block" id="content-tip">
+                <textarea  class="layui-textarea layui-hide" name="article.content" placeholder="" lay-verify="contentRegexp" lay-verType="tips" id="content_editor" lay-tip="content-tip">#(article.content??)</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="form-article">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </div>

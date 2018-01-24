@@ -5,6 +5,7 @@ import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
+import com.model.Banner;
 import com.model.Item;
 import java.util.List;
 
@@ -15,14 +16,11 @@ import java.util.List;
 public class IndexController extends Controller {
 	static ItemService itemService = new ItemService();
 	public void index() {
-		Page<Item> item = itemService.paginate(1,1000);
-		setSessionAttr("itemList",item.getList());
-
 		String bannerSql = Db.getSql("index.bannerList");
-		List<Record> bannerList = Db.find(bannerSql);
+		List<Banner> bannerList = Banner.dao.find(bannerSql);
 		setAttr("bannerList",bannerList);
 
-		render("index.html");
+		render("/index/index.html");
 	}
 }
 
