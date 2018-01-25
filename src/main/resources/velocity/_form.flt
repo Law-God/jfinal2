@@ -128,7 +128,7 @@
                         <input type="hidden" id="${column.name}_contentType" name="upload[${column_index}].contentType" value="#(uploadFile.contentType??)"/>
                         <button type="button" class="layui-btn" id="${column.name}Btn" lay-verify="${ (column.isNullable == '0')?string('upload${column.name}','')}" lay-verType="tips">上传文件</button>
                         <div class="layui-upload-list">
-                            <p id="${column.name}Tip"></p>
+                            <p id="${column.name}Tip">#(uploadFile.originalFileName??)</p>
                         </div>
                     </div>
                 </div>

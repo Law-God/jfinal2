@@ -45,7 +45,6 @@
                     <div class="layui-upload">
                         <input type="hidden" id="attachment" name="article.attachment" value="#(article.attachment??)"/>
                         <input type="hidden" id="attachmentValidator" name="articleattachmentValidator" value="#(test.password??)"/>
-                        <input type="hidden" id="attachment_uploadid" name="upload[0].uploadid" value="#(article.attachment??)"/>
                         <input type="hidden" id="attachment_fileName" name="upload[0].fileName" value="#(uploadFile.fileName??)"/>
                         <input type="hidden" id="attachment_originalFileName" name="upload[0].originalFileName" value="#(uploadFile.originalFileName??)"/>
                         <input type="hidden" id="attachment_businessType" name="upload[0].businessType" value="#(uploadFile.businessType??)"/>
@@ -53,7 +52,7 @@
                         <input type="hidden" id="attachment_contentType" name="upload[0].contentType" value="#(uploadFile.contentType??)"/>
                         <button type="button" class="layui-btn" id="attachmentBtn" lay-verify="" lay-verType="tips">上传文件</button>
                         <div class="layui-upload-list">
-                            <p id="attachmentTip"></p>
+                            <p id="attachmentTip">#(uploadFile.originalFileName??)</p>
                         </div>
                     </div>
                 </div>

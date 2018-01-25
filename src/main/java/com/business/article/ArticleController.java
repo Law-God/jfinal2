@@ -78,9 +78,11 @@ public class ArticleController extends Controller {
 		try{
 				Article article = getModel(Article.class);
 				if(StringUtils.isEmpty(article.get("attachment"))){
-					Upload upload = getModel(Upload.class);
-					upload.save();
-					article.set("attachment",upload.getUploadid());
+					List<Upload> uploadList = ModelUtils.batchInjectModel(getRequest(),Upload.class,"upload");
+					for(Upload upload : uploadList){
+						upload.save();
+						article.set("attachment",upload.getUploadid());
+					}
 				}
 				article.update();
 		}catch (Exception e){

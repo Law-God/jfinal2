@@ -94,9 +94,11 @@ public class ${className}Controller extends Controller {
 				${className} ${tableName} = getModel(${className}.class);
 				<#list columns.fileColumns as column>
 				if(StringUtils.isEmpty(${tableName}.get("${column.name}"))){
-					Upload upload = getModel(Upload.class);
-					upload.save();
-					${tableName}.set("${column.name}",upload.getUploadid());
+                    List<Upload> uploadList = ModelUtils.batchInjectModel(getRequest(),Upload.class,"upload");
+                    for(Upload upload : uploadList){
+						upload.save();
+						article.set("${column.name}",upload.getUploadid());
+                    }
 				}
 				</#list>
 				${tableName}.update();
