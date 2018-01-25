@@ -10,10 +10,50 @@ Target Server Type    : MYSQL
 Target Server Version : 50623
 File Encoding         : 65001
 
-Date: 2018-01-18 16:17:45
+Date: 2018-01-25 09:03:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `article`
+-- ----------------------------
+DROP TABLE IF EXISTS `article`;
+CREATE TABLE `article` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `descript` varchar(255) DEFAULT NULL,
+  `content` text,
+  `attachment` varchar(100) DEFAULT NULL,
+  `createTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updateTime` datetime DEFAULT NULL,
+  `status` char(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of article
+-- ----------------------------
+INSERT INTO `article` VALUES ('2', 'Tomcat7+Memcached实现session共享', null, null, '75', '2018-01-24 15:18:04', null, '1');
+
+-- ----------------------------
+-- Table structure for `banner`
+-- ----------------------------
+DROP TABLE IF EXISTS `banner`;
+CREATE TABLE `banner` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `picId` varchar(10) DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `createTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updateTime` datetime DEFAULT NULL,
+  `order` int(10) DEFAULT NULL,
+  `status` char(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of banner
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `blog`
@@ -48,7 +88,7 @@ CREATE TABLE `book` (
   `auth` varchar(100) DEFAULT NULL,
   `createtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=819172 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=98300 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of book
@@ -149,7 +189,7 @@ CREATE TABLE `upload` (
   `contentType` varchar(100) DEFAULT NULL,
   `businessField` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`uploadid`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of upload
@@ -210,6 +250,17 @@ INSERT INTO `upload` VALUES ('61', 'test', '5.png', '515.png', 'image/png', 'fil
 INSERT INTO `upload` VALUES ('62', 'test', '5 - 副本.jpg', '5 - 副本9.jpg', 'image/jpeg', 'file');
 INSERT INTO `upload` VALUES ('63', 'picture', '20160330033309925.jpg', '2016033003330992519.jpg', 'image/jpeg', 'picture');
 INSERT INTO `upload` VALUES ('64', 'picture', '20160330033309925.jpg', '2016033003330992520.jpg', 'image/jpeg', 'pictureId');
+INSERT INTO `upload` VALUES ('65', 'banner', 'jqs.jpg', 'jqs.jpg', 'image/jpeg', 'picId');
+INSERT INTO `upload` VALUES ('66', 'banner', 'jyhl.jpg', 'jyhl.jpg', 'image/jpeg', 'picId');
+INSERT INTO `upload` VALUES ('67', 'banner', 'mzn.jpg', 'mzn.jpg', 'image/jpeg', 'picId');
+INSERT INTO `upload` VALUES ('68', 'banner', 'qtd.jpg', 'qtd.jpg', 'image/jpeg', 'picId');
+INSERT INTO `upload` VALUES ('69', 'banner', 'shz.jpg', 'shz.jpg', 'image/jpeg', 'picId');
+INSERT INTO `upload` VALUES ('70', 'article', 'tomcat7+memcached实现session共享.docx', 'tomcat7+memcached实现session共享.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'attachment');
+INSERT INTO `upload` VALUES ('71', '', null, null, null, null);
+INSERT INTO `upload` VALUES ('72', '', null, null, null, null);
+INSERT INTO `upload` VALUES ('73', '', null, null, null, null);
+INSERT INTO `upload` VALUES ('74', '', null, null, null, null);
+INSERT INTO `upload` VALUES ('75', 'article', 'tomcat7+memcached实现session共享.pdf', 'tomcat7+memcached实现session共享4.pdf', 'application/pdf', 'attachment');
 
 -- ----------------------------
 -- Table structure for `user`
@@ -381,7 +432,7 @@ CREATE TABLE `user_tokens` (
   `expires` int(10) DEFAULT NULL COMMENT '过期时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_token` (`token`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_tokens
@@ -394,3 +445,23 @@ INSERT INTO `user_tokens` VALUES ('5', null, '9b221dbf1b9f4dcbdaf0581608e63c1f',
 INSERT INTO `user_tokens` VALUES ('6', null, '4477d6866612399bab0fca02b0ff8550', 'ad362f6fbcd522d702104362f51d7e75', null, null, '2592000');
 INSERT INTO `user_tokens` VALUES ('7', null, 'fba122c9c9101615916dcb813953966a', '1f2b1cbea2644aae2846adbfec1d8917', null, null, '2592000');
 INSERT INTO `user_tokens` VALUES ('8', '262', 'da8cecf1203b3e80938855ebae7a893d', '12cdf95b7b93a10df253f3763c148db1', null, null, '2592000');
+INSERT INTO `user_tokens` VALUES ('9', '262', '33b9ecd31b83ce663c24855d84fdf619', '7a9858438123d383e229fd1dd7bd0c74', null, null, '2592000');
+INSERT INTO `user_tokens` VALUES ('10', '262', '29d0d0a1a7a2cc20bd6ca3bb3160fae5', 'c649bea3cb645e0eb1b2b6de7a0a1397', null, null, '2592000');
+INSERT INTO `user_tokens` VALUES ('11', '262', '8812b3d86a910aa0a5a40812ab507850', '152ef79fbd2289d3ac9817cb3da37d4f', null, null, '2592000');
+INSERT INTO `user_tokens` VALUES ('12', '262', '7cc646adb3f7a5c8d6e6bbb8f81c2f53', '7ede1f924d1b9542813530959ffb2728', null, null, '2592000');
+INSERT INTO `user_tokens` VALUES ('13', '262', '8323c48526bddbe1249c9d548608349e', '703b448bf5a0249f08a1f3bd65a63d2e', null, null, '2592000');
+INSERT INTO `user_tokens` VALUES ('14', '262', '3841b3651d326ee85582f8899d3ba34b', '2b4b0bb4f2115e70fdd1e376ed1c9cfd', null, null, '2592000');
+INSERT INTO `user_tokens` VALUES ('15', '262', '76d6aa8cf5706d9d790037c35665b11b', 'b73a0ab692a12e5cbdc3a34b51e12e08', null, null, '2592000');
+INSERT INTO `user_tokens` VALUES ('16', '262', 'ed04c537b8b5fd6736795b4fe5332c8c', '1b0fb9d3557edc1048a28bbff1be8fe5', null, null, '2592000');
+INSERT INTO `user_tokens` VALUES ('17', '262', 'dd446c4c70d9f449dde22817316acbef', 'f5315125a0388bbfb333595f41cdf8d0', null, null, '2592000');
+INSERT INTO `user_tokens` VALUES ('18', '262', 'aa4168aec42b2b57df9765e987e19151', 'dd14bc916da130ba9f308e00d345a7b4', null, null, '2592000');
+INSERT INTO `user_tokens` VALUES ('19', '262', '773e3dae8fce27bf6d4710cd9e34bdc0', '3cff9bcfd879045ed463ee9b10604d5f', null, null, '2592000');
+INSERT INTO `user_tokens` VALUES ('20', '262', 'fb9412b29e98b52b3db5f066549f2b3f', 'eb4d27d3c7e7b34aa2f043fe09228ed6', null, null, '2592000');
+INSERT INTO `user_tokens` VALUES ('21', '262', '1d870d4593faa12bd00653a203e5c111', 'fd088d8dd05cf820e6cf28dfcc1087a9', null, null, '60');
+INSERT INTO `user_tokens` VALUES ('22', '262', '2cfe6a5d85e42d98557364d578ab3ba3', '9fb9102be5f0dbd0df2e39bb900cd5d5', null, null, '60');
+INSERT INTO `user_tokens` VALUES ('23', '262', '5935d4da0004754bb457f7269e2987bb', 'd1fb9d1a902bdf238b1e747d84cb59c9', null, null, '2592000');
+INSERT INTO `user_tokens` VALUES ('24', '262', '9e947bdeec37b454461c3772004f007a', 'f64d4835a646c8b3224888eb46d76e46', null, null, '2592000');
+INSERT INTO `user_tokens` VALUES ('25', '262', 'ccce47af381e9e814666c63975fbb234', '0c83486e512ddd1b277b153953a2dacb', null, null, '2592000');
+INSERT INTO `user_tokens` VALUES ('26', '262', 'b3487282bd9c16c9d8030e45ec959518', '8bab589162ee55445a848172d3f8dfbe', null, null, '2592000');
+INSERT INTO `user_tokens` VALUES ('27', '262', 'c4a0153680c4d64a36d33ac70d0301c9', 'a499be26063150847a1c30a217dc42c6', null, null, '2592000');
+INSERT INTO `user_tokens` VALUES ('28', '262', 'f865bdfe4e7e24ee057bc3f8a646dcda', '342421c88a5f974bdbc8258ba62754df', null, null, '2592000');
