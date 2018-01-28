@@ -11,10 +11,10 @@ import java.io.IOException;
 public class SolrDataDeltaImportScheduler implements Runnable {
     @Override
     public void run() {
-        try {
+        /*try {
             SolrFactory.createSolr().buildIndex(false);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

@@ -11,10 +11,10 @@ import java.io.IOException;
 public class SolrDataFullImportScheduler implements Runnable {
     @Override
     public void run() {
-        try {
+        /*try {
             SolrFactory.createSolr().buildIndex(true);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

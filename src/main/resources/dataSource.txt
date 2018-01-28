@@ -7,14 +7,14 @@ minIdle=1000
 maxActive=10
 type_key=mysql
 
-xmlpath = d:\\phantom\\jfinal2\\src\\main\\resources\\xml\\
+xmlpath = j:\\phantom\\jfinal2\\src\\main\\resources\\xml\\
 
-webpath = d:\\phantom\\jfinal2\\src\\main\\webapp\\
+webpath = j:\\phantom\\jfinal2\\src\\main\\webapp\\
 
-controllerpath = d:\\phantom\\jfinal2\\src\\main\\java\\com\\business\\
+controllerpath = j:\\phantom\\jfinal2\\src\\main\\java\\com\\business\\
 
-freemarkerpath = d:\\phantom\\jfinal2\\src\\main\\resources\\velocity\\
+freemarkerpath = j:\\phantom\\jfinal2\\src\\main\\resources\\velocity\\
 
-baseUploadPath = d:\\phantom\\jfinal2\\src\\main\\webapp\\upload\\
+baseUploadPath = j:\\phantom\\jfinal2\\src\\main\\webapp\\upload\\
 
 solrUrl = http://localhost:8080/solr/db

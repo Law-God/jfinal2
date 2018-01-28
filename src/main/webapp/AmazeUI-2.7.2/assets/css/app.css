@@ -42,12 +42,12 @@ div{margin:0 auto;box-sizing:border-box}
 .am-sticky-placeholder .am-topbar-brand{display:none}
 .am-sticky{background:#fff;border-style:solid;border-color:#ddd;border-width:0 0 1px}
 .am-sticky .am-topbar-brand{display:block !important;padding:0}
-.am-sticky .am-topbar-brand img{display:block;margin-top:13px;width:25px}
+.am-sticky .am-topbar-brand img{display:block;margin-top:13px;width:100px}
 .am-container{max-width:1525px}
 /*.am-topbar-right{}*/ .am-topbar-right ul{float:left}
 .am-topbar-right li{float:left}
-.dlogo{float:left; display:block; margin-left:25px}
-.dlogo img{width:100%;max-width:26px}
+.dlogo{float:left; display:block; margin-left:-50px}
+.dlogo img{width:100%;max-width:100px}
 .am-sticky .dlogo{display:none}
 
 @media only screen and (min-width:641px){.am-topbar-nav>li>a{line-height:80px;padding:0 23px}
